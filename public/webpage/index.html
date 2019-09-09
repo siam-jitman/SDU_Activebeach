@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Active Beach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-submenu.css">
+
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="./css/daterangepicker.css">
+    <link rel="stylesheet" href="./css/leaflet.css" type="text/css">
+    <link rel="stylesheet" href="./css/map.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="./fonts/linearicons/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="./css/slick.css">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="./css/skins/default.css">
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Sarabun:300,400,500,600,300,700">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Dosis%7CMontserrat:200,300,400,500,600,700,800,900%7CNunito+Sans:200,300,400,600,700,800,900">
+    <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="./css/ie10-viewport-bug-workaround.css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script  src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script  src="js/html5shiv.min.js"></script>
+    <script  src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page_loader"></div>
+
+    <!-- Main header start -->
+    <div id="common-header"></div>
+    <!-- Main header end -->
+
+    <!-- Banner start -->
+    <div class="banner" id="banner">
+        <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item banner-max-height active">
+                    <img class="d-block w-100 h-100" src="img/relaxing-3112750_960_720.jpg" alt="banner">
+                    <div class="carousel-caption banner-slider-inner d-flex text-center"></div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-inner-2">
+            <div class="container">
+                <div class="text-center">
+                    <h1 class="b-text">ค้นหาแหล่งท่องเที่ยวที่คุณสนใจ</h1>
+                    <p>ใส่คำค้นหา ชื่อสถานที่ หรือ เลือกหมวดหมู่</p>
+                    <div class="inline-search-area ml-auto mr-auto none-768">
+                        <div class="search-boxs">
+                            <div class="search-col" style="width: 58%;">
+                                <input type="text" name="search" class="form-control has-icon b-radius"
+                                    id="index-txt-search" placeholder="ชื่อสถานที่ ที่ต้องการค้นหา">
+                            </div>
+                            <div class="search-col categories b-radius">
+                                <select class="selectpicker search-fields" name="location" id="index-category-select">
+                                    <option value="{{categoryNameValue}}">{{categoryNameDisplay}}</option>
+                                </select>
+                            </div>
+                            <div class="find">
+                                <button class="btn button-theme btn-search btn-block b-radius"
+                                    onclick="clickBtnSearchBar()">
+                                    <i class="fa fa-search"></i><strong>ค้นหา</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner end -->
+
+    <!-- Search mobile -->
+    <div class="search-area-3 clearfix d-md-none d-lg-none d-xl-none">
+        <div class="container">
+            <div class="inline-search-area-2 row">
+                <div class="search-col col-lg-6 col-md-6 col-sm-12">
+                    <input type="text" name="search" class="form-control has-icon b-radius"
+                        placeholder="ชื่อสถานที่ ที่ต้องการค้นหา">
+                </div>
+                <div class="search-col col-12">
+                    <button class="btn button-theme btn-search btn-block b-radius">
+                        <i class="fa fa-search"></i><strong>ค้นหา</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search mobile -->
+
+    <!-- หมวดหมู่ -->
+    <div class="categories content-area-7">
+        <div class="container">
+            <!-- Main title -->
+            <div class="row">
+                <div class="col-8">
+                    <div class="main-title">
+                        <h1>หมวดหมู่ที่น่าสนใจ</h1>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-link btn-more">
+                            ดูทั้งหมด
+                        </button>
+                        <button type="button" class="btn btn-link btn-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="#007bff">
+                                        <path
+                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 col-pad" id="index-category-first">
+                    <div class="category" onclick="clickBtnSearchBar('{{categoryNameValue}}')">
+                        <div class="category_bg_box category_long_bg"
+                            style="background-image: url({{categoryUrlImage}})">
+                            <div class="category-overlay">
+                                <div class="category-content main-page">
+                                    <h3 class="category-title">
+                                        <a href="#">{{categoryName}}</a>
+                                    </h3>
+                                    <!-- <h4 class="category-subtitle">532 Listings</h4> -->
+                                </div>
+                                <a class="icon">
+                                    <!-- <i class="flaticon-cook"></i> -->
+                                    <i style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;
+                                    "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 col-sm-12">
+                    <div class="row" id="index-category-content">
+                        <div class="col-sm-6 col-pad">
+                            <div class="category" onclick="clickBtnSearchBar('{{categoryNameValue}}')">
+                                <div class="category_bg_box" style="background-image: url({{categoryUrlImage}})">
+                                    <div class="category-overlay">
+                                        <div class="category-content main-page">
+                                            <h3 class="category-title">
+                                                <div class="category-title-main-page">{{categoryName}}</div>
+                                            </h3>
+                                            <!-- <h4 class="category-subtitle">85 Listings</h4> -->
+                                        </div>
+                                        <a class="icon">
+                                            <!-- <i class="flaticon-cook"></i> -->
+                                            <i style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;
+                                    "></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- หมวดหมู่ -->
+
+    <!-- แหล่งท่องเที่ยวยอดนิยม -->
+    <div class="listing-item content-area bg-grea-3">
+        <div class="container">
+            <!-- Main title -->
+            <div class="row">
+                <div class="col-8">
+                    <div class="main-title">
+                        <h1>แหล่งท่องเที่ยวยอดนิยม</h1>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-link btn-more">
+                            ดูทั้งหมด
+                        </button>
+                        <button type="button" class="btn btn-link btn-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="#007bff">
+                                        <path
+                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Slick slider area start -->
+            <div class="slick-slider-area">
+                <div class="row" id="index-slide-recommend-landmark"
+                    data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    <div class="slick-slide-item">
+                        <div class="listing-item-box">
+                            <div class="listing-thumbnail"
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                <a class="listing-photo">
+                                    <!-- <div class="tag">Restourant</div> -->
+                                    <div class="location">
+                                        <i class="flaticon-pin"></i>{{address}}
+                                    </div>
+                                    <div class="ratings score-reviews-landmark-{{meta_id}}" data-start="{{ratings}}">
+                                        <span>( {{reviews}} )</span>
+                                    </div>
+                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                </a>
+                            </div>
+                            <div class="detail">
+                                <a class="icon">
+                                    <!-- <i class="flaticon-cook"></i> -->
+                                    <i style="content: url({{icon}}); margin-top: 10px !important;
+                                    "></i>
+                                </a>
+                                <h3 class="title">
+                                    <a>{{title}}</a>
+                                </h3>
+                                <p>{{content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- แหล่งท่องเที่ยวยอดนิยม -->
+
+    <!-- แหล่งท่องเที่ยวใกล้คุณ -->
+    <div class="listing-item content-area bg-grea-3">
+        <div class="container">
+            <!-- Main title -->
+            <div class="row">
+                <div class="col-8">
+                    <div class="main-title">
+                        <h1>แหล่งท่องเที่ยวใกล้คุณ</h1>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-link btn-more">
+                            ดูทั้งหมด
+                        </button>
+                        <button type="button" class="btn btn-link btn-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="#007bff">
+                                        <path
+                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Slick slider area start -->
+            <div class="slick-slider-area">
+                <div class="row" id="index-slide-recommend-attaction"
+                    data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    <div class="slick-slide-item">
+                        <div class="listing-item-box">
+                            <div class="listing-thumbnail"
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                <a class="listing-photo">
+                                    <!-- <div class="tag">Restourant</div> -->
+                                    <div class="location">
+                                        <i class="flaticon-pin"></i>{{address}}
+                                    </div>
+                                    <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
+                                        <span>( {{reviews}} )</span>
+                                    </div>
+                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                </a>
+                            </div>
+                            <div class="detail">
+                                <a class="icon">
+                                    <!-- <i class="flaticon-cook"></i> -->
+                                    <i style="content: url({{icon}}); margin-top: 10px !important;
+                                        "></i>
+                                </a>
+                                <h3 class="title">
+                                    <a>{{title}}</a>
+                                </h3>
+                                <p>{{content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- แหล่งท่องเที่ยวใกล้คุณ -->
+
+    <!-- กิจกรรมที่น่าสนใจ -->
+    <div class="listing-item content-area bg-grea-3">
+        <div class="container">
+            <!-- Main title -->
+            <div class="row">
+                <div class="col-8">
+                    <div class="main-title">
+                        <h1>กิจกรรมที่น่าสนใจ</h1>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-link btn-more">
+                            ดูทั้งหมด
+                        </button>
+                        <button type="button" class="btn btn-link btn-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="#007bff">
+                                        <path
+                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Slick slider area start -->
+            <div class="slick-slider-area">
+                <div class="row" id="index-slide-recommend-event"
+                    data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    <div class="slick-slide-item">
+                        <div class="listing-item-box">
+                            <div class="listing-thumbnail"
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                <a class="listing-photo">
+                                    <!-- <div class="tag">Restourant</div> -->
+                                    <div class="location">
+                                        <i class="flaticon-pin"></i>{{address}}
+                                    </div>
+                                    <div class="ratings score-reviews-event-{{meta_id}}" data-start="{{ratings}}">
+                                        <span>( {{reviews}} )</span>
+                                    </div>
+                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                </a>
+                            </div>
+                            <div class="detail">
+                                <a class="icon">
+                                    <!-- <i class="flaticon-cook"></i> -->
+                                    <i style="content: url({{icon}}); margin-top: 10px !important;
+                                            "></i>
+                                </a>
+                                <h3 class="title">
+                                    <a>{{title}}</a>
+                                </h3>
+                                <p>{{content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- กิจกรรมที่น่าสนใจ -->
+
+    <!-- ทริปที่น่าสนใจ -->
+    <div class="listing-item content-area bg-grea-3">
+        <div class="container">
+            <!-- Main title -->
+            <div class="row">
+                <div class="col-8">
+                    <div class="main-title">
+                        <h1>ทริปที่น่าสนใจ</h1>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-link btn-more">
+                            ดูทั้งหมด
+                        </button>
+                        <button type="button" class="btn btn-link btn-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="#007bff">
+                                        <path
+                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Slick slider area start -->
+            <div class="slick-slider-area">
+                <div class="row" id="index-slide-recommend-tip"
+                    data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    <div class="slick-slide-item">
+                        <div class="listing-item-box">
+                            <div class="listing-thumbnail"
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                <a class="listing-photo">
+                                    <!-- <div class="tag">Restourant</div> -->
+                                    <div class="location">
+                                        <i class="flaticon-pin"></i>{{address}}
+                                    </div>
+                                    <div class="ratings score-reviews-tip-{{meta_id}}" data-start="{{ratings}}">
+                                        <span>( {{reviews}} )</span>
+                                    </div>
+                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                </a>
+                            </div>
+                            <div class="detail">
+                                <a class="icon">
+                                    <!-- <i class="flaticon-cook"></i> -->
+                                    <i style="content: url({{icon}}); margin-top: 10px !important;
+                                                "></i>
+                                </a>
+                                <h3 class="title">
+                                    <a>{{title}}</a>
+                                </h3>
+                                <p>{{content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ทริปที่น่าสนใจ -->
+
+    <!-- Footer start -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-item clearfix">
+                        <img src="img/logos/footer-logo.png" alt="logo" class="f-logo">
+                        <div class="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.
+                                Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>ติดต่อเรา</h4>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                            </li>
+                            <li>
+                                <i class="flaticon-mail-1"></i><a
+                                    href="mailto:sales@hotelempire.com">info@themevessel.com</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-phone"></i><a href="tel:+55-417-634-7071">+0477 85X6 552</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-fax"></i>+0477 85X6 552
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>ทางลัด</h4>
+                        <ul class="links">
+                            <li>
+                                <a href="#">หน้าหลัก</a>
+                            </li>
+                            <li>
+                                <a href="#">สถานที่ท่องเที่ยว</a>
+                            </li>
+                            <li>
+                                <a href="#">กิจกรรมท่องเที่ยว</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">ทริปท่องเที่ยว</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>&nbsp;</h4>
+                        <ul class="links">
+                            <li>
+                                <a href="dashboard.html">หมวดหมู่</a>
+                            </li>
+                            <li>
+                                <a href="listing-single.html">บทความ</a>
+                            </li>
+                            <li>
+                                <a href="listing-single.html">ถามตอบ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-item clearfix">
+                        <h4>รับข่าวสาร</h4>
+                        <div class="Subscribe-box">
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit.</p>
+                            <form class="form-inline" action="#" method="GET">
+                                <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3"
+                                    placeholder="อีเมลล์">
+                                <button type="submit" class="btn"><i class="fa fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </footer>
+    <!-- Footer end -->
+
+    <!-- Sub footer start -->
+    <div class="sub-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <p class="copy">Copyright © 2019 Bangkok, Thailand</p>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <ul class="social-list clearfix">
+                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sub footer end -->
+
+    <!-- Full Page Search -->
+    <div id="full-page-search">
+        <button type="button" class="close">×</button>
+        <form action="index.html#">
+            <input type="search" value="" placeholder="type keyword(s) here" />
+            <button type="submit" class="btn btn-sm button-theme">Search</button>
+        </form>
+    </div>
+
+    <div id="mainModalLogin"></div>
+    <div id="mainModalRegister"></div>
+
+
+    <script src="./js/jquery-2.2.0.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bootstrap-submenu.js"></script>
+    <script src="./js/rangeslider.js"></script>
+    <script src="./js/jquery.mb.YTPlayer.js"></script>
+    <script src="./js/bootstrap-select.min.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/jquery.scrollUp.js"></script>
+    <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./js/leaflet.js"></script>
+    <script src="./js/leaflet-providers.js"></script>
+    <script src="./js/leaflet.markercluster.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/daterangepicker.min.js"></script>
+    <script src="./js/dropzone.js"></script>
+    <script src="./js/slick.min.js"></script>
+    <script src="./js/jquery.filterizr.js"></script>
+    <script src="./js/jquery.magnific-popup.min.js"></script>
+    <script src="./js/jquery.countdown.js"></script>
+    <script src="./js/maps.js"></script>
+
+    <script src="./controller/util.js"></script>
+    <script src="./controller/service.js"></script>
+    <script src="./controller/app.js"></script>
+    <script src="./controller/home.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Custom javascript -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>

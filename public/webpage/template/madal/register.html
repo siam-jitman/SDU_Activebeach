@@ -1,0 +1,65 @@
+<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalRegisterTitle"><i class="fa fa-plus"></i> &nbsp;สมัครสมาชิก</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="alert-error-register" class="alert alert-danger hide" role="alert">
+                </div>
+                <form id="form-register">
+                    <div class="form-group">
+                        <label for="username">ชื่อผู้ใช้ หรือ อีเมลล์</label>
+                        <input type="text" name="username" class="form-control" id="username"
+                            aria-describedby="emailHelp" placeholder="อีเมลล์">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">รหัสผ่าน</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="รหัสผ่าน">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">ยืนยันรหัสผ่าน</label>
+                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                            placeholder="ยืนยันรหัสผ่าน">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">ชื่อจริง</label>
+                        <input type="text" name="firstName" class="form-control" id="firstName" placeholder="ชื่อจริง">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">นามสกุล</label>
+                        <input type="text" name="lastName" class="form-control" id="lastName" placeholder="นามสกุล">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">เพศ</label><br />
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender1" value="ชาย">
+                            <label class="form-check-label" for="gender1">ชาย</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender2" value="หญิง">
+                            <label class="form-check-label" for="gender2">หญิง</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="action" value="add">
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn button-theme" onclick="clickBtnRegister()">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="template-alert-error-register" style="display: none;">
+    <strong>{{message}}</strong>
+</div>
