@@ -38,6 +38,10 @@ body {
     /* height: 100%; */
 }
 
+#template-form-favorite-checkbox .form-group .form-check .form-check-label {
+    font-weight: normal !important;
+}
+
 body {
     font-family: 'Sarabun', sans-serif;
 }

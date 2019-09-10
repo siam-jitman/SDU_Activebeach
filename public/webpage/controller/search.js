@@ -269,6 +269,9 @@ function requestServiceInterestingCategorys() {
         $("#txt-search-bar").val(DATA_PARAM_IN_URL["text"]);
         $("#select-search-bar").val(DATA_PARAM_IN_URL["category_id"]);
         $('.selectpicker').selectpicker("refresh");
+
+
+        loadMainModalFavorite();
         requestSearchResult();
         requestServiceSearchEventResult();
         requestServiceSearchTipsResult();

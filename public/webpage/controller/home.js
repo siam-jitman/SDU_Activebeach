@@ -20,6 +20,7 @@ $(function () {
             }
 
             var templateCategoryMenu = $("#index-category-menu").html();
+
             var templateCategorySelect = $("#index-category-select").html();
             var templateCategoryFirst = $("#index-category-first").html();
             var templateCategoryContent = $("#index-category-content").html();
@@ -30,6 +31,9 @@ $(function () {
                 categoryNameValue: ""
             }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
             $("#index-category-first").html(bindDataToTemplate(templateCategoryFirst, JSON.parse(JSON.stringify(DATA_CATEGORYS[0]))));
+
+
+            loadMainModalFavorite();
 
             // console.log("DATA_CATEGORYS", DATA_CATEGORYS);
             var dataCategoryContent = JSON.parse(JSON.stringify(DATA_CATEGORYS));

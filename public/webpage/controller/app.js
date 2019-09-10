@@ -20,7 +20,6 @@ $(function () {
 
         $("#mainModalLogin").load("../template/madal/login.html", function () {
             // $('#alert-error')..alert('close')
-
             $('#alert-error').hide();
             if (localStorage.getItem("client_id") && localStorage.getItem("client_id") != "") {
                 $("#menu-login-group").hide();
@@ -29,7 +28,6 @@ $(function () {
                 $("#menu-login-group").show();
                 $("#menu-profile-group").hide();
             }
-
             if (localStorage.getItem("first_name")) {
                 if (localStorage.getItem("first_name") == "") {
                     var templateHeaderNameMember = $("#header-name-member").html();
@@ -46,9 +44,12 @@ $(function () {
         });
 
         $("#mainModalRegister").load("../template/madal/register.html", function () {
-
+            $('#alert-error-register').hide();
         });
 
+        // $("#mainModalFavorite").load("../template/madal/favorite.html", function () {
+        //     $('#alert-error-favorite').hide();
+        // });
 
         if ($('body .filter-portfolio').length > 0) {
             $(function () {
@@ -511,6 +512,16 @@ $(function () {
     }).trigger("resize");
 })(jQuery);
 
+function loadMainModalFavorite() {
+    $("#mainModalFavorite").load("../template/madal/favorite.html", function () {
+        $('#alert-error-favorite').hide();
+
+        var templateformFavoriteCheckbox = $("#template-form-favorite-checkbox").html();
+        $("#template-form-favorite-checkbox").html(bindDataListToTemplate(templateformFavoriteCheckbox, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
+
+    });
+}
+
 function clickBtnLogin() {
     // console.log($('#form-login').serialize());
 
@@ -525,6 +536,23 @@ function clickBtnLogin() {
 function clickBtnLogout() {
     openLoading();
     requestServiceInvokeToken();
+}
+
+function clickBtnRegister() {
+
+    $('#alert-error-register').hide();
+    openLoading();
+    setTimeout(function () {
+        requestServiceAccountRegister($('#form-register').serialize());
+    }, 500);
+}
+
+function clickBtnFavorite() {
+    openLoading();
+    var paramJSON = (convertParameterURLToJsonNotDecodeSupportArray($('#form-favorite').serialize()))
+    paramJSON.birthday = moment(paramJSON.birthday).format("DD/MM/YYYY");
+    var param = convertJsonToParameterURLNotEncodeSupportArray(paramJSON)
+    requestServiceAccountFavorite(param);
 }
 
 function requestServiceInvokeToken() {
@@ -550,7 +578,6 @@ function requestServiceInvokeToken() {
 
     requestFormBodyService(URL_AUTH_INVOKE_TOKEN, "POST", "", dooSuccess);
 }
-
 
 function requestServiceAuthToken(param) {
     var dooSuccess = function (res) {
@@ -594,7 +621,57 @@ function requestServiceGetToken() {
             closeLoading();
             $('#modalLogin').modal('hide');
         }
+
+
+        $('#modalFavorite').modal('show');
+
+
     }
 
     requestService(URL_AUTH_GET_TOKEN, "GET", "", dooSuccess);
+}
+
+
+function requestServiceAccountFavorite(param) {
+    var dooSuccess = function (res) {
+        $('#modalFavorite').modal('hide');
+        closeLoading();
+    }
+    requestFormBodyService(URL_ACCOUNT_FAVORITE, "POST", param, dooSuccess);
+}
+
+function requestServiceAccountRegister(param) {
+
+    var paramJson = convertParameterURLToJsonNotDecode(param);
+
+    var dooSuccess = function (res) {
+        if (res && res.data) {
+            if (res.data.success) {
+                $('#modalRegister').modal('hide');
+                $('#alert-error').hide();
+                requestServiceAuthToken(convertJsonToParameterURLNotEncode({
+                    username: paramJson.username,
+                    password: paramJson.password,
+                    client: "web",
+                    grantType: "password",
+                }));
+            } else {
+                $('#alert-error-register').show();
+                var templateAlerteErrorRegister = $('#template-alert-error-register').html();
+                $('#alert-error-register').html(bindDataToTemplate(templateAlerteErrorRegister, {
+                    message: res.data.message
+                }));
+                closeLoading();
+            }
+        } else {
+            $('#alert-error-register').show();
+            var templateAlerteErrorRegister = $('#template-alert-error-register').html();
+            $('#alert-error-register').html(bindDataToTemplate(templateAlerteErrorRegister, {
+                message: "เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง"
+            }));
+            closeLoading();
+        }
+    }
+
+    requestFormBodyService(URL_ACCOUNT_REGISTER, "POST", param, dooSuccess);
 }

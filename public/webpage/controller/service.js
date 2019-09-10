@@ -43,6 +43,12 @@ var URL_AUTH_TOKEN = SERVICE_AUTH_PAGE + "Token";
 var URL_AUTH_INVOKE_TOKEN = SERVICE_AUTH_PAGE + "InvokeToken";
 var URL_AUTH_GET_TOKEN = SERVICE_AUTH_GET_PAGE + "GetToken";
 
+//Account
+var SERVICE_ACCOUNT_PAGE = SERVICE_HOST + SERVICE_CONTEXT_FORMBODY + SERVICE_VERSION + "Account/";
+var URL_ACCOUNT_REGISTER = SERVICE_ACCOUNT_PAGE + "Register";
+var URL_ACCOUNT_FAVORITE = SERVICE_ACCOUNT_PAGE + "Favorite";
+
+
 function requestService(url, method, data, success, failure) {
     console.log(TAG, "start request service => ", url, " : method => ", method);
     $.ajax({

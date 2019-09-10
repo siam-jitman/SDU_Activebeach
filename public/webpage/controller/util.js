@@ -112,6 +112,48 @@ function convertParameterURLToJsonNotDecode(data) {
     return resultMap;
 }
 
+function convertParameterURLToJsonNotDecodeSupportArray(data) {
+    var paramInput = data;
+
+    var paramArr = paramInput.split("&");
+    var resultMap = {};
+    for (var i = 0; i < paramArr.length; i++) {
+        var key = paramArr[i].split("=")[0];
+        var value = paramArr[i].split("=")[1] == undefined ? "" : paramArr[i]
+            .split("=")[1];
+        if (decodeURI(key).indexOf("[") >= 0 && decodeURI(key).indexOf("]") >= 0) {
+            var keyArray = decodeURI(key).replace(/\[/g, "").replace(/\]/g, "");
+            if (resultMap[keyArray] === undefined) {
+                resultMap[keyArray] = [];
+                resultMap[keyArray].push(value);
+            } else {
+                resultMap[keyArray].push(value);
+            }
+        } else {
+            resultMap[key] = value;
+        }
+    }
+
+    return resultMap;
+}
+
+
+function convertJsonToParameterURLNotEncode(json) {
+    return Object.keys(json).map(function (item) {
+        return item + '=' + json[item]
+    }).join('&')
+}
+
+function convertJsonToParameterURLNotEncodeSupportArray(json) {
+    return Object.keys(json).map(function (item) {
+        if (typeof json[item] == "object") {
+            return item + '=' + JSON.stringify(json[item])
+        } else {
+            return item + '=' + json[item]
+        }
+    }).join('&')
+}
+
 function urlEncode(inputString, encodeAllCharacter) {
     var outputString = '';
     if (inputString != null) {

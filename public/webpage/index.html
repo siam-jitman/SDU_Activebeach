@@ -163,10 +163,9 @@
                                     </h3>
                                     <!-- <h4 class="category-subtitle">532 Listings</h4> -->
                                 </div>
-                                <a class="icon">
+                                <a class="icon" onclick="clickBtnSearchBar('{{categoryNameValue}}')">
                                     <!-- <i class="flaticon-cook"></i> -->
-                                    <i style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;
-                                    "></i>
+                                    <i style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;"></i>
                                 </a>
                             </div>
                         </div>
@@ -184,10 +183,10 @@
                                             </h3>
                                             <!-- <h4 class="category-subtitle">85 Listings</h4> -->
                                         </div>
-                                        <a class="icon">
+                                        <a class="icon" onclick="clickBtnSearchBar('{{categoryNameValue}}')">
                                             <!-- <i class="flaticon-cook"></i> -->
-                                            <i style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;
-                                    "></i>
+                                            <i
+                                                style="content: url({{categoryUrlIcon}}); margin-top: 10px !important;"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -636,6 +635,7 @@
 
     <div id="mainModalLogin"></div>
     <div id="mainModalRegister"></div>
+    <div id="mainModalFavorite"></div>
 
 
     <script src="./js/jquery-2.2.0.min.js"></script>
