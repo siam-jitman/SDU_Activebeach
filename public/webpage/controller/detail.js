@@ -110,6 +110,15 @@ $(function () {
     });
 });
 
+function requestServiceTrackingDetail(param) {
+
+    var dooSuccess = function (res) {
+
+    }
+
+    requestService(URL_TRACKING_DETAIL, "GET", param, dooSuccess);
+}
+
 function requestServiceReviewDetail() {
 
     var param = {
@@ -208,7 +217,12 @@ function requestServiceReviewDetail() {
             }
         });
 
-
+        var paramTracking = {
+            client_id: localStorage.getItem("client_id") === undefined ? new Date().getTime() : localStorage.getItem("client_id"),
+            company_id: res.data.company_id[PAGE_LANGUAGE],
+            meta_id: res.data.meta_id,
+        }
+        requestServiceTrackingDetail(paramTracking)
         closeLoading();
     }
 
