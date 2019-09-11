@@ -113,7 +113,7 @@ $(function () {
 
     function adjustHeader() {
         var windowWidth = $(window).width();
-        if (windowWidth > 992 && (window.location.href.indexOf("html") < 0 || window.location.href.indexOf("index.html") >= 0 || window.location.href.indexOf("detail.html") >= 0)) {
+        if (windowWidth > 992 && (window.location.href.indexOf("html") < 0 || window.location.href.indexOf("index.html") >= 0 || window.location.href.indexOf("detail-") >= 0)) {
             if ($(document).scrollTop() >= 100) {
                 if ($('.header-shrink').length < 1) {
                     $('.sticky-header').addClass('header-shrink');
