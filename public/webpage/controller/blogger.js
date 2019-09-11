@@ -87,11 +87,10 @@ $(function () {
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }
-
+        // window.addEventListener('load', function () {
         var templateCategoryMenu = $("#index-category-menu").html();
         $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
-
-
+        // });
 
         loadMainModalFavorite();
 
