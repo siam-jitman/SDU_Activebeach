@@ -1,0 +1,107 @@
+<!-- Main header start -->
+<header class="main-header header-transparent sticky-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="img/logos/black-logo.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav header-ml">
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="./index.html">
+                            <b>Home</b>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Tourism
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="./search.html?text=&category_id=">Tourism
+                                    destinations</a>
+                            </li>
+                            <li><a class="dropdown-item" href="./search-event.html?text=&category_id=">Tourism
+                                    activities</a></li>
+                            <li><a class="dropdown-item" href="./search-tips.html?text=&category_id=">Tourism trips</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="index-category-menu">
+                            <li><a class="dropdown-item"
+                                    onclick="clickMenuTypeHeader('{{categoryNameValue}}')">{{categoryName}}</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="./search-article.html?text=&category_id=">
+                            <b>Article</b>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="./issue.html">
+                            <b>Q&A</b>
+                        </a>
+                    </li>
+                </ul>
+                <ul id="menu-login-group" class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin">
+                            <i class="flaticon-logout"></i>Log in
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-color" data-toggle="modal" data-target="#modalRegister">
+                            <i class="fa fa-plus"></i>Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link">
+                            <i onclick=" clickChangeLanguage('th')"
+                                style="cursor: pointer; margin-right: 5px; max-width: 25px; content: url('../img/s689630753364681404_p2_i1_w250.png'); margin-top: 0px !important;"></i>
+                            <i onclick="clickChangeLanguage('en')"
+                                style="cursor: pointer; margin-right: 5px; max-width: 25px; content: url('../img/united-states-of-america-300x300.png'); margin-top: 0px !important;"></i>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="menu-profile-group" class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link link-color" href="#" id="navbarDropdownMenuMember" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle"></i><span id="header-name-member">{{name_member}}</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuMember">
+                            <li>
+                                <a class="dropdown-item" href="">
+                                    <i class="fa fa-pencil-square-o"></i> Mange personal information
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" onclick="clickBtnLogout()">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link">
+                            <i onclick=" clickChangeLanguage('th')"
+                                style="cursor: pointer; margin-right: 5px; max-width: 25px; content: url('../img/s689630753364681404_p2_i1_w250.png'); margin-top: 0px !important;"></i>
+                            <i onclick="clickChangeLanguage('en')"
+                                style="cursor: pointer; margin-right: 5px; max-width: 25px; content: url('../img/united-states-of-america-300x300.png'); margin-top: 0px !important;"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- Main header end -->

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Active Beach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-submenu.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="../css/daterangepicker.css">
+    <link rel="stylesheet" href="../css/leaflet.css" type="text/css">
+    <link rel="stylesheet" href="../css/map.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/linearicons/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="../css/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="../css/slick.css">
+
+    <!-- font -->
+    <link href="./../dist/fileuploader/font/font-fileuploader.css" media="all" rel="stylesheet" type="text/css">
+
+    <!-- css -->
+    <link href="./../dist/fileuploader/css/jquery.fileuploader.min.css" media="all" rel="stylesheet" type="text/css">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="../css/skins/default.css">
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Sarabun:300,400,500,600,300,700">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Dosis%7CMontserrat:200,300,400,500,600,700,800,900%7CNunito+Sans:200,300,400,600,700,800,900">
+    <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../css/ie10-viewport-bug-workaround.css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script  src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+                <script  src="../js/html5shiv.min.js"></script>
+                <script  src="../js/respond.min.js"></script>
+                <![endif]-->
+</head>
+
+<body>
+    <div class="page_loader"></div>
+
+
+    <!-- Main header start -->
+    <div id="common-header"></div>
+    <!-- Main header end -->
+
+    <!-- Search mobile -->
+    <div class="search-area-3 clearfix d-md-none d-lg-none d-xl-none">
+        <div class="container">
+            <div class="inline-search-area-2 row">
+                <div class="search-col col-lg-6 col-md-6 col-sm-12">
+                    <input type="text" name="search" class="form-control has-icon b-radius"
+                        placeholder="ชื่อสถานที่ ที่ต้องการค้นหา">
+                </div>
+                <!-- <div class="search-col col-lg-6 col-md-6 col-sm-12">
+                    <select class="selectpicker search-fields" name="location">
+                        <option disable>เลือกหมวดหมู่ที่ต้องการ</option>
+                        <option>ทะเล</option>
+                        <option>วัด/โบราณสถาน</option>
+                        <option>ร้านอาหาร</option>
+                        <option>ฟิตเนส</option>
+                        <option>โยคะ</option>
+                    </select>
+                </div> -->
+                <div class="search-col col-12">
+                    <button class="btn button-theme btn-search btn-block b-radius">
+                        <i class="fa fa-search"></i><strong>ค้นหา</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search mobile -->
+
+
+    <div class="not-home content-result-search">
+        <div class="container">
+            <div class="main-title">
+                <h1>ไปเที่ยวพัทยา....</h1>
+                <p>แก้ไขล่าสุด : 01/01/2019, การดู 200 ครั้ง</p>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Listing section start -->
+    <div class="listing-section content-area content-list content-blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="text-center">
+                        <img src="../img/relaxing-3112750_960_720.jpg" class="rounded img-thumbnail">
+                        <div class="text-left">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar convallis
+                                fermentum.
+                                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                himenaeos.
+                                Nulla mi lacus, semper quis dignissim ut, posuere id orci. Vestibulum eros elit,
+                                pulvinar eu
+                                fermentum maximus, mollis non urna. Nullam eu massa congue, malesuada est fringilla,
+                                gravida
+                                leo. Phasellus lobortis tellus ac ornare semper. Sed egestas nibh at nisi tempus, a
+                                viverra
+                                mi ultricies. Sed faucibus elit fringilla metus bibendum, ut cursus turpis consectetur.
+                                Curabitur nunc magna, tempor vel mauris nec, ullamcorper elementum sem.
+
+                                Quisque nec odio vitae neque rhoncus tempor. Aenean egestas bibendum fringilla. Lorem
+                                ipsum
+                                dolor sit amet, consectetur adipiscing elit. Duis accumsan, urna vestibulum ultrices
+                                tincidunt, ex lorem tincidunt eros, sed bibendum diam ligula non mauris. Fusce aliquam
+                                nibh
+                                ac ullamcorper gravida. Suspendisse lobortis nisi et neque dapibus cursus. Sed sit amet
+                                felis dui.
+
+                                In vehicula tellus massa, ut tincidunt eros bibendum condimentum. Mauris nisl sem,
+                                gravida
+                                ac eros id, semper tincidunt arcu. Nunc vitae commodo ipsum. Cras accumsan molestie
+                                viverra.
+                                Nulla facilisi. Fusce sollicitudin dui sit amet ex condimentum, nec viverra neque
+                                interdum.
+                                Morbi viverra vel neque id hendrerit. Vivamus blandit quis lorem id consectetur. In ac
+                                nisl
+                                facilisis, pulvinar quam a, venenatis tellus. Sed et diam non felis cursus mollis in eu
+                                mi.
+                                In tellus libero, commodo quis nisl non, venenatis semper nisl.
+
+                                Morbi blandit vestibulum venenatis. Nam efficitur dictum nisi, eget porttitor arcu
+                                condimentum mollis. Integer nec odio eget erat aliquam tincidunt a vitae tortor. Nunc
+                                vitae
+                                tortor dapibus, dapibus est eget, placerat diam. Donec gravida ultricies nibh et rutrum.
+                                Cras pretium, magna non pulvinar sodales, tortor lorem ullamcorper neque, eu hendrerit
+                                quam
+                                turpis vel ligula. Duis ut erat nec neque dictum dignissim. Phasellus egestas sem ac
+                                suscipit vehicula. Fusce nec ex et libero ultricies posuere. Suspendisse vel ipsum arcu.
+                                Nam
+                                porttitor auctor maximus.
+
+                                Sed vestibulum elit eu aliquet porttitor. Duis iaculis, quam at pretium facilisis, neque
+                                sapien ultrices libero, sit amet pharetra eros diam quis nisi. Mauris eu aliquet arcu.
+                                Vestibulum ipsum massa, cursus euismod velit in, fringilla viverra mi. Duis ac tellus
+                                eget
+                                lacus scelerisque ultricies eget ac erat. Interdum et malesuada fames ac ante ipsum
+                                primis
+                                in faucibus. Etiam ac metus porta, maximus urna vitae, sodales augue. Morbi metus eros,
+                                dignissim mollis enim sit amet, consequat aliquam purus. Suspendisse eu nisl ac ipsum
+                                fermentum lacinia. Aliquam sagittis augue ligula, id faucibus velit porttitor a.
+
+                                Donec ultrices dignissim ipsum. Proin consequat tempus ante, ut faucibus lorem tincidunt
+                                ac.
+                                Maecenas lacinia porta dolor, sed pharetra turpis dictum ac. Nulla convallis ultricies
+                                rutrum. Duis ac quam et sem tempus vestibulum. Cras vehicula erat turpis, in ornare mi
+                                placerat non. Aenean ultrices vehicula sapien, sed suscipit sapien facilisis quis. Sed
+                                venenatis, magna ac posuere consequat, nunc diam rutrum est, in feugiat ipsum orci at
+                                neque.
+                                Donec eget finibus quam.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <!-- <form action="#" method="POST" enctype="multipart/form-data"> -->
+                    <!-- add review start -->
+                    <div class="contact-2 add-review ca mtb-50">
+                        <h3 class="heading-2 clearfix mb-0">เขียนรีวิว</h3>
+                        <div class="row mb-30">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="add-review-text clearfix">
+                                    <span class="leave-rating-title">ให้คะแนน : </span>
+                                    <div class="ratings-3">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-4 col-md-4">
+                                    <div class="cpb change-photo-btn clearfix">
+                                        <div class="photoUpload">
+                                            <span><i class="fa fa-upload"></i></span>อัพโหลดรูปภาพ
+                                            <input name="file-image-upload-review" type="file" class="upload">
+                                        </div>
+                                    </div>
+                                </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="form-group name col-md-12">
+                                <input id="name-send-review" type="text" name="name" class="form-control"
+                                    placeholder="ชื่อ">
+                            </div>
+
+                            <div class="form-group number col-md-12">
+                                <input id="subject-send-review" type="text" name="subject" class="form-control"
+                                    placeholder="ชื่อเรื่อง">
+                            </div>
+                            <div class="form-group message col-md-12">
+                                <textarea id="comments-send-review" class="form-control" name="message"
+                                    placeholder="ข้อความ"></textarea>
+                            </div>
+                            <div class="form-group message col-md-12">
+                                <input name="file-image-upload-review" type="file" class="upload"
+                                    id="file-image-upload-review" data-fileuploader-limit="2"
+                                    data-fileuploader-extensions="jpg, png, gif"></div>
+                            <div class="send-btn col-md-12">
+                                <button type="button" class="btn btn-md button-theme"
+                                    id="btn-submit-send-review">ส่ง</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </form> -->
+
+
+                    <div id="content-detail-comments">
+                    </div>
+
+
+                </div>
+                <div class="col-lg-3 col-md-12">
+
+                    <div class="sidebar-right">
+
+                        <div class="sidebar-box-shadow">
+                            <div class="widget">
+                                <div class="row">
+                                    <a onclick="clickViewProfileBlogger('1234')">
+                                        <img class="../img-profile-content-blog img-fluid"
+                                            src="../img/icons8-user-60.png">
+                                    </a>
+                                    <div>
+                                        <a onclick="clickViewProfileBlogger('1234')">
+                                            <h3 class="sidebar-title">Admin</h3>
+                                        </a>
+                                        <div class="s-border"></div>
+                                    </div>
+                                </div>
+
+                                <div class="blog-1 recommend-content-blog">
+                                    <div class="blog-photo">
+                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
+                                        <!-- <div class="date-box">
+                                        <span>14</span>มค.
+                                    </div> -->
+                                    </div>
+                                    <div class="detail">
+                                        <h3 class="title">
+                                            <div class="txt-content-recommend">
+                                                <a href="blog-details.html">Starting your fitnees</a>
+                                            </div>
+                                        </h3>
+                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. Lorem
+                                            Ipsum has been the industry's standard</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="blog-1 recommend-content-blog">
+                                    <div class="blog-photo">
+                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
+                                        <!-- <div class="date-box">
+                                        <span>14</span>มค.
+                                    </div> -->
+                                    </div>
+                                    <div class="detail">
+                                        <h3 class="title">
+                                            <div class="txt-content-recommend">
+                                                <a href="blog-details.html">Starting your fitnees</a>
+                                            </div>
+                                        </h3>
+                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. Lorem
+                                            Ipsum has been the industry's standard</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="blog-1 recommend-content-blog">
+                                    <div class="blog-photo">
+                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
+                                        <!-- <div class="date-box">
+                                        <span>14</span>มค.
+                                    </div> -->
+                                    </div>
+                                    <div class="detail">
+                                        <h3 class="title">
+                                            <div class="txt-content-recommend">
+                                                <a href="blog-details.html">Starting your fitnees</a>
+                                            </div>
+                                        </h3>
+                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. Lorem
+                                            Ipsum has been the industry's standard</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="link-more-content-recommend" style="margin-right: unset;">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-link btn-more">
+                                            ดูทั้งหมด
+                                        </button>
+                                        <button type="button" class="btn btn-link btn-more">
+                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24"
+                                                height="24" viewBox="0 0 172 172" style=" fill:#000000;">
+                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                    font-weight="none" font-size="none" text-anchor="none"
+                                                    style="mix-blend-mode: normal">
+                                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                    <g fill="#007bff">
+                                                        <path
+                                                            d="M30.96,158.24h110.08c9.49784,0 17.2,-7.70216 17.2,-17.2v-110.08c0,-9.49784 -7.70216,-17.2 -17.2,-17.2h-110.08c-9.49784,0 -17.2,7.70216 -17.2,17.2v110.08c0,9.49784 7.70216,17.2 17.2,17.2zM116.96,86l-48.16,30.96v-61.92z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="sidebar-right">
+                        <div class="sidebar-box-shadow">
+                            <div class="widget social-links">
+                                <h3 class="sidebar-title">แชร์</h3>
+                                <div class="s-border"></div>
+                                <ul class="social-list clearfix">
+                                    <li><a href="#" class="facebook-bg link-social-content-blog"><i
+                                                class="fa fa-facebook social-fa-content-blog"></i></a></li>
+                                    <li><a href="#" class="twitter-bg link-social-content-blog"><i
+                                                class="fa fa-twitter social-fa-content-blog"></i></a></li>
+                                    <li><a href="#" class="google-bg link-social-content-blog"><i
+                                                class="fa fa-google-plus social-fa-content-blog"></i></a></li>
+                                    <li><a href="#" class="linkedin-bg link-social-content-blog"><i
+                                                class="fa fa-linkedin social-fa-content-blog"></i></a></li>
+                                    <li><a href="#" class="pinterest-bg link-social-content-blog"><i
+                                                class="fa fa-pinterest social-fa-content-blog"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Listing section end -->
+
+    <!-- Footer start -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-item clearfix">
+                        <img src="../img/logos/footer-logo.png" alt="logo" class="f-logo">
+                        <div class="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.
+                                Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien
+                                vitae.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>ติดต่อเรา</h4>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                            </li>
+                            <li>
+                                <i class="flaticon-mail-1"></i><a
+                                    href="mailto:sales@hotelempire.com">info@themevessel.com</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-phone"></i><a href="tel:+55-417-634-7071">+0477 85X6 552</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-fax"></i>+0477 85X6 552
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>ทางลัด</h4>
+                        <ul class="links">
+                            <li>
+                                <a href="#">หน้าหลัก</a>
+                            </li>
+                            <li>
+                                <a href="#">สถานที่ท่องเที่ยว</a>
+                            </li>
+                            <li>
+                                <a href="#">กิจกรรมท่องเที่ยว</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">ทริปท่องเที่ยว</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>&nbsp;</h4>
+                        <ul class="links">
+                            <li>
+                                <a href="dashboard.html">หมวดหมู่</a>
+                            </li>
+                            <li>
+                                <a href="listing-single.html">บทความ</a>
+                            </li>
+                            <li>
+                                <a href="listing-single.html">ถามตอบ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-item clearfix">
+                        <h4>รับข่าวสาร</h4>
+                        <div class="Subscribe-box">
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit.</p>
+                            <form class="form-inline" action="#" method="GET">
+                                <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3"
+                                    placeholder="อีเมลล์">
+                                <button type="submit" class="btn"><i class="fa fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </footer>
+    <!-- Footer end -->
+
+    <!-- Sub footer start -->
+    <div class="sub-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <p class="copy">Copyright © 2019 Bangkok, Thailand</p>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <ul class="social-list clearfix">
+                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sub footer end -->
+
+    <!-- Full Page Search -->
+    <div id="full-page-search">
+        <button type="button" class="close">×</button>
+        <form action="index.html#">
+            <input type="search" value="" placeholder="type keyword(s) here" />
+            <button type="submit" class="btn btn-sm button-theme">Search</button>
+        </form>
+    </div>
+
+    <div id="temp-template-comments" style="display: none;">
+        <ul class="comments" id="comment-id-{{comment_id}}">
+            <li>
+                <div class="comment">
+                    <div class="comment-author">
+                        <a>
+                            <img src="{{client_image}}" title="{{name}}" alt="comments-user">
+                        </a>
+                    </div>
+                    <div class="comment-content">
+                        <div class="comment-meta">
+                            <h5>{{subject}}<span class="f-right">{{comment_date}}<a href="#">ตอบกลับ</a></span></h5>
+                        </div>
+                        <p>{{comments}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="mainModalLogin"></div>
+    <div id="mainModalRegister"></div>
+    <div id="mainModalFavorite"></div>
+
+    <script src="../js/jquery-2.2.0.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-submenu.js"></script>
+    <script src="../js/rangeslider.js"></script>
+    <script src="../js/jquery.mb.YTPlayer.js"></script>
+    <script src="../js/bootstrap-select.min.js"></script>
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <script src="../js/jquery.scrollUp.js"></script>
+    <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/leaflet.js"></script>
+    <script src="../js/leaflet-providers.js"></script>
+    <script src="../js/leaflet.markercluster.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/daterangepicker.min.js"></script>
+    <script src="../js/dropzone.js"></script>
+    <script src="../js/slick.min.js"></script>
+    <script src="../js/jquery.filterizr.js"></script>
+    <script src="../js/jquery.magnific-popup.min.js"></script>
+    <script src="../js/jquery.countdown.js"></script>
+    <script src="../js/maps.js"></script>
+    <script src="./../dist/fileuploader/js/jquery.fileuploader.js" type="text/javascript"></script>
+
+    <script src="../controller/th/app.js"></script>
+    <script src="../controller/th/util.js"></script>
+    <script src="../controller/th/service.js"></script>
+    <script src="../controller/th/blog.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Custom javascript -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
