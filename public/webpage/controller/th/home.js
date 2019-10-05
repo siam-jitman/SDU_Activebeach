@@ -13,9 +13,10 @@ $(function () {
                     categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameValue: res.data.categorys[i].service_id,
                     // categoryUrlImage: res.data.categorys[i].image,
-                    categoryUrlImage: "http://placehold.it/460x481",
+                    categoryUrlImage: res.data.categorys[i].thumbnail,
+
                     // categoryUrlIcon: res.data.categorys[i].icon
-                    categoryUrlIcon: "http://placehold.it/30"
+                    categoryUrlIcon: res.data.categorys[i].icon
                 });
             }
 
@@ -58,12 +59,12 @@ $(function () {
             for (var i = 0; i < dataList.length; i++) {
                 DATA_HOME_RECOMMEND_LANDMARK.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
-                    // "meta_id": res.data.landmarks[i].meta_id,
-                    "meta_id": i,
+                    // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
+                    "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": dataList[i].title == undefined ? "" : res.data.landmarks[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
                     "address": dataList[i].address,
-                    "image": "http://placehold.it/350x233",
-                    "icon": "http://placehold.it/30",
+                    "image": dataList[i].thumbnai,
+                    "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
@@ -78,7 +79,7 @@ $(function () {
             createSlick("#index-slide-recommend-landmark");
 
             for (var i = 0; i < dataList.length; i++) {
-                var templateScore = $(".score-reviews-landmark-" + i);
+                var templateScore = $(".score-reviews-landmark-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -100,12 +101,12 @@ $(function () {
             for (var i = 0; i < dataList.length; i++) {
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
-                    // "meta_id": res.data.landmarks[i].meta_id,
-                    "meta_id": i,
+                    // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
+                    "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
                     "address": dataList[i].address,
-                    "image": "http://placehold.it/350x233",
-                    "icon": "http://placehold.it/30",
+                    "image": dataList[i].thumbnai,
+                    "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
@@ -120,7 +121,7 @@ $(function () {
             createSlick("#index-slide-recommend-attaction");
 
             for (var i = 0; i < dataList.length; i++) {
-                var templateScore = $(".score-reviews-attaction-" + i);
+                var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -141,12 +142,12 @@ $(function () {
             for (var i = 0; i < dataList.length; i++) {
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
-                    // "meta_id": res.data.landmarks[i].meta_id,
-                    "meta_id": i,
+                    // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
+                    "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
                     "address": dataList[i].address,
-                    "image": "http://placehold.it/350x233",
-                    "icon": "http://placehold.it/30",
+                    "image": dataList[i].thumbnai,
+                    "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
@@ -161,7 +162,7 @@ $(function () {
             createSlick("#index-slide-recommend-event");
 
             for (var i = 0; i < dataList.length; i++) {
-                var templateScore = $(".score-reviews-event-" + i);
+                var templateScore = $(".score-reviews-event-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -177,17 +178,17 @@ $(function () {
 
         requestService(URL_INTERSTING_TIPS, "GET", null, function (res) {
 
-            var dataList = res.data.tips;
+            var dataList = res.data.trips;
 
             for (var i = 0; i < dataList.length; i++) {
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
-                    // "meta_id": res.data.landmarks[i].meta_id,
-                    "meta_id": i,
+                    // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
+                    "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
                     "address": dataList[i].address,
-                    "image": "http://placehold.it/350x233",
-                    "icon": "http://placehold.it/30",
+                    "image": dataList[i].thumbnai,
+                    "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
@@ -202,7 +203,7 @@ $(function () {
             createSlick("#index-slide-recommend-tip");
 
             for (var i = 0; i < dataList.length; i++) {
-                var templateScore = $(".score-reviews-tip-" + i);
+                var templateScore = $(".score-reviews-tip-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';

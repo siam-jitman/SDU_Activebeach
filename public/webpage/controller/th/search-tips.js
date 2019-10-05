@@ -114,7 +114,7 @@ function genSizeShowContentSearchDetail(nextMore) {
 function genContentSearchDetail(dataList) {
     var rawResult = {
         meta_id: "",
-        thumbnail: "http://placehold.it/350x233",
+        thumbnail: "",
         ratings: "",
         reviews: "",
         location: "",
@@ -126,15 +126,15 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult.meta_id = dataList[i].event_id;
-        rawResult.thumbnail = dataList[i].thumbnail == "" ? rawResult.thumbnail : dataList[i].thumbnail == "..." ? "http://placehold.it/350x233" : dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].event_name[PAGE_LANGUAGE];
+        rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
+        rawResult.thumbnail = dataList[i].thumbnail;
+        rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
-        rawResult.description = dataList[i].description;
-        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รายการ" : "");
+        rawResult.description = dataList[i].content;
+        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
         rawResult.ratings = dataList[i].ratings;
 
-        rawResultArray.push(rawResult);
+        rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
 
     if ($("#btnListView").hasClass("active-view-btn")) {
@@ -153,7 +153,7 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        var templateScore = $(".score-reviews-attaction-" + i);
+        var templateScore = $(".score-reviews-attaction-" + dataList[i].id[PAGE_LANGUAGE]);
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -178,7 +178,7 @@ function requestServiceInterestingCategorys() {
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
                 // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
+                categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }
@@ -230,9 +230,9 @@ function requestSearchResult() {
                     location: eventResultList[i].location,
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รายการ" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -245,7 +245,7 @@ function requestSearchResult() {
         for (var i = 0; i < eventResultList.length; i++) {
 
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-event-" + i);
+                var templateScore = $(".content-recommend-ratings-event-" + eventResultList[i].meta_id);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -346,14 +346,14 @@ function requestServiceSearchTipsResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รายการ" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -365,7 +365,7 @@ function requestServiceSearchTipsResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-tips-" + i);
+                var templateScore = $(".content-recommend-ratings-tips-" + eventResultList[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -403,14 +403,14 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รายการ" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -422,7 +422,7 @@ function requestServiceSearchArticleResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + i);
+                var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';

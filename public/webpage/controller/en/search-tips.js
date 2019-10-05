@@ -114,7 +114,7 @@ function genSizeShowContentSearchDetail(nextMore) {
 function genContentSearchDetail(dataList) {
     var rawResult = {
         meta_id: "",
-        thumbnail: "http://placehold.it/350x233",
+        thumbnail: "",
         ratings: "",
         reviews: "",
         location: "",
@@ -126,15 +126,15 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult.meta_id = dataList[i].event_id;
-        rawResult.thumbnail = dataList[i].thumbnail == "" ? rawResult.thumbnail : dataList[i].thumbnail == "..." ? "http://placehold.it/350x233" : dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].event_name[PAGE_LANGUAGE];
+        rawResult.meta_id = dataList[i].trip_id;
+        rawResult.thumbnail = dataList[i].thumbnail;
+        rawResult.companyName = dataList[i].trip_name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
         rawResult.description = dataList[i].description;
         rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : "");
         rawResult.ratings = dataList[i].ratings;
 
-        rawResultArray.push(rawResult);
+        rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
 
     if ($("#btnListView").hasClass("active-view-btn")) {
@@ -153,7 +153,7 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        var templateScore = $(".score-reviews-attaction-" + i);
+        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -177,8 +177,7 @@ function requestServiceInterestingCategorys() {
                 categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
-                // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
+                categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }
@@ -231,8 +230,8 @@ function requestSearchResult() {
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -352,8 +351,8 @@ function requestServiceSearchTipsResult() {
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -409,8 +408,8 @@ function requestServiceSearchArticleResult() {
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;

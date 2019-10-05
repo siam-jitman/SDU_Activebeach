@@ -11,11 +11,61 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
 });
 
+
+// blog author
+app.use('/th/blog/author/:param1?/', express.static(__dirname + "/public/webpage/"));
+app.get("/th/blog/author/:param1?/", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+});
+app.get("/th/blog/author/:param1?/:param2?/*", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/th/blogger.html'));
+});
+
+app.use('/en/blog/author/:param1?/', express.static(__dirname + "/public/webpage/"));
+app.get("/en/blog/author/:param1?/", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+});
+app.get("/en/blog/author/:param1?/:param2?/*", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/en/blogger.html'));
+});
+
+
+
+// blog post
+app.use('/th/blog/post/:param1?/', express.static(__dirname + "/public/webpage/"));
+app.get("/th/blog/post/:param1?/", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+});
+app.use('/th/blog/post/:param1?/', express.static(__dirname + "/public/webpage/"));
+app.get("/th/blog/post/:param1?/", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+});
+app.get("/th/blog/post/:param1?/:param2?/*", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/th/blog.html'));
+});
+
+app.use('/en/blog/post/:param1?/', express.static(__dirname + "/public/webpage/"));
+app.get("/en/blog/post/:param1?/", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+});
+app.get("/en/blog/post/:param1?/:param2?/*", (req, res) => {
+    res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/en/blog.html'));
+});
+
 app.use(cors());
+// app.use(bodyParser.json({
+//     limit: '50mb'
+// }));
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }));
+
+
 app.use(bodyParser.json({
     limit: '50mb'
 }));
 app.use(bodyParser.urlencoded({
+    limit: '50mb',
     extended: true
 }));
 
@@ -24,6 +74,7 @@ app.use(bodyParser.urlencoded({
 //     res.statusCode = 200;
 //     next();
 // });
+
 
 app.get('/proxy/*', async (req, res, next) => {
     let TAG = "[/proxy/*]"

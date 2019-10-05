@@ -77,26 +77,27 @@ $(function () {
 
     requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
 
-        for (var i = 0; i < res.data.categorys.length; i++) {
-            DATA_CATEGORYS.push({
-                categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
-                categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
-                categoryNameValue: res.data.categorys[i].service_id,
-                // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
-                categoryUrlIcon: res.data.categorys[i].icon
-            });
-        }
+        setTimeout(function () {
+            // console.log("res.data.categorys", res.data.categorys)
+            for (var i = 0; i < res.data.categorys.length; i++) {
+                // console.log("res.data.categorys[i].service_name[PAGE_LANGUAGE]", res.data.categorys[i].service_name[PAGE_LANGUAGE])
+                DATA_CATEGORYS.push({
+                    categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
+                    categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
+                    categoryNameValue: res.data.categorys[i].service_id,
+                    categoryUrlImage: res.data.categorys[i].thumbnail,
+                    categoryUrlIcon: res.data.categorys[i].icon
+                });
+            }
 
-        var templateCategoryMenu = $("#index-category-menu").html();
-        $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
-
-
-
-        loadMainModalFavorite();
-
-
-        closeLoading();
+            setTimeout(function () {
+                console.log("DATA_CATEGORYS", DATA_CATEGORYS)
+                var templateCategoryMenu = $("#index-category-menu").html();
+                $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
+                loadMainModalFavorite();
+                closeLoading();
+            }, 1000);
+        }, 1000);
     });
 
     requestServiceReviewComments();
@@ -145,10 +146,6 @@ function clickMenuTypeHeader(category_id) {
     window.location.href = "./search.html?" + convertJsonToParameterURL(param);
 }
 
-function clickViewProfileBlogger(bloggerId) {
-    var param = {
-        bloggerId: bloggerId
-    };
-
-    window.location.href = "./blogger.html?" + convertJsonToParameterURL(param);
+function clickViewProfileBlogger(username, bloggerId) {
+    window.location.href = "/en/blog/author/" + username + "/" + bloggerId + "/";
 }

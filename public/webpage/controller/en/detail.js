@@ -84,8 +84,7 @@ $(function () {
                     categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameValue: res.data.categorys[i].service_id,
-                    // categoryUrlImage: res.data.categorys[i].image,
-                    categoryUrlImage: "http://placehold.it/460x481",
+                    categoryUrlImage: res.data.categorys[i].thumbnail,
                     categoryUrlIcon: res.data.categorys[i].icon
                 });
             }
@@ -137,18 +136,15 @@ function requestServiceReviewDetail() {
 
             company_name: res.data.company_name[PAGE_LANGUAGE],
             company_id: res.data.company_id[PAGE_LANGUAGE],
-            // contact: res.data.contact,
-            contact: ["123 456 789", "123 456 789", "123 456 789"],
-            // description: res.data.description,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.",
+            contact: res.data.contact,
+            description: res.data.description,
             facebook: res.data.facebook,
-            // images: res.data.images,
-            images: ["http://placehold.it/350x233?text=1", "http://placehold.it/350x233?text=2", "http://placehold.it/350x233?text=3", "http://placehold.it/350x233?text=4"],
-            image_main: "http://placehold.it/350x233?text=1",
+            images: res.data.images,
+            image_main: res.data.images[0],
             line: res.data.line,
             location: res.data.location,
-            // location_url: res.data.location_url,
-            location_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.003394446572!2d100.90275441482068!3d12.843056890940304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310293f1ce9d35ff%3A0x7cc9a3fe926c7a64!2sSea+Blue+Restaurant+Pattaya!5e0!3m2!1sth!2sth!4v1562773965550!5m2!1sth!2sth",
+            location_url: res.data.location_url,
+            // location: res.data.location,
             max_rating: res.data.max_rating,
             meta_id: res.data.meta_id,
             opend: res.data.opend,
@@ -156,8 +152,8 @@ function requestServiceReviewDetail() {
             reviews: res.data.reviews,
             service_id: res.data.service_id,
             service_name: res.data.service_name[PAGE_LANGUAGE],
+            video: res.data.video,
             // video: res.data.video,
-            video: ["https://www.youtube.com/embed/5e0LxrLSzok", "https://www.youtube.com/embed/5e0LxrLSzok", "https://www.youtube.com/embed/5e0LxrLSzok"],
             website: res.data.website
         };
 
@@ -248,11 +244,11 @@ function requestServiceReviewNearbyAttactions() {
             // console.log(i)
             if (resultList[i].company_id != undefined) {
 
-                resultList[i].thumbnail = "http://placehold.it/350x233?text=Near " + (i + 1);
-                resultList[i].icon = "http://placehold.it/30";
+                resultList[i].thumbnail = resultList[i].thumbnail;
+                resultList[i].icon = resultList[i].icon;
                 resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
-                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+                resultList[i].title = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
                 datalist.push(resultList[i])
             }
 
@@ -314,13 +310,17 @@ function requestServiceReviewTips() {
         var resultList = res.data.attactions;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
-            if (resultList[i].company_id != undefined) {
 
-                resultList[i].thumbnail = "http://placehold.it/350x233?text=Tip " + (i + 1);
-                resultList[i].icon = "http://placehold.it/30";
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
-                resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
-                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+
+            if (resultList[i].trip_id != undefined) {
+
+                resultList[i].thumbnail = resultList[i].thumbnail;
+                resultList[i].icon = resultList[i].icon;
+                resultList[i].reviews = resultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].ratings = resultList[i].ratings;
+                resultList[i].company_id = resultList[i].trip_id;
+                resultList[i].meta_id = resultList[i].trip_id;
+                resultList[i].title = resultList[i].trip_name[PAGE_LANGUAGE] != undefined ? resultList[i].trip_name[PAGE_LANGUAGE] : resultList[i].trip_name;
                 datalist.push(resultList[i])
             }
 
@@ -382,13 +382,15 @@ function requestServiceReviewEvents() {
         var resultList = res.data.attactions;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
-            if (resultList[i].company_id != undefined) {
+            if (resultList[i].event_id != undefined) {
 
-                resultList[i].thumbnail = "http://placehold.it/350x233?text=Event " + (i + 1);
-                resultList[i].icon = "http://placehold.it/30";
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
-                resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
-                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+                resultList[i].thumbnail = resultList[i].thumbnail;
+                resultList[i].icon = resultList[i].icon;
+                resultList[i].reviews = resultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].ratings = resultList[i].ratings;
+                resultList[i].company_id = resultList[i].event_id;
+                resultList[i].meta_id = resultList[i].event_id;
+                resultList[i].title = resultList[i].event_name[PAGE_LANGUAGE] != undefined ? resultList[i].event_name[PAGE_LANGUAGE] : resultList[i].event_name;
                 datalist.push(resultList[i])
             }
 
@@ -452,8 +454,8 @@ function requestServiceReviewArticles() {
             // console.log(i)
             if (resultList[i].company_id != undefined) {
 
-                resultList[i].thumbnail = "http://placehold.it/350x233?text=Article " + (i + 1);
-                resultList[i].icon = "http://placehold.it/30";
+                resultList[i].thumbnail = resultList[i].thumbnail;
+                resultList[i].icon = resultList[i].icon;
                 resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
                 resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;

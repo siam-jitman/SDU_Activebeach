@@ -15,8 +15,7 @@ function requestServiceInterestingCategorys() {
                 categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
-                // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
+                categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }

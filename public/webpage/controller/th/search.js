@@ -96,8 +96,13 @@ function clickBtnToDetail(id) {
                 category_id: SEARCH_RESULT_LIST[i].service_id,
                 lang: PAGE_LANGUAGE
             };
-            console.log(param);
-            console.log(convertJsonToParameterURL(param));
+
+            if (typeof SEARCH_RESULT_LIST[i].service_name === "object") {
+                param.category_name = SEARCH_RESULT_LIST[i].service_name[PAGE_LANGUAGE];
+            } else {
+                param.category_name = SEARCH_RESULT_LIST[i].service_name;
+            }
+
             window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
         }
     }
@@ -127,7 +132,7 @@ function genSizeShowContentSearchDetail(nextMore) {
 function genContentSearchDetail(dataList) {
     var rawResult = {
         meta_id: "",
-        thumbnail: "http://placehold.it/350x233",
+        thumbnail: "",
         ratings: "",
         reviews: "",
         location: "",
@@ -146,11 +151,17 @@ function genContentSearchDetail(dataList) {
         rawResult.description = dataList[i].description;
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
         rawResult.ratings = dataList[i].ratings;
-        rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
 
-        rawResultArray.push(rawResult);
+        if (typeof dataList[i].service_name === "object") {
+            rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
+        } else {
+            rawResult.categoryName = dataList[i].service_name;
+        }
+        rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
+
     }
 
+    // setTimeout(function () {
     if ($("#btnListView").hasClass("active-view-btn")) {
         console.log("result-search-listing");
         var resultSearchListing = $("#result-search-listing");
@@ -167,8 +178,11 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        // var templateScore = $(".score-reviews-attaction-" + dataList[i].meta_id);
-        var templateScore = $(".score-reviews-attaction-" + i);
+
+        console.log("dataList[i]", dataList[i].meta_id == undefined)
+
+        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
+        // var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -182,6 +196,7 @@ function genContentSearchDetail(dataList) {
     }
 
     closeLoading();
+    // }, 2000);
 }
 
 function requestSearchResult() {
@@ -257,7 +272,7 @@ function requestServiceInterestingCategorys() {
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
                 // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
+                categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }
@@ -300,14 +315,14 @@ function requestServiceSearchEventResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -319,7 +334,7 @@ function requestServiceSearchEventResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-event-" + i);
+                var templateScore = $(".content-recommend-ratings-event-" + eventResultList[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -357,14 +372,14 @@ function requestServiceSearchTipsResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -377,7 +392,7 @@ function requestServiceSearchTipsResult() {
         for (var i = 0; i < eventResultList.length; i++) {
 
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-tips-" + i);
+                var templateScore = $(".content-recommend-ratings-tips-" + eventResultList[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -415,14 +430,14 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -434,7 +449,7 @@ function requestServiceSearchArticleResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + i);
+                var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';

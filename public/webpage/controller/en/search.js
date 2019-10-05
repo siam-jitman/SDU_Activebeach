@@ -96,8 +96,12 @@ function clickBtnToDetail(id) {
                 category_id: SEARCH_RESULT_LIST[i].service_id,
                 lang: PAGE_LANGUAGE
             };
-            console.log(param);
-            console.log(convertJsonToParameterURL(param));
+
+            if (typeof SEARCH_RESULT_LIST[i].service_name === "object") {
+                param.category_name = SEARCH_RESULT_LIST[i].service_name[PAGE_LANGUAGE];
+            } else {
+                param.category_name = SEARCH_RESULT_LIST[i].service_name;
+            }
             window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
         }
     }
@@ -111,7 +115,7 @@ function genSizeShowContentSearchDetail(nextMore) {
     var searchResultListMazSize = [];
     for (var i = 0; i < SHOW_SIZE; i++) {
         if (SEARCH_RESULT_LIST[i] != undefined) {
-            searchResultListMazSize.push(SEARCH_RESULT_LIST[i]);
+            searchResultListMazSize.push(JSON.parse(JSON.stringify(SEARCH_RESULT_LIST[i])));
         }
     }
 
@@ -127,7 +131,7 @@ function genSizeShowContentSearchDetail(nextMore) {
 function genContentSearchDetail(dataList) {
     var rawResult = {
         meta_id: "",
-        thumbnail: "http://placehold.it/350x233",
+        thumbnail: "",
         ratings: "",
         reviews: "",
         location: "",
@@ -146,9 +150,18 @@ function genContentSearchDetail(dataList) {
         rawResult.description = dataList[i].description;
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
         rawResult.ratings = dataList[i].ratings;
-        rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
+        // rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
 
-        rawResultArray.push(rawResult);
+
+
+        if (typeof dataList[i].service_name === "object") {
+            console.log(PAGE_LANGUAGE)
+            rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
+        } else {
+            rawResult.categoryName = dataList[i].service_name;
+        }
+
+        rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
 
     if ($("#btnListView").hasClass("active-view-btn")) {
@@ -167,8 +180,12 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        // var templateScore = $(".score-reviews-attaction-" + dataList[i].meta_id);
-        var templateScore = $(".score-reviews-attaction-" + i);
+
+
+        console.log("dataList[i]", dataList[i])
+
+        // var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
+        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -256,8 +273,7 @@ function requestServiceInterestingCategorys() {
                 categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
-                // categoryUrlImage: res.data.categorys[i].image,
-                categoryUrlImage: "http://placehold.it/460x481",
+                categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
         }
@@ -306,8 +322,8 @@ function requestServiceSearchEventResult() {
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " Reviews" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -357,14 +373,14 @@ function requestServiceSearchTipsResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].trip_id,
+                    event_name: eventResultList[i].trip_name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " Reviews" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
@@ -421,8 +437,8 @@ function requestServiceSearchArticleResult() {
                     description: eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " Reviews" : ""),
-                    thumbnail: "http://placehold.it/350x233",
-                    icon: "http://placehold.it/30",
+                    thumbnail: eventResultList[i].thumbnail,
+                    icon: eventResultList[i].icon,
                 });
             } else {
                 break;
