@@ -218,7 +218,7 @@ function requestSearchResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.search_result;
+        var eventResultList = res.data.searchs;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -309,12 +309,12 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count_events + (PAGE_LANGUAGE == "en" ? " List" : ""));
-        $("#lable-search-type-all-count").html(data.count_events + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
 
-        SEARCH_RESULT_LIST = data.tip_result;
-        RAW_SEARCH_RESULT_LIST = data.tip_result;
-        MAX_SHOW_SIZE = data.tip_result.length;
+        SEARCH_RESULT_LIST = data.trips;
+        RAW_SEARCH_RESULT_LIST = data.trips;
+        MAX_SHOW_SIZE = data.trips.length;
 
         SHOW_SIZE = COUNT_SHOW_SIZE;
         genSizeShowContentSearchDetail();
@@ -339,7 +339,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.event_result;
+        var eventResultList = res.data.events;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -396,7 +396,7 @@ function requestServiceSearchArticleResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.article_result;
+        var eventResultList = res.data.blogs;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {

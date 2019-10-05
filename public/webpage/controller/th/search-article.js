@@ -221,7 +221,7 @@ function requestSearchResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.search_result;
+        var eventResultList = res.data.searchs;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -311,12 +311,12 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count_events + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
-        $("#lable-search-type-all-count").html(data.count_events + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
 
-        SEARCH_RESULT_LIST = data.article_result;
-        RAW_SEARCH_RESULT_LIST = data.article_result;
-        MAX_SHOW_SIZE = data.article_result.length;
+        SEARCH_RESULT_LIST = data.blogs;
+        RAW_SEARCH_RESULT_LIST = data.blogs;
+        MAX_SHOW_SIZE = data.blogs.length;
 
         SHOW_SIZE = COUNT_SHOW_SIZE;
         genSizeShowContentSearchDetail();
@@ -341,7 +341,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.event_result;
+        var eventResultList = res.data.events;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -394,7 +394,7 @@ function requestServiceSearchArticleResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.tip_result;
+        var eventResultList = res.data.trips;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {

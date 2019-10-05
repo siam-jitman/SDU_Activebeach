@@ -247,12 +247,12 @@ function requestSearchResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count_search + (PAGE_LANGUAGE == "en" ? " List" : ""));
-        $("#lable-search-type-all-count").html(data.count_search + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
 
-        SEARCH_RESULT_LIST = data.search_result;
-        RAW_SEARCH_RESULT_LIST = data.search_result;
-        MAX_SHOW_SIZE = data.search_result.length;
+        SEARCH_RESULT_LIST = data.searchs;
+        RAW_SEARCH_RESULT_LIST = data.searchs;
+        MAX_SHOW_SIZE = data.searchs.length;
 
         SHOW_SIZE = COUNT_SHOW_SIZE;
         genSizeShowContentSearchDetail();
@@ -310,7 +310,7 @@ function requestServiceSearchEventResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.event_result;
+        var eventResultList = res.data.events;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -367,7 +367,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.tip_result;
+        var eventResultList = res.data.trips;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -425,7 +425,7 @@ function requestServiceSearchArticleResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.article_result;
+        var eventResultList = res.data.blogs;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
