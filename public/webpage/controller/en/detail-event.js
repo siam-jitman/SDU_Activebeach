@@ -293,7 +293,7 @@ function requestServiceReviewTips() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.trips;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].company_id != undefined) {
@@ -361,7 +361,7 @@ function requestServiceReviewEvents() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.events;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].company_id != undefined) {
@@ -429,7 +429,7 @@ function requestServiceReviewArticles() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.blogs;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].company_id != undefined) {
@@ -496,7 +496,7 @@ function requestServiceReviewComments(scroll, id) {
     }
 
     var dooSuccess = function (res) {
-        var resultList = res.data.review_comments;
+        var resultList = res.data.comments;
         for (var i = 0; i < resultList.length; i++) {
             resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
             resultList[i].comment_date = moment().format('DD/MM/YYYY');

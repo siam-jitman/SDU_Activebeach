@@ -134,6 +134,7 @@ function genContentSearchDetail(dataList) {
         rawResult.description = dataList[i].content;
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
         rawResult.ratings = dataList[i].ratings;
+        rawResult.slug = dataList[i].slug[PAGE_LANGUAGE];
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
@@ -446,4 +447,8 @@ function clickMenuTypeHeader(category_id) {
     };
 
     window.location.href = "./search.html?" + convertJsonToParameterURL(param);
+}
+
+function clickToBlogDetail(id, slug) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }

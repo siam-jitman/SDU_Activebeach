@@ -521,7 +521,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
                     <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                        <a href="./blog.html?id={{meta_id}}" class="listing-img">
+                        <a onclick="clickToBlogDetail('{{meta_id}}', '{{slug}}')" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
 
                             <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
@@ -541,7 +541,7 @@
                 <div class="col-lg-7 col-md-7 col-pad">
                     <div class="detail">
                         <h3 class="title">
-                            <a href="./blog.html?id={{meta_id}}">{{companyName}}</a>
+                            <a onclick="clickToBlogDetail('{{meta_id}}', '{{slug}}')">{{companyName}}</a>
                         </h3>
                         <p>{{description}}</p>
                     </div>
@@ -555,7 +555,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
                 <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                    <a href="./blog.html?id={{meta_id}}" class="listing-photo">
+                    <a onclick="clickToBlogDetail('{{meta_id}}', '{{slug}}')" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
                             <span>( {{reviews}} )</span>

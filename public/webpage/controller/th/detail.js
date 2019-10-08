@@ -312,7 +312,7 @@ function requestServiceReviewTips() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.trips;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].id[PAGE_LANGUAGE] != undefined) {
@@ -382,7 +382,7 @@ function requestServiceReviewEvents() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.events;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].id[PAGE_LANGUAGE] != undefined) {
@@ -452,17 +452,18 @@ function requestServiceReviewArticles() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.attactions;
+        var resultList = res.data.blogs;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].blog_id[PAGE_LANGUAGE] != undefined) {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].blog_id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].blog_id[PAGE_LANGUAGE];
+                resultList[i].updated_at = moment(resultList[i].updated_at).format('DD/MM/YYYY HH:MM');
                 resultList[i].title = resultList[i].subject[PAGE_LANGUAGE] != undefined ? resultList[i].subject[PAGE_LANGUAGE] : resultList[i].subject;
                 datalist.push(resultList[i])
             }
@@ -521,7 +522,7 @@ function requestServiceReviewComments(scroll, id) {
     }
 
     var dooSuccess = function (res) {
-        var resultList = res.data.review_comments;
+        var resultList = res.data.comments;
         for (var i = 0; i < resultList.length; i++) {
             resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
             resultList[i].comment_date = moment().format('DD/MM/YYYY');

@@ -126,13 +126,15 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult.meta_id = dataList[i].event_id;
+        rawResult.meta_id = dataList[i].blog_id[PAGE_LANGUAGE];
+        // rawResult.meta_id = dataList[i].blog_scope;
         rawResult.thumbnail = dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].event_name[PAGE_LANGUAGE];
+        rawResult.companyName = dataList[i].subject;
         rawResult.location = dataList[i].location;
-        rawResult.description = dataList[i].description;
-        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : "");
+        rawResult.description = dataList[i].content;
+        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " Reviews" : "");
         rawResult.ratings = dataList[i].ratings;
+        rawResult.slug = dataList[i].slug[PAGE_LANGUAGE];
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
@@ -444,4 +446,8 @@ function clickMenuTypeHeader(category_id) {
     };
 
     window.location.href = "./search.html?" + convertJsonToParameterURL(param);
+}
+
+function clickToBlogDetail(id, slug) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }
