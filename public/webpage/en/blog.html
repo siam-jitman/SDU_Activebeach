@@ -96,9 +96,9 @@
 
     <div class="not-home content-result-search">
         <div class="container">
-            <div class="main-title">
-                <h1>ไปเที่ยวพัทยา....</h1>
-                <p>Latest edited : 01/01/2019, view 200 Times </p>
+            <div class="main-title" id="main-content-blog-detail">
+                <h1>{{subject}}</h1>
+                <p>Latest edited : {{updated_at}}, view {{viewer}} times </p>
                 <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
             </div>
         </div>
@@ -109,72 +109,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-12">
-                    <div class="text-center">
-                        <img src="../img/relaxing-3112750_960_720.jpg" class="rounded img-thumbnail">
+                    <div class="text-center" id="content-blog-detail">
+                        <img src="{{thumbnail}}" class="rounded img-thumbnail">
                         <div class="text-left">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar convallis
-                                fermentum.
-                                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                himenaeos.
-                                Nulla mi lacus, semper quis dignissim ut, posuere id orci. Vestibulum eros elit,
-                                pulvinar eu
-                                fermentum maximus, mollis non urna. Nullam eu massa congue, malesuada est fringilla,
-                                gravida
-                                leo. Phasellus lobortis tellus ac ornare semper. Sed egestas nibh at nisi tempus, a
-                                viverra
-                                mi ultricies. Sed faucibus elit fringilla metus bibendum, ut cursus turpis consectetur.
-                                Curabitur nunc magna, tempor vel mauris nec, ullamcorper elementum sem.
-
-                                Quisque nec odio vitae neque rhoncus tempor. Aenean egestas bibendum fringilla. Lorem
-                                ipsum
-                                dolor sit amet, consectetur adipiscing elit. Duis accumsan, urna vestibulum ultrices
-                                tincidunt, ex lorem tincidunt eros, sed bibendum diam ligula non mauris. Fusce aliquam
-                                nibh
-                                ac ullamcorper gravida. Suspendisse lobortis nisi et neque dapibus cursus. Sed sit amet
-                                felis dui.
-
-                                In vehicula tellus massa, ut tincidunt eros bibendum condimentum. Mauris nisl sem,
-                                gravida
-                                ac eros id, semper tincidunt arcu. Nunc vitae commodo ipsum. Cras accumsan molestie
-                                viverra.
-                                Nulla facilisi. Fusce sollicitudin dui sit amet ex condimentum, nec viverra neque
-                                interdum.
-                                Morbi viverra vel neque id hendrerit. Vivamus blandit quis lorem id consectetur. In ac
-                                nisl
-                                facilisis, pulvinar quam a, venenatis tellus. Sed et diam non felis cursus mollis in eu
-                                mi.
-                                In tellus libero, commodo quis nisl non, venenatis semper nisl.
-
-                                Morbi blandit vestibulum venenatis. Nam efficitur dictum nisi, eget porttitor arcu
-                                condimentum mollis. Integer nec odio eget erat aliquam tincidunt a vitae tortor. Nunc
-                                vitae
-                                tortor dapibus, dapibus est eget, placerat diam. Donec gravida ultricies nibh et rutrum.
-                                Cras pretium, magna non pulvinar sodales, tortor lorem ullamcorper neque, eu hendrerit
-                                quam
-                                turpis vel ligula. Duis ut erat nec neque dictum dignissim. Phasellus egestas sem ac
-                                suscipit vehicula. Fusce nec ex et libero ultricies posuere. Suspendisse vel ipsum arcu.
-                                Nam
-                                porttitor auctor maximus.
-
-                                Sed vestibulum elit eu aliquet porttitor. Duis iaculis, quam at pretium facilisis, neque
-                                sapien ultrices libero, sit amet pharetra eros diam quis nisi. Mauris eu aliquet arcu.
-                                Vestibulum ipsum massa, cursus euismod velit in, fringilla viverra mi. Duis ac tellus
-                                eget
-                                lacus scelerisque ultricies eget ac erat. Interdum et malesuada fames ac ante ipsum
-                                primis
-                                in faucibus. Etiam ac metus porta, maximus urna vitae, sodales augue. Morbi metus eros,
-                                dignissim mollis enim sit amet, consequat aliquam purus. Suspendisse eu nisl ac ipsum
-                                fermentum lacinia. Aliquam sagittis augue ligula, id faucibus velit porttitor a.
-
-                                Donec ultrices dignissim ipsum. Proin consequat tempus ante, ut faucibus lorem tincidunt
-                                ac.
-                                Maecenas lacinia porta dolor, sed pharetra turpis dictum ac. Nulla convallis ultricies
-                                rutrum. Duis ac quam et sem tempus vestibulum. Cras vehicula erat turpis, in ornare mi
-                                placerat non. Aenean ultrices vehicula sapien, sed suscipit sapien facilisis quis. Sed
-                                venenatis, magna ac posuere consequat, nunc diam rutrum est, in feugiat ipsum orci at
-                                neque.
-                                Donec eget finibus quam.
+                                {{content}}
                             </p>
                         </div>
                     </div>
@@ -244,81 +183,45 @@
 
                         <div class="sidebar-box-shadow">
                             <div class="widget">
-                                <div class="row">
-                                    <a onclick="clickViewProfileBlogger('Admin','1234')">
+
+                                <div class="row" id="content-admin-menu">
+                                    <a onclick="clickViewProfileBlogger('{{author}}')">
                                         <img class="../img-profile-content-blog img-fluid"
                                             src="../img/icons8-user-60.png">
                                     </a>
                                     <div>
-                                        <a onclick="clickViewProfileBlogger('Admin','1234')">
-                                            <h3 class="sidebar-title">Admin</h3>
+                                        <a onclick="clickViewProfileBlogger('{{author}}')">
+                                            <h3 class="sidebar-title">{{author}}</h3>
                                         </a>
                                         <div class="s-border"></div>
                                     </div>
                                 </div>
 
-                                <div class="blog-1 recommend-content-blog">
-                                    <div class="blog-photo">
-                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
-                                        <!-- <div class="date-box">
-                                        <span>14</span>มค.
-                                    </div> -->
-                                    </div>
-                                    <div class="detail">
-                                        <h3 class="title">
-                                            <div class="txt-content-recommend">
-                                                <a href="blog-details.html">Starting your fitnees</a>
-                                            </div>
-                                        </h3>
-                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem
-                                            Ipsum has been the industry's standard</p>
-                                    </div>
-                                </div>
 
-
-                                <div class="blog-1 recommend-content-blog">
-                                    <div class="blog-photo">
-                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
-                                        <!-- <div class="date-box">
-                                        <span>14</span>มค.
-                                    </div> -->
-                                    </div>
-                                    <div class="detail">
-                                        <h3 class="title">
-                                            <div class="txt-content-recommend">
-                                                <a href="blog-details.html">Starting your fitnees</a>
-                                            </div>
-                                        </h3>
-                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem
-                                            Ipsum has been the industry's standard</p>
+                                <div id="content-blog-recommend">
+                                    <div class="blog-1 recommend-content-blog">
+                                        <div class="blog-photo">
+                                            <img src="{{thumbnail}}" alt="small-blog" class="../img-fluid">
+                                            <!-- <div class="date-box">
+                                            <span>14</span>มค.
+                                        </div> -->
+                                        </div>
+                                        <div class="detail">
+                                            <h3 class="title">
+                                                <div class="txt-content-recommend">
+                                                    <a
+                                                        onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')">{{subject}}</a>
+                                                </div>
+                                            </h3>
+                                            <p class="text-recommend">{{content}}</p>
+                                        </div>
                                     </div>
                                 </div>
 
 
-                                <div class="blog-1 recommend-content-blog">
-                                    <div class="blog-photo">
-                                        <img src="http://placehold.it/350x233" alt="small-blog" class="../img-fluid">
-                                        <!-- <div class="date-box">
-                                        <span>14</span>มค.
-                                    </div> -->
-                                    </div>
-                                    <div class="detail">
-                                        <h3 class="title">
-                                            <div class="txt-content-recommend">
-                                                <a href="blog-details.html">Starting your fitnees</a>
-                                            </div>
-                                        </h3>
-                                        <p class="text-recommend">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem
-                                            Ipsum has been the industry's standard</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="link-more-content-recommend" style="margin-right: unset;">
-                                    <div class="text-right">
+                                <div class="link-more-content-recommend" style="margin-right: unset;"
+                                    id="btn-more-content-admin-menu">
+                                    <div class="text-right" onclick="clickViewProfileBlogger('{{author}}')">
                                         <button type="button" class="btn btn-link btn-more">
                                             See all
                                         </button>

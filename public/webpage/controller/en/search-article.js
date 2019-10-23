@@ -155,7 +155,7 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
+        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].blog_id[PAGE_LANGUAGE] : dataList[i].meta_id));
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';

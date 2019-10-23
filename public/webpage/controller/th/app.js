@@ -63,7 +63,7 @@ $(function () {
             });
         }
 
-        PAGE_LANGUAGE = window.location.href.split("/")[window.location.href.split("/").length - 2];
+        PAGE_LANGUAGE = window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0];
         DATA_PARAM_IN_URL = convertParameterURLToJson();
         DATA_PARAM_IN_URL["lang"] = PAGE_LANGUAGE;
 
@@ -105,7 +105,7 @@ $(function () {
 
     function adjustHeader() {
         var windowWidth = $(window).width();
-        if (windowWidth > 992 && (window.location.href.indexOf("html") < 0 || window.location.href.indexOf("index.html") >= 0 || window.location.href.indexOf("detail-") >= 0 || window.location.href.indexOf("detail") >= 0)) {
+        if (windowWidth > 992 && (window.location.href.indexOf("index.html") >= 0 || window.location.href.indexOf("detail-") >= 0 || window.location.href.indexOf("detail") >= 0)) {
             if ($(document).scrollTop() >= 100) {
                 if ($('.header-shrink').length < 1) {
                     $('.sticky-header').addClass('header-shrink');
@@ -666,9 +666,4 @@ function requestServiceAccountRegister(param) {
     }
 
     requestFormBodyService(URL_ACCOUNT_REGISTER, "POST", param, dooSuccess);
-}
-
-function clickChangeLanguage(lang) {
-    let page = window.location.href.split("/")[window.location.href.split("/").length - 1];
-    window.location.href = "../" + lang + "/" + page;
 }

@@ -529,10 +529,11 @@ function requestServiceReviewComments(scroll, id) {
 }
 
 function requestServiceReviewAddedComment() {
-    if (localStorage.getItem("client_id") == undefined) {
-        localStorage.setItem("client_id", new Date().getTime());
+    var client_id = new Date().getTime();
+    if (localStorage.getItem("client_id") != undefined) {
+        client_id = localStorage.getItem("client_id");
     }
-    var client_id = localStorage.getItem("client_id");
+
 
     var param = {
         client_id: client_id,
