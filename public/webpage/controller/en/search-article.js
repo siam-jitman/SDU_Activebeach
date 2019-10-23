@@ -440,13 +440,7 @@ function requestServiceSearchArticleResult() {
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
-function clickMenuTypeHeader(category_id) {
-    var param = {
-        category_id: category_id
-    };
 
-    window.location.href = "./search.html?" + convertJsonToParameterURL(param);
-}
 
 function clickToBlogDetail(id, slug) {
     window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";

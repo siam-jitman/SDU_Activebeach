@@ -139,13 +139,7 @@ function requestServiceReviewComments(scroll, id) {
     requestService(URL_REVIEW_CONMENTS_RESULT, "GET", param, dooSuccess);
 }
 
-function clickMenuTypeHeader(category_id) {
-    var param = {
-        category_id: category_id
-    };
 
-    window.location.href = "./search.html?" + convertJsonToParameterURL(param);
-}
 
 function clickViewProfileBlogger(bloggerId) {
     var param = {

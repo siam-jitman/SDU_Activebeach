@@ -253,10 +253,3 @@ function clickBtnToDetailRecommend(meta_id, company_id, title) {
     // }
 }
 
-function clickMenuTypeHeader(category_id) {
-    var param = {
-        category_id: category_id
-    };
-
-    window.location.href = "./search.html?" + convertJsonToParameterURL(param);
-}

@@ -469,10 +469,3 @@ function requestServiceSearchArticleResult() {
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
 }
 
-function clickMenuTypeHeader(category_id) {
-    var param = {
-        category_id: category_id
-    };
-
-    window.location.href = "./search.html?" + convertJsonToParameterURL(param);
-}

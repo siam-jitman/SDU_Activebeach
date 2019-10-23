@@ -286,13 +286,7 @@ function requestServiceBlogAddedComment() {
     requestFormDataService(URL_BLOG_ADDED_COMMENTS, "POST", param, dooSuccess);
 }
 
-function clickMenuTypeHeader(category_id) {
-    var param = {
-        category_id: category_id
-    };
 
-    window.location.href = "./search.html?" + convertJsonToParameterURL(param);
-}
 
 function clickViewProfileBlogger(username) {
 
@@ -305,11 +299,5 @@ function clickViewProfileBlogger(username) {
 }
 
 function clickToBlogDetail(id, slug) {
-    // console.log('clickToBlogDetail(id, slug)', id, slug);
     window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
-    // window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/blog/post/" + id + "/" + slug + "/");
-}
-
-function clickChangeLanguage(lang) {
-    window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/post/" + (typeof BLOG_AFTER_CHENGE_LANGUAGE.blog_id == "object" ? BLOG_AFTER_CHENGE_LANGUAGE.blog_id[INVERT_PAGE_LANGUAGE] : BLOG_AFTER_CHENGE_LANGUAGE.blog_id) + "/" + BLOG_AFTER_CHENGE_LANGUAGE.slug[INVERT_PAGE_LANGUAGE] + "/");
 }

@@ -12,7 +12,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav header-ml">
                     <li class="nav-item dropdown active">
-                        <a class="nav-link" href="./index.html">
+                        <a class="nav-link" onclick="clickMenuHeader('/index.html')">
                             <b>หน้าหลัก</b>
                         </a>
                     </li>
@@ -22,11 +22,14 @@
                             ท่องเที่ยว
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="./search.html?text=&category_id=">สถานที่ท่องเที่ยว</a>
+                            <li><a class="dropdown-item"
+                                    onclick="clickMenuHeader('/search.html?text=&category_id=')">สถานที่ท่องเที่ยว</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="./search-event.html?text=&category_id=">กิจกรรมท่องเที่ยว</a></li>
-                            <li><a class="dropdown-item" href="./search-tips.html?text=&category_id=">ทริปท่องเที่ยว</a>
+                                    onclick="clickMenuHeader('/search-event.html?text=&category_id=')">กิจกรรมท่องเที่ยว</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    onclick="clickMenuHeader('/search-tips.html?text=&category_id=')">ทริปท่องเที่ยว</a>
                             </li>
                         </ul>
                     </li>
@@ -41,12 +44,12 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="./search-article.html?text=&category_id=">
+                        <a class="nav-link" onclick="clickMenuHeader('/search-article.html?text=&category_id=')">
                             <b>บทความ</b>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="./issue.html">
+                        <a class="nav-link" onclick="clickMenuHeader('/issue.html')">
                             <b>ถามตอบ</b>
                         </a>
                     </li>

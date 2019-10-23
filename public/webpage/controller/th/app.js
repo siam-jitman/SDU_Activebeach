@@ -667,3 +667,24 @@ function requestServiceAccountRegister(param) {
 
     requestFormBodyService(URL_ACCOUNT_REGISTER, "POST", param, dooSuccess);
 }
+
+function clickMenuHeader(toPage) {
+    window.location.href = "/" + PAGE_LANGUAGE + toPage
+}
+
+function clickMenuTypeHeader(category_id) {
+    var param = {
+        category_id: category_id
+    };
+
+    window.location.href = "/" + PAGE_LANGUAGE + "/search.html?" + convertJsonToParameterURL(param);
+}
+
+function clickChangeLanguage(lang) {
+    if (window.location.href.indexOf("/blog/") > -1) {
+        window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/post/" + (typeof BLOG_AFTER_CHENGE_LANGUAGE.blog_id == "object" ? BLOG_AFTER_CHENGE_LANGUAGE.blog_id[INVERT_PAGE_LANGUAGE] : BLOG_AFTER_CHENGE_LANGUAGE.blog_id) + "/" + BLOG_AFTER_CHENGE_LANGUAGE.slug[INVERT_PAGE_LANGUAGE] + "/");
+    } else {
+        let page = window.location.href.split("/")[window.location.href.split("/").length - 1];
+        window.location.href = "../" + lang + "/" + page;
+    }
+}
