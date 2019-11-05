@@ -1,3 +1,6 @@
+var INVERT_PAGE_LANGUAGE = "";
+var BLOGGER_USER = "";
+
 $(function () {
     'use strict';
     $(window).on('load', function () {
@@ -85,7 +88,6 @@ $(function () {
                     categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameValue: res.data.categorys[i].service_id,
-                    // categoryUrlImage: res.data.categorys[i].image,
                     categoryUrlImage: res.data.categorys[i].thumbnail,
                     categoryUrlIcon: res.data.categorys[i].icon
                 });
@@ -96,55 +98,68 @@ $(function () {
                 var templateCategoryMenu = $("#index-category-menu").html();
                 $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
                 loadMainModalFavorite();
+
+                requestServiceBlogHistory();
                 closeLoading();
             }, 1000);
         }, 1000);
     });
-
-    requestServiceReviewComments();
 });
 
-function requestServiceReviewComments(scroll, id) {
+function requestServiceBlogHistory() {
+    var client_id = new Date().getTime();
+    if (localStorage.getItem("client_id") != undefined) {
+        client_id = localStorage.getItem("client_id");
+    }
+
+    var author = window.location.href.split("/blog/author/")[1].split("/")[0];
 
     var param = {
-        // category_name: DATA_PARAM_IN_URL["category_name"],
-        // company_name: DATA_PARAM_IN_URL["company_name"],
-        // meta_id: DATA_PARAM_IN_URL["meta_id"],
-        // company_id: DATA_PARAM_IN_URL["company_id"],
-        // category_id: DATA_PARAM_IN_URL["category_id"],
-        // lang: PAGE_LANGUAGE,
-
+        author: author,
+        client: client_id,
+        lang: PAGE_LANGUAGE
     }
 
     var dooSuccess = function (res) {
-        var resultList = res.data.comments;
-        for (var i = 0; i < resultList.length; i++) {
-            resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
-            resultList[i].comment_date = moment().format('DD/MM/YYYY');
-            // resultList[i].comments = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.";
+        var resultData = res.data;
+        resultData.blogger.author = author;
+
+        var contentUserBlogger = $("#content-user-blogger").html();
+        $("#content-user-blogger").html(bindDataToTemplate(contentUserBlogger, JSON.parse(JSON.stringify(resultData.blogger))));
+
+        var resultDataBlogs = resultData.blogs;
+
+        for (var i = 0; i < resultDataBlogs.length; i++) {
+            resultDataBlogs[i].blog_id = resultDataBlogs[i].blog_id[PAGE_LANGUAGE];
+            resultDataBlogs[i].service_name = resultDataBlogs[i].service_name[PAGE_LANGUAGE];
+            resultDataBlogs[i].slug = resultDataBlogs[i].slug[PAGE_LANGUAGE];
         }
 
-        var templateTempComments = $("#temp-template-comments").html();
-        console.log("templateTempComments", templateTempComments);
-        $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+        var contentListBlog = $("#content-list-blog").html();
+        $("#content-list-blog").html(bindDataListToTemplate(contentListBlog, JSON.parse(JSON.stringify(resultDataBlogs))));
 
-        if (scroll) {
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#comment-id-" + id).offset().top - 150
-            }, 1000);
+        if (PAGE_LANGUAGE == "th") {
+            INVERT_PAGE_LANGUAGE = "en"
+            // sessionStorage.setItem("INVERT_PAGE_LANGUAGE", "en");
+        } else {
+            INVERT_PAGE_LANGUAGE = "th"
+            // sessionStorage.setItem("INVERT_PAGE_LANGUAGE", "th");
         }
+        BLOGGER_USER = author;
 
+        closeLoading();
     }
 
-    requestService(URL_REVIEW_CONMENTS_RESULT, "GET", param, dooSuccess);
+    requestService(URL_BLOG_HISTORY, "GET", param, dooSuccess);
 }
-
-
 
 function clickViewProfileBlogger(bloggerId) {
     var param = {
         bloggerId: bloggerId
     };
-
     window.location.href = "./blogger.html?" + convertJsonToParameterURL(param);
+}
+
+function clickToBlogDetail(id, slug) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }

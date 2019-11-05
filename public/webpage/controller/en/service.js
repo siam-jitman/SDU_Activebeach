@@ -59,6 +59,7 @@ var URL_BLOG_DETAIL = SERVICE_BLOGGER_PAGE + "BlogDetail";
 var URL_BLOG_COMMENTS = SERVICE_BLOGGER_PAGE + "BlogComments";
 var URL_BLOG_ARTICLE_RESULT = SERVICE_BLOGGER_PAGE + "BlogArticleResult";
 var URL_BLOG_ADDED_COMMENTS = SERVICE_BLOGGER_PAGE_FORMDATA + "BlogAddedComment";
+var URL_BLOG_HISTORY = SERVICE_BLOGGER_PAGE + "BlogHistory";
 
 function requestService(url, method, data, success, failure) {
     console.log(TAG, "start request service => ", url, " : method => ", method);

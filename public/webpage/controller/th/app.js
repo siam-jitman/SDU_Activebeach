@@ -681,8 +681,10 @@ function clickMenuTypeHeader(category_id) {
 }
 
 function clickChangeLanguage(lang) {
-    if (window.location.href.indexOf("/blog/") > -1) {
+    if (window.location.href.indexOf("/blog/post/") > -1) {
         window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/post/" + (typeof BLOG_AFTER_CHENGE_LANGUAGE.blog_id == "object" ? BLOG_AFTER_CHENGE_LANGUAGE.blog_id[INVERT_PAGE_LANGUAGE] : BLOG_AFTER_CHENGE_LANGUAGE.blog_id) + "/" + BLOG_AFTER_CHENGE_LANGUAGE.slug[INVERT_PAGE_LANGUAGE] + "/");
+    } else if (window.location.href.indexOf("/blog/author/") > -1) {
+        window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/author/" + BLOGGER_USER + "/" + new Date().getTime() + "/");
     } else {
         let page = window.location.href.split("/")[window.location.href.split("/").length - 1];
         window.location.href = "../" + lang + "/" + page;
