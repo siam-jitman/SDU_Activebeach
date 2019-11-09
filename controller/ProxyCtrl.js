@@ -6,7 +6,7 @@ let TRACE_ID = "";
 
 // axios.defaults.headers.post['Accept'] = '*/*';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.timeout = 30000;
+axios.defaults.timeout = 60000;
 
 module.exports = class ProxyCtrl {
 

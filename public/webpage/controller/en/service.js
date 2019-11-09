@@ -61,6 +61,13 @@ var URL_BLOG_ARTICLE_RESULT = SERVICE_BLOGGER_PAGE + "BlogArticleResult";
 var URL_BLOG_ADDED_COMMENTS = SERVICE_BLOGGER_PAGE_FORMDATA + "BlogAddedComment";
 var URL_BLOG_HISTORY = SERVICE_BLOGGER_PAGE + "BlogHistory";
 
+//TripAndEvent
+var SERVICE_TRIP_AND_EVENT = SERVICE_HOST + SERVICE_CONTEXT + SERVICE_VERSION + "TripAndEvent/";
+var SERVICE_DETAIL_PAGE_FORMDATA = SERVICE_HOST + SERVICE_CONTEXT_FORMDATA + SERVICE_VERSION + "TripAndEvent/";
+var URL_TRIP_AND_EVENT_DETAIL = SERVICE_TRIP_AND_EVENT + "TripAndEventDetail";
+var URL_TRIP_AND_EVENT_COMMENTS = SERVICE_TRIP_AND_EVENT + "TripAndEventComments";
+var URL_TRIP_AND_EVENT_ADDED_COMMENTS = SERVICE_TRIP_AND_EVENT + "TripAndEventAddedComment";
+
 function requestService(url, method, data, success, failure) {
     console.log(TAG, "start request service => ", url, " : method => ", method);
     $.ajax({
