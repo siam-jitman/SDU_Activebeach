@@ -74,8 +74,13 @@ function createSlickGallery(id) {
 }
 
 function convertJsonToParameterURL(json) {
+    // return Object.keys(json).map(function (item) {
+    //     return encodeURIComponent(item) + '=' + urlEncode(encodeURIComponent(json[item]), true)
+    // }).join('&')
+
+
     return Object.keys(json).map(function (item) {
-        return encodeURIComponent(item) + '=' + urlEncode(encodeURIComponent(json[item]), true)
+        return item + '=' + json[item]
     }).join('&')
 }
 

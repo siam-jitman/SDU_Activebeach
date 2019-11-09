@@ -235,6 +235,14 @@ function requestSearchResult() {
                     reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].company_name[PAGE_LANGUAGE],
+                    meta_id: eventResultList[i].meta_id,
+                    company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
+                    category_id: eventResultList[i].service_id,
+                    lang: PAGE_LANGUAGE
+
                 });
             } else {
                 break;
@@ -414,6 +422,8 @@ function requestServiceSearchArticleResult() {
                     reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    slug: eventResultList[i].slug[PAGE_LANGUAGE],
                 });
             } else {
                 break;
@@ -446,3 +456,25 @@ function requestServiceSearchArticleResult() {
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
 }
 
+function clickToBlogDetail(id, slug) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
+}
+
+function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
+    var param = {
+        category_name: category_name,
+        company_name: company_name,
+        meta_id: meta_id,
+        company_id: company_id,
+        category_id: category_id,
+        lang: lang
+    }
+
+    if (typeof param.category_name === "object") {
+        param.category_name = param.category_name[PAGE_LANGUAGE];
+    } else {
+        param.category_name = param.category_name;
+    }
+
+    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+}

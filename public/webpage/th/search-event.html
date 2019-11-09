@@ -189,7 +189,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToDetail('{{category_name}}','{{company_name}}' , '{{meta_id}}' , '{{company_id}}' , '{{category_id}}', '{{lang}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -208,7 +209,8 @@
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            onclick="clickToDetail('{{category_name}}','{{company_name}}' , '{{meta_id}}' , '{{company_id}}' , '{{category_id}}', '{{lang}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -261,7 +263,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a href="./detail-tips.html?id={{event_id}}&name={{event_name}}"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -280,7 +283,8 @@
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -333,7 +337,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <!-- <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -352,7 +357,7 @@
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a> -->
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -405,8 +410,12 @@
                     <div class="footer-item clearfix">
                         <img src="../img/logos/footer-logo.png" alt="logo" class="f-logo">
                         <div class="text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.
-                                Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.
+                            <p>เว็บไซต์ ActiveBeach.in.th เป็นส่วนหนึ่งจากงานวิจัย
+                                "การพัฒนานวัตกรรมระบบให้คำแนะนำอัจฉริยะสำหรับส่งเสริมการท่องเที่ยวเชิงสุขภาพในกลุ่ม
+                                Active Beach (ชลบุรี ระยอง จันทบุรี ตราด) เพื่อสร้างบริการมูลค่าสูง (High value)
+                                ซึ่งได้รับทุนสนับสนุนจากงบประมาณแผ่นดิน ประจำปี 2562
+                                โดยมีจุดมุ่งหมายสำคัญในการพัฒนานวัตกรรมเว็บไซต์ให้บริการข้อมูลแหล่งท่องเที่ยวในพื้นที่
+                                Active Beach ทั้ง 4 จังหวัด
                             </p>
                         </div>
                     </div>
@@ -416,18 +425,21 @@
                         <h4>ติดต่อเรา</h4>
                         <ul class="contact-info">
                             <li>
-                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                                <i class="flaticon-pin"></i>ดร.ชวาลศักดิ์ เพชรจันทร์ฉาย
+                                หลักสูตรวิทยาการคอมพิวเตอร์
+                                มหาวิทยาลัยสวนดุสิต
+                                295 ถ.นครราชสีมา แขวงดุสิต เขตดุสิต กรุงเทพมหานคร
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a
-                                    href="mailto:sales@hotelempire.com">info@themevessel.com</a>
+                                    href="mailto:sales@hotelempire.com">chawalsak@hotmail.com</a>
                             </li>
                             <li>
-                                <i class="flaticon-phone"></i><a href="tel:+55-417-634-7071">+0477 85X6 552</a>
+                                <i class="flaticon-phone"></i><a href="tel:+66-2244-5691">0-2244-5691</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <i class="flaticon-fax"></i>+0477 85X6 552
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -521,7 +533,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
                     <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                        <a href="./detail.html?id={{meta_id}}" class="listing-img">
+                        <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
 
                             <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
@@ -541,10 +553,10 @@
                 <div class="col-lg-7 col-md-7 col-pad">
                     <div class="detail">
                         <h3 class="title">
-                            <a href="./detail.html?id={{meta_id}}">{{companyName}}</a>
+                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">{{companyName}}</a>
                         </h3>
                         <h5 class="location clearfix">
-                            <a href="./detail.html?id={{meta_id}}">
+                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
@@ -560,7 +572,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
                 <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                    <a href="./detail.html?id={{meta_id}}" class="listing-photo">
+                    <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="location">
                             <i class="flaticon-pin"></i>{{location}}

@@ -127,11 +127,11 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult.meta_id = dataList[i].event_id;
+        rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
         rawResult.thumbnail = dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].event_name[PAGE_LANGUAGE];
+        rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
-        rawResult.description = dataList[i].description;
+        rawResult.description = dataList[i].content;
         rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : "");
         rawResult.ratings = dataList[i].ratings;
 
@@ -229,11 +229,18 @@ function requestSearchResult() {
                     event_id: eventResultList[i].meta_id,
                     event_name: eventResultList[i].company_name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].description == undefined ? "" : eventResultList[i].description,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].company_name[PAGE_LANGUAGE],
+                    meta_id: eventResultList[i].meta_id,
+                    company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
+                    category_id: eventResultList[i].service_id,
+                    lang: PAGE_LANGUAGE
                 });
             } else {
                 break;
@@ -329,6 +336,7 @@ function requestServiceSearchEventResult() {
     requestService(URL_SEARCH_EVENT_RESULT, "GET", param, dooSuccess);
 }
 
+
 function requestServiceSearchTipsResult() {
 
     var param = {
@@ -348,10 +356,10 @@ function requestServiceSearchTipsResult() {
 
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].trip_id,
-                    event_name: eventResultList[i].trip_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
                     thumbnail: eventResultList[i].thumbnail,
@@ -367,7 +375,7 @@ function requestServiceSearchTipsResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-tips-" + i);
+                var templateScore = $(".content-recommend-ratings-tips-" + eventResultList[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -387,6 +395,7 @@ function requestServiceSearchTipsResult() {
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
+
 function requestServiceSearchArticleResult() {
 
     var param = {
@@ -405,14 +414,16 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    slug: eventResultList[i].slug[PAGE_LANGUAGE],
                 });
             } else {
                 break;
@@ -425,7 +436,7 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
 
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + i);
+                var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -445,3 +456,25 @@ function requestServiceSearchArticleResult() {
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
 }
 
+function clickToBlogDetail(id, slug) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
+}
+
+function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
+    var param = {
+        category_name: category_name,
+        company_name: company_name,
+        meta_id: meta_id,
+        company_id: company_id,
+        category_id: category_id,
+        lang: lang
+    }
+
+    if (typeof param.category_name === "object") {
+        param.category_name = param.category_name[PAGE_LANGUAGE];
+    } else {
+        param.category_name = param.category_name;
+    }
+
+    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+}
