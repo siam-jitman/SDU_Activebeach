@@ -233,7 +233,7 @@ function requestServiceReviewComments(scroll, id) {
 }
 
 function requestServiceReviewAddedComment() {
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }

@@ -204,7 +204,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
@@ -279,7 +279,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
@@ -353,7 +353,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <!-- <a class="icon">
+                                                    <!-- <a class="icon" >
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a> -->
@@ -429,7 +429,10 @@
                         <h4>Contact us</h4>
                         <ul class="contact-info">
                             <li>
-                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                                <i class="flaticon-pin"></i>Dr. Chawalsak Phetchanchai
+                                Computer Science Program,
+                                Suan Dusit University,
+                                295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a
@@ -533,8 +536,8 @@
         <div class="listing-item-box-2">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
-                    <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                        <a href="./detail.html?id={{meta_id}}&name={{companyName}}" class="listing-img">
+                    <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}')">
+                        <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
 
                             <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
@@ -554,10 +557,10 @@
                 <div class="col-lg-7 col-md-7 col-pad">
                     <div class="detail">
                         <h3 class="title">
-                            <a href="./detail.html?id={{meta_id}}&name={{companyName}}">{{companyName}}</a>
+                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">{{companyName}}</a>
                         </h3>
                         <h5 class="location clearfix">
-                            <a href="./detail.html?id={{meta_id}}&name={{companyName}}">
+                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
@@ -572,8 +575,8 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
-                <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                    <a href="./detail.html?id={{meta_id}}&name={{companyName}}" class="listing-photo">
+                <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">
+                    <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="location">
                             <i class="flaticon-pin"></i>{{location}}
@@ -584,9 +587,9 @@
                         <img class="d-block w-100" src="{{thumbnail}}" alt="listing-photo">
                     </a>
                 </div>
-                <div class="detail">
-                    <a class="icon">
-                        <i class="flaticon-cook"></i>
+                <div class="detail"><a class="icon" onclick="clickToSearehEventByType('{{service_id}}')">
+                        <i
+                            style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                     </a>
                     <p>{{description}}
                     </p>

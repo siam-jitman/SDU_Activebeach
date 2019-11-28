@@ -92,6 +92,15 @@ function clickBtnToDetail(id) {
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
 }
 
+function clickBtnToDetailEvent(id, name) {
+
+    var param = {
+        id: id,
+        name: name
+    };
+    window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
+}
+
 function genSizeShowContentSearchDetail(nextMore) {
     if (nextMore) {
         SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
@@ -127,11 +136,13 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
+        rawResult = dataList[i];
         rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
         rawResult.thumbnail = dataList[i].thumbnail;
         rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
         rawResult.description = dataList[i].content;
+        rawResult.reviews = "";
         rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
         rawResult.ratings = dataList[i].ratings;
 
@@ -227,17 +238,18 @@ function requestSearchResult() {
 
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].meta_id,
-                    event_name: eventResultList[i].company_name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    event_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    location: eventResultList[i].address,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
 
                     category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
-                    company_name: eventResultList[i].company_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].title[PAGE_LANGUAGE],
                     meta_id: eventResultList[i].meta_id,
                     company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
                     category_id: eventResultList[i].service_id,
@@ -357,6 +369,7 @@ function requestServiceSearchTipsResult() {
 
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
@@ -414,6 +427,7 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
@@ -454,27 +468,4 @@ function requestServiceSearchArticleResult() {
     }
 
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
-}
-
-function clickToBlogDetail(id, slug) {
-    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
-}
-
-function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
-    var param = {
-        category_name: category_name,
-        company_name: company_name,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: category_id,
-        lang: lang
-    }
-
-    if (typeof param.category_name === "object") {
-        param.category_name = param.category_name[PAGE_LANGUAGE];
-    } else {
-        param.category_name = param.category_name;
-    }
-
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
 }

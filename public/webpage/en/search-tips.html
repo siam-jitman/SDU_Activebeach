@@ -189,7 +189,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToDetail('{{category_name}}','{{company_name}}' , '{{meta_id}}' , '{{company_id}}' , '{{category_id}}', '{{lang}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -203,12 +204,13 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            onclick="clickToDetail('{{category_name}}','{{company_name}}' , '{{meta_id}}' , '{{company_id}}' , '{{category_id}}', '{{lang}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -261,7 +263,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToDetailEvent('{{event_id}}' , '{{event_name}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -275,12 +278,13 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            onclick="clickToDetailEvent('{{event_id}}' , '{{event_name}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -333,7 +337,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <!-- <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -352,7 +357,7 @@
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a> -->
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -423,7 +428,10 @@
                         <h4>Contact us</h4>
                         <ul class="contact-info">
                             <li>
-                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                                <i class="flaticon-pin"></i>Dr. Chawalsak Phetchanchai
+                                Computer Science Program,
+                                Suan Dusit University,
+                                295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a
@@ -443,13 +451,13 @@
                         <h4>Shortcut</h4>
                         <ul class="links">
                             <li>
-                                <a href="#">Home</a>
+                                <a>Home</a>
                             </li>
                             <li>
-                                <a href="#">Tourism destinations</a>
+                                <a>Tourism destinations</a>
                             </li>
                             <li>
-                                <a href="#">Tourism activities</a>
+                                <a>Tourism activities</a>
                             </li>
                             <li>
                                 <a href="contact.html">Tourism trips</a>
@@ -501,11 +509,11 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <ul class="social-list clearfix">
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a class="rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a class="linkedin"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -579,8 +587,9 @@
                     </a>
                 </div>
                 <div class="detail">
-                    <a class="icon">
-                        <i class="flaticon-cook"></i>
+                    <a class="icon" onclick="clickToSearehTipsByType('{{service_id}}')">
+                        <i
+                            style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                     </a>
                     <p>{{description}}
                     </p>

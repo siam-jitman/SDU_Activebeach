@@ -113,7 +113,7 @@ $(function () {
 
 function requestServiceBlogDetail() {
 
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
@@ -168,7 +168,7 @@ function requestServiceBlogDetail() {
 }
 
 function requestServiceBlogArticleResult(author) {
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
@@ -203,7 +203,7 @@ function requestServiceBlogArticleResult(author) {
 
 function requestServiceReviewComments(scroll, id) {
 
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
@@ -243,7 +243,7 @@ function requestServiceReviewComments(scroll, id) {
 
 function requestServiceBlogAddedComment() {
 
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
@@ -288,14 +288,10 @@ function requestServiceBlogAddedComment() {
 
 function clickViewProfileBlogger(username) {
 
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
 
     window.location.href = "/" + PAGE_LANGUAGE + "/blog/author/" + username + "/" + client_id + "/";
-}
-
-function clickToBlogDetail(id, slug) {
-    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }

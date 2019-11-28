@@ -690,3 +690,81 @@ function clickChangeLanguage(lang) {
         window.location.href = "../" + lang + "/" + page;
     }
 }
+
+function clickToSearehByType(id) {
+
+    var param = {
+        category_id: id
+    };
+    window.location.href = "./search.html?text=&" + convertJsonToParameterURL(param);
+}
+
+function clickToSearehEventByType(id) {
+
+    var param = {
+        category_id: id
+    };
+    window.location.href = "./search-event.html?text=&" + convertJsonToParameterURL(param);
+}
+
+function clickToSearehTipsByType(id) {
+
+    var param = {
+        category_id: id
+    };
+    window.location.href = "./search-tips.html?text=&" + convertJsonToParameterURL(param);
+}
+
+function clickToSearehArticleByType() {
+
+    var param = {
+        category_id: id
+    };
+    window.location.href = "./search-article.html?text=&" + convertJsonToParameterURL(param);
+}
+
+function clickToDetailEvent(id, name) {
+
+    var param = {
+        id: id,
+        name: name
+    };
+    window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
+}
+
+function clickToDetailTips(id, name) {
+
+    var param = {
+        id: id,
+        name: name
+    };
+    window.location.href = "./detail-tips.html?" + convertJsonToParameterURL(param);
+}
+
+function clickToBlogDetail(id, slug) {
+    if (typeof slug === "object") {
+        slug = slug[PAGE_LANGUAGE];
+    } else {
+        slug = slug;
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
+}
+
+function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
+    var param = {
+        category_name: category_name,
+        company_name: company_name,
+        meta_id: meta_id,
+        company_id: company_id,
+        category_id: category_id,
+        lang: lang
+    }
+
+    if (typeof param.category_name === "object") {
+        param.category_name = param.category_name[PAGE_LANGUAGE];
+    } else {
+        param.category_name = param.category_name;
+    }
+
+    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+}

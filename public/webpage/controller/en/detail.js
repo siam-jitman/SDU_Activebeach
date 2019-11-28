@@ -1,4 +1,5 @@
 var DATA_CATEGORYS = [];
+var meta_id = null;
 
 $(function () {
     'use strict';
@@ -212,6 +213,9 @@ function requestServiceReviewDetail() {
                 enabled: true
             }
         });
+
+
+        meta_id = res.data.meta_id;
 
         var paramTracking = {
             client_id: localStorage.getItem("client_id") === undefined ? new Date().getTime() : localStorage.getItem("client_id"),
@@ -547,19 +551,20 @@ function requestServiceReviewComments(scroll, id) {
 }
 
 function requestServiceReviewAddedComment() {
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
 
 
     var param = {
-        client_id: client_id,
+        client: client_id,
         name: $("#name-send-review").val(),
         subject: $("#subject-send-review").val(),
         comments: $("#comments-send-review").val(),
         uploads: $("#file-image-upload-review")[0].files[0],
-        action: "add"
+        action: "add",
+        meta_id: meta_id
 
     }
 
@@ -585,4 +590,3 @@ function requestServiceReviewAddedComment() {
 
     requestFormDataService(URL_REVIEW_ADDED_COMMENT, "POST", param, dooSuccess);
 }
-

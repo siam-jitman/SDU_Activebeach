@@ -66,14 +66,16 @@ var SERVICE_TRIP_AND_EVENT = SERVICE_HOST + SERVICE_CONTEXT + SERVICE_VERSION + 
 var SERVICE_DETAIL_PAGE_FORMDATA = SERVICE_HOST + SERVICE_CONTEXT_FORMDATA + SERVICE_VERSION + "TripAndEvent/";
 var URL_TRIP_AND_EVENT_DETAIL = SERVICE_TRIP_AND_EVENT + "TripAndEventDetail";
 var URL_TRIP_AND_EVENT_COMMENTS = SERVICE_TRIP_AND_EVENT + "TripAndEventComments";
-var URL_TRIP_AND_EVENT_ADDED_COMMENTS = SERVICE_TRIP_AND_EVENT + "TripAndEventAddedComment";
+var URL_TRIP_AND_EVENT_ADDED_COMMENTS = SERVICE_DETAIL_PAGE_FORMDATA + "TripAndEventAddedComment";
 
 function requestService(url, method, data, success, failure) {
     console.log(TAG, "start request service => ", url, " : method => ", method);
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: method === "GET" ? data : JSON.stringify(data),
@@ -104,7 +106,9 @@ function requestFormDataService(url, method, data, success, failure) {
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: formData,
@@ -138,7 +142,9 @@ function requestFormBodyService(url, method, data, success, failure) {
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: data,

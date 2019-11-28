@@ -187,9 +187,11 @@
                                 <div id="collapse1" class="card-block collapse show">
                                     <div class="row justify-content-md-center" id="content-recommend-search-event">
                                         <div class="content-recommend">
-                                            <div class="listing-item-box">
+                                            <div class="listing-item-box"
+                                                onclick="clickToDetailEvent('{{event_id}}' , '{{event_name}}')">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a href="./detail-event.html?id={{event_id}}&name={{event_name}}"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -204,11 +206,12 @@
                                                 </div>
                                                 <div class="detail">
                                                     <a class="icon">
-                                                        <i
+                                                        <i onclick="clickToSearehByType('{{service_id}}')"
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            href="./detail-event.html?id={{event_id}}&name={{event_name}}">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -259,9 +262,11 @@
                                 <div id="collapse2" class="card-block collapse show">
                                     <div class="row justify-content-md-center" id="content-recommend-search-tips">
                                         <div class="content-recommend">
-                                            <div class="listing-item-box">
+                                            <div class="listing-item-box"
+                                                onclick="clickToDetailTips('{{event_id}}' , '{{event_name}}')">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a href="./detail-tips.html?id={{event_id}}&name={{event_name}}"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -276,11 +281,12 @@
                                                 </div>
                                                 <div class="detail">
                                                     <a class="icon">
-                                                        <i
+                                                        <i onclick="clickToSearehByType('{{service_id}}')"
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a
+                                                            href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -333,7 +339,8 @@
                                         <div class="content-recommend">
                                             <div class="listing-item-box">
                                                 <div class="listing-thumbnail">
-                                                    <a href="./detail.html?event_id={{event_id}}" class="listing-photo">
+                                                    <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')"
+                                                        class="listing-photo">
                                                         <!-- <div class="tag">Restourant</div> -->
                                                         <!-- <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
@@ -347,12 +354,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <!-- <a class="icon">
-                                                        <i
-                                                            style="content: url({{icon}}); margin-top: 0px !important;"></i>
-                                                    </a> -->
                                                     <h3 class="title">
-                                                        <a href="listing-single.html">
+                                                        <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')">
                                                             <div class="txt-content-recommend">{{event_name}}
                                                             </div>
                                                         </a>
@@ -423,7 +426,10 @@
                         <h4>Contact us</h4>
                         <ul class="contact-info">
                             <li>
-                                <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                                <i class="flaticon-pin"></i>Dr. Chawalsak Phetchanchai
+                                Computer Science Program,
+                                Suan Dusit University,
+                                295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a
@@ -443,13 +449,13 @@
                         <h4>Shortcut</h4>
                         <ul class="links">
                             <li>
-                                <a href="#">Home</a>
+                                <a>Home</a>
                             </li>
                             <li>
-                                <a href="#">Tourism destinations</a>
+                                <a>Tourism destinations</a>
                             </li>
                             <li>
-                                <a href="#">Tourism activities</a>
+                                <a>Tourism activities</a>
                             </li>
                             <li>
                                 <a href="contact.html">Tourism trips</a>
@@ -501,11 +507,11 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <ul class="social-list clearfix">
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a class="rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a class="linkedin"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -528,7 +534,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
                     <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                        <a onclick="clickBtnToDetail('{{meta_id}}')" href="#" class="listing-img">
+                        <a onclick="clickBtnToDetail('{{meta_id}}')" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
                             <div class="tag">{{categoryName}}</div>
 
@@ -549,10 +555,10 @@
                 <div class="col-lg-7 col-md-7 col-pad">
                     <div class="detail">
                         <h3 class="title">
-                            <a onclick="clickBtnToDetail('{{meta_id}}')" href="#">{{companyName}}</a>
+                            <a onclick="clickBtnToDetail('{{meta_id}}')">{{companyName}}</a>
                         </h3>
                         <h5 class="location clearfix">
-                            <a onclick="clickBtnToDetail('{{meta_id}}')" href="#">
+                            <a onclick="clickBtnToDetail('{{meta_id}}')">
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
@@ -568,7 +574,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
                 <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
-                    <a onclick="clickBtnToDetail('{{meta_id}}')" href="#" class="listing-photo">
+                    <a onclick="clickBtnToDetail('{{meta_id}}')" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="location">
                             <i class="flaticon-pin"></i>{{location}}
@@ -581,10 +587,11 @@
                 </div>
                 <div class="detail">
                     <a class="icon">
-                        <i class="flaticon-cook"></i>
+                        <i onclick="clickToSearehByType('{{service_id}}')"
+                            style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                     </a>
                     <h3 class="title">
-                        <a onclick="clickBtnToDetail('{{meta_id}}')" href="#">{{companyName}}</a>
+                        <a onclick="clickBtnToDetail('{{meta_id}}')">{{companyName}}</a>
                     </h3>
                     <p>{{description}}
                     </p>

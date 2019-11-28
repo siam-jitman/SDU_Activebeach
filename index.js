@@ -2,6 +2,10 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require("path")
+const FormData = require('form-data');
+
+
+const fileUpload = require('express-fileupload');
 
 const ProxyCtrl = require('./controller/ProxyCtrl')
 
@@ -65,6 +69,8 @@ app.use(cors());
 app.use(bodyParser.json({
     limit: '50mb'
 }));
+// default options
+app.use(fileUpload());
 app.use(bodyParser.urlencoded({
     limit: '50mb',
     extended: true
@@ -108,18 +114,29 @@ app.post('/formdata/*', async (req, res, next) => {
     // console.log(TAG, "======== start request proxy formdata ========", req, new Date());
     // console.log(TAG, "POST body", JSON.stringify(req.body, null, 3));
     let serviceContext = req.originalUrl.substring(9);
-    let header = {
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
+    let header = {}
     if (req.headers.authorization) {
         header.Authorization = req.headers.authorization;
     }
     console.log(TAG, "serviceContext", serviceContext);
+    let form = new FormData();
+    Object.keys(req.body).forEach(key => {
+        form.append(key, req.body[key]);
+    });
+    Object.keys(req.files).forEach(key => {
+        form.append(key, Buffer.from(req.files[key].data), {
+            filename: req.files[key].name
+        });
+        // form.append(key, req.files[key]);
+    });
+
     let proxy = new ProxyCtrl();
-    let serviceResponse = await proxy.post(serviceContext, req.body, header)
+    let serviceResponse = await proxy.post(serviceContext, form, {
+        ...form.getHeaders(),
+        header
+    })
     proxy.proxyResponse(res, serviceResponse);
 });
-
 
 app.post('/formbody/*', async (req, res, next) => {
     let TAG = "[/formbody*]";

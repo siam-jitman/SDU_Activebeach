@@ -10,7 +10,7 @@ $(function () {
     'use strict';
     $(window).on('load', function () {
 
-        $("#viewSearchType").load("../template/en/search/list-search.html");
+        $("#viewSearchType").load("../template/th/search/list-search.html");
         $("#btnListView").addClass("active-view-btn");
 
 
@@ -18,7 +18,7 @@ $(function () {
         openLoading();
 
         $("#btnListView").on('click', function () {
-            $("#viewSearchType").load("../template/en/search/list-search.html", function () {
+            $("#viewSearchType").load("../template/th/search/list-search.html", function () {
                 genSizeShowContentSearchDetail();
             });
             $("#btnListView").addClass("active-view-btn");
@@ -27,7 +27,7 @@ $(function () {
         });
 
         $("#btnGridView").on('click', function () {
-            $("#viewSearchType").load("../template/en/search/grid-search.html", function () {
+            $("#viewSearchType").load("../template/th/search/grid-search.html", function () {
                 genSizeShowContentSearchDetail();
             });
             $("#btnListView").removeClass("active-view-btn");
@@ -92,6 +92,15 @@ function clickBtnToDetail(id) {
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
 }
 
+function clickBtnToDetailEvent(id, name) {
+
+    var param = {
+        id: id,
+        name: name
+    };
+    window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
+}
+
 function genSizeShowContentSearchDetail(nextMore) {
     if (nextMore) {
         SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
@@ -126,13 +135,14 @@ function genContentSearchDetail(dataList) {
     var rawResultArray = [];
 
     for (var i = 0; i < dataList.length; i++) {
-
+        rawResult = dataList[i];
         rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
         rawResult.thumbnail = dataList[i].thumbnail;
         rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
         rawResult.description = dataList[i].content;
-        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : "");
+        rawResult.reviews = "";
+        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review");
         rawResult.ratings = dataList[i].ratings;
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
@@ -154,7 +164,7 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
+        var templateScore = $(".score-reviews-attaction-" + dataList[i].id[PAGE_LANGUAGE]);
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -178,6 +188,7 @@ function requestServiceInterestingCategorys() {
                 categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
+                // categoryUrlImage: res.data.categorys[i].image,
                 categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
@@ -226,21 +237,23 @@ function requestSearchResult() {
 
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].meta_id,
-                    event_name: eventResultList[i].company_name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].description == undefined ? "" : eventResultList[i].description,
+                    event_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    location: eventResultList[i].address,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
 
                     category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
-                    company_name: eventResultList[i].company_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].title[PAGE_LANGUAGE],
                     meta_id: eventResultList[i].meta_id,
                     company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
                     category_id: eventResultList[i].service_id,
                     lang: PAGE_LANGUAGE
+
                 });
             } else {
                 break;
@@ -253,7 +266,7 @@ function requestSearchResult() {
         for (var i = 0; i < eventResultList.length; i++) {
 
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-event-" + i);
+                var templateScore = $(".content-recommend-ratings-event-" + eventResultList[i].meta_id);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -318,8 +331,8 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
 
         SEARCH_RESULT_LIST = data.events;
         RAW_SEARCH_RESULT_LIST = data.events;
@@ -335,7 +348,6 @@ function requestServiceSearchEventResult() {
 
     requestService(URL_SEARCH_EVENT_RESULT, "GET", param, dooSuccess);
 }
-
 
 function requestServiceSearchTipsResult() {
 
@@ -356,12 +368,13 @@ function requestServiceSearchTipsResult() {
 
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -395,7 +408,6 @@ function requestServiceSearchTipsResult() {
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
-
 function requestServiceSearchArticleResult() {
 
     var param = {
@@ -414,13 +426,15 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
+                    slug: eventResultList[i].slug[PAGE_LANGUAGE],
                     icon: eventResultList[i].icon,
 
                     slug: eventResultList[i].slug[PAGE_LANGUAGE],
@@ -454,27 +468,4 @@ function requestServiceSearchArticleResult() {
     }
 
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
-}
-
-function clickToBlogDetail(id, slug) {
-    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
-}
-
-function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
-    var param = {
-        category_name: category_name,
-        company_name: company_name,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: category_id,
-        lang: lang
-    }
-
-    if (typeof param.category_name === "object") {
-        param.category_name = param.category_name[PAGE_LANGUAGE];
-    } else {
-        param.category_name = param.category_name;
-    }
-
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
 }

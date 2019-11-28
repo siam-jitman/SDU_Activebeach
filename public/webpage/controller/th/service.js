@@ -73,7 +73,9 @@ function requestService(url, method, data, success, failure) {
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: method === "GET" ? data : JSON.stringify(data),
@@ -104,11 +106,13 @@ function requestFormDataService(url, method, data, success, failure) {
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: formData,
-        contentType: "application/x-www-form-urlencoded",
+        contentType: false,
         async: false,
         cache: false,
         processData: false,
@@ -138,7 +142,9 @@ function requestFormBodyService(url, method, data, success, failure) {
     $.ajax({
         type: method,
         beforeSend: function (request) {
-            request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            if (localStorage.getItem("access_token") != undefined) {
+                request.setRequestHeader("Authorization", localStorage.getItem("access_token") != undefined ? "Bearer " + localStorage.getItem("access_token") : null);
+            }
         },
         url: url,
         data: data,

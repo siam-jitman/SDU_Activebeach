@@ -12,7 +12,10 @@ $(function () {
                     categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                     categoryNameValue: res.data.categorys[i].service_id,
+                    // categoryUrlImage: res.data.categorys[i].image,
                     categoryUrlImage: res.data.categorys[i].thumbnail,
+
+                    // categoryUrlIcon: res.data.categorys[i].icon
                     categoryUrlIcon: res.data.categorys[i].icon
                 });
             }
@@ -25,7 +28,7 @@ $(function () {
 
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
             $("#index-category-select").html(bindDataListToTemplate(templateCategorySelect, [{
-                categoryNameDisplay: "Choose a category",
+                categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
                 categoryNameValue: ""
             }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
             $("#index-category-first").html(bindDataToTemplate(templateCategoryFirst, JSON.parse(JSON.stringify(DATA_CATEGORYS[0]))));
@@ -53,19 +56,36 @@ $(function () {
 
         requestService(URL_INTERSTING_LANDMARK, "GET", null, function (res) {
             var dataList = res.data.landmarks;
+            DATA_HOME_RECOMMEND_LANDMARK = []
+            DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
+
+                if (dataList[i].title) {
+                    if (dataList[i].title[PAGE_LANGUAGE]) {
+                        var title = dataList[i].title[PAGE_LANGUAGE];
+                    } else {
+                        var title = dataList[i].title;
+                    }
+                } else {
+                    var title = "";
+                }
+
+                if (title == "") {
+                    var title = "&nbsp;";
+                }
+
                 DATA_HOME_RECOMMEND_LANDMARK.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
-                    "title": dataList[i].title == undefined ? "" : res.data.landmarks[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
+                    "title": title,
                     "address": dataList[i].address,
                     "image": dataList[i].thumbnail,
                     "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : " Reviews"),
+                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }
@@ -94,20 +114,34 @@ $(function () {
         requestService(URL_NEAR_BY_ATTACTIONS, "GET", null, function (res) {
 
             var dataList = res.data.attactions;
-
+            DATA_HOME_RECOMMEND_LANDMARK = []
+            DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
+                if (dataList[i].title) {
+                    if (dataList[i].title[PAGE_LANGUAGE]) {
+                        var title = dataList[i].title[PAGE_LANGUAGE];
+                    } else {
+                        var title = dataList[i].title;
+                    }
+                } else {
+                    var title = "";
+                }
+
+                if (title == "") {
+                    var title = "&nbsp;";
+                }
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
-                    "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
+                    "title": title,
                     "address": dataList[i].address,
                     "image": dataList[i].thumbnail,
                     "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : " Reviews"),
+                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }
@@ -135,20 +169,34 @@ $(function () {
         requestService(URL_INTERSTING_EVENTS, "GET", null, function (res) {
 
             var dataList = res.data.events;
-
+            DATA_HOME_RECOMMEND_LANDMARK = []
+            DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
+                if (dataList[i].title) {
+                    if (dataList[i].title[PAGE_LANGUAGE]) {
+                        var title = dataList[i].title[PAGE_LANGUAGE];
+                    } else {
+                        var title = dataList[i].title;
+                    }
+                } else {
+                    var title = "";
+                }
+
+                if (title == "") {
+                    var title = "&nbsp;";
+                }
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
-                    "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
+                    "title": title,
                     "address": dataList[i].address,
                     "image": dataList[i].thumbnail,
                     "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : " Reviews"),
+                    "reviews": dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }
@@ -176,20 +224,34 @@ $(function () {
         requestService(URL_INTERSTING_TIPS, "GET", null, function (res) {
 
             var dataList = res.data.trips;
-
+            DATA_HOME_RECOMMEND_LANDMARK = []
+            DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
+                if (dataList[i].title) {
+                    if (dataList[i].title[PAGE_LANGUAGE]) {
+                        var title = dataList[i].title[PAGE_LANGUAGE];
+                    } else {
+                        var title = dataList[i].title;
+                    }
+                } else {
+                    var title = "";
+                }
+
+                if (title == "") {
+                    var title = "&nbsp;";
+                }
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
                     "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
-                    "title": dataList[i].title == undefined ? "" : dataList[i].title[PAGE_LANGUAGE] == undefined ? dataList[i].title : dataList[i].title[PAGE_LANGUAGE],
+                    "title": title,
                     "address": dataList[i].address,
                     "image": dataList[i].thumbnail,
                     "icon": dataList[i].icon,
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : " Reviews"),
+                    "reviews": dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }
@@ -249,4 +311,3 @@ function clickBtnToDetailRecommend(meta_id, company_id, title) {
     //     }
     // }
 }
-

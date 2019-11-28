@@ -10,7 +10,7 @@ $(function () {
     'use strict';
     $(window).on('load', function () {
 
-        $("#viewSearchType").load("../template/en/search/list-search.html");
+        $("#viewSearchType").load("../template/th/search/list-search.html");
         $("#btnListView").addClass("active-view-btn");
 
 
@@ -18,7 +18,7 @@ $(function () {
         openLoading();
 
         $("#btnListView").on('click', function () {
-            $("#viewSearchType").load("../template/en/search/list-search.html", function () {
+            $("#viewSearchType").load("../template/th/search/list-search.html", function () {
                 genSizeShowContentSearchDetail();
             });
             $("#btnListView").addClass("active-view-btn");
@@ -27,7 +27,7 @@ $(function () {
         });
 
         $("#btnGridView").on('click', function () {
-            $("#viewSearchType").load("../template/en/search/grid-search.html", function () {
+            $("#viewSearchType").load("../template/th/search/grid-search.html", function () {
                 genSizeShowContentSearchDetail();
             });
             $("#btnListView").removeClass("active-view-btn");
@@ -126,12 +126,13 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult.meta_id = dataList[i].trip_id;
+        rawResult = dataList[i];
+        rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
         rawResult.thumbnail = dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].trip_name[PAGE_LANGUAGE];
+        rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
         rawResult.location = dataList[i].location;
-        rawResult.description = dataList[i].description;
-        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : "");
+        rawResult.description = dataList[i].content;
+        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review");
         rawResult.ratings = dataList[i].ratings;
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
@@ -153,7 +154,7 @@ function genContentSearchDetail(dataList) {
     }
 
     for (var i = 0; i < dataList.length; i++) {
-        var templateScore = $(".score-reviews-attaction-" + (dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id));
+        var templateScore = $(".score-reviews-attaction-" + dataList[i].id[PAGE_LANGUAGE]);
         var score = templateScore.data("start");
         var iconStartSelect = '<i class="fa fa-star"></i>';
         var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -177,6 +178,7 @@ function requestServiceInterestingCategorys() {
                 categoryName: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameDisplay: res.data.categorys[i].service_name[PAGE_LANGUAGE],
                 categoryNameValue: res.data.categorys[i].service_id,
+                // categoryUrlImage: res.data.categorys[i].image,
                 categoryUrlImage: res.data.categorys[i].thumbnail,
                 categoryUrlIcon: res.data.categorys[i].icon
             });
@@ -186,7 +188,7 @@ function requestServiceInterestingCategorys() {
         var templateCategorySearchBar = $("#select-search-bar").html();
         $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
         $("#select-search-bar").html(bindDataListToTemplate(templateCategorySearchBar, [{
-            categoryNameDisplay: "Choose a category",
+            categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
             categoryNameValue: ""
         }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
         $("#txt-search-bar").val(DATA_PARAM_IN_URL["text"]);
@@ -224,14 +226,22 @@ function requestSearchResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].meta_id,
-                    event_name: eventResultList[i].company_name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    event_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    location: eventResultList[i].address,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    meta_id: eventResultList[i].meta_id,
+                    company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
+                    category_id: eventResultList[i].service_id,
+                    lang: PAGE_LANGUAGE
                 });
             } else {
                 break;
@@ -244,7 +254,7 @@ function requestSearchResult() {
         for (var i = 0; i < eventResultList.length; i++) {
 
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-event-" + i);
+                var templateScore = $(".content-recommend-ratings-event-" + eventResultList[i].meta_id);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -309,8 +319,8 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
 
         SEARCH_RESULT_LIST = data.trips;
         RAW_SEARCH_RESULT_LIST = data.trips;
@@ -345,12 +355,13 @@ function requestServiceSearchTipsResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    ...eventResultList[i],
+                    event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -364,7 +375,7 @@ function requestServiceSearchTipsResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-tips-" + i);
+                var templateScore = $(".content-recommend-ratings-tips-" + eventResultList[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -402,13 +413,15 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
-                    event_id: eventResultList[i].event_id,
-                    event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
+                    ...eventResultList[i],
+                    event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
+                    event_name: eventResultList[i].subject,
                     location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
                     thumbnail: eventResultList[i].thumbnail,
+                    slug: eventResultList[i].slug[PAGE_LANGUAGE],
                     icon: eventResultList[i].icon,
                 });
             } else {
@@ -421,7 +434,7 @@ function requestServiceSearchArticleResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + i);
+                var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -440,4 +453,3 @@ function requestServiceSearchArticleResult() {
 
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
 }
-

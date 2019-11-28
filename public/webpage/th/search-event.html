@@ -204,7 +204,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
@@ -278,7 +278,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="detail">
-                                                    <a class="icon">
+                                                    <a class="icon" onclick="clickToSearehByType('{{service_id}}')">
                                                         <i
                                                             style="content: url({{icon}}); margin-top: 0px !important;"></i>
                                                     </a>
@@ -532,7 +532,7 @@
         <div class="listing-item-box-2">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
-                    <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
+                    <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">
                         <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
 
@@ -571,7 +571,7 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
-                <div class="listing-thumbnail" onclick="clickBtnToDetail('{{meta_id}}')">
+                <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}')">
                     <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="location">
@@ -583,9 +583,9 @@
                         <img class="d-block w-100" src="{{thumbnail}}" alt="listing-photo">
                     </a>
                 </div>
-                <div class="detail">
-                    <a class="icon">
-                        <i class="flaticon-cook"></i>
+                <div class="detail"><a class="icon" onclick="clickToSearehEventByType('{{service_id}}')">
+                        <i
+                            style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                     </a>
                     <p>{{description}}
                     </p>

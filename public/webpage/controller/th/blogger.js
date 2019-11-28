@@ -107,7 +107,7 @@ $(function () {
 });
 
 function requestServiceBlogHistory() {
-    var client_id = new Date().getTime();
+    var client_id = guid();
     if (localStorage.getItem("client_id") != undefined) {
         client_id = localStorage.getItem("client_id");
     }
@@ -158,8 +158,4 @@ function clickViewProfileBlogger(bloggerId) {
         bloggerId: bloggerId
     };
     window.location.href = "./blogger.html?" + convertJsonToParameterURL(param);
-}
-
-function clickToBlogDetail(id, slug) {
-    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }

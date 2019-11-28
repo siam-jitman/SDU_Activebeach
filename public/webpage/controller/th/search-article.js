@@ -120,12 +120,14 @@ function genContentSearchDetail(dataList) {
         location: "",
         description: "",
         categoryName: "",
+        slug: ''
     }
 
     var rawResultArray = [];
 
     for (var i = 0; i < dataList.length; i++) {
 
+        rawResult = dataList[i];
         rawResult.meta_id = dataList[i].blog_id[PAGE_LANGUAGE];
         // rawResult.meta_id = dataList[i].blog_scope;
         rawResult.thumbnail = dataList[i].thumbnail;
@@ -228,14 +230,22 @@ function requestSearchResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].meta_id,
-                    event_name: eventResultList[i].company_name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].description,
+                    event_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    location: eventResultList[i].address,
+                    description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
                     reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+
+                    category_name: eventResultList[i].service_name[PAGE_LANGUAGE],
+                    company_name: eventResultList[i].title[PAGE_LANGUAGE],
+                    meta_id: eventResultList[i].meta_id,
+                    company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
+                    category_id: eventResultList[i].service_id,
+                    lang: PAGE_LANGUAGE,
                 });
             } else {
                 break;
@@ -347,6 +357,7 @@ function requestServiceSearchTipsResult() {
 
         for (var i = 0; i < eventResultList.length; i++) {
             rawEventResultList.push({
+                ...eventResultList[i],
                 event_id: eventResultList[i].id[PAGE_LANGUAGE],
                 event_name: eventResultList[i].name[PAGE_LANGUAGE],
                 location: eventResultList[i].location,
@@ -401,6 +412,7 @@ function requestServiceSearchArticleResult() {
         for (var i = 0; i < eventResultList.length; i++) {
             if (i <= 2) {
                 rawEventResultList.push({
+                    ...eventResultList[i],
                     event_id: eventResultList[i].id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].name[PAGE_LANGUAGE],
                     location: eventResultList[i].location,
@@ -439,10 +451,4 @@ function requestServiceSearchArticleResult() {
     }
 
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
-}
-
-
-
-function clickToBlogDetail(id, slug) {
-    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }

@@ -42,7 +42,7 @@ module.exports = class ProxyCtrl {
             // console.log(TAG, "GET success", response);
             return response;
         } catch (error) {
-            // console.error(TAG, "GET error", error);
+            console.error(TAG, "POST error", error.response);
             return {
                 error: "POST error",
                 data: error

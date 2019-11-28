@@ -776,7 +776,7 @@ input[type=checkbox]:checked+label:before {
 .main-header .navbar-expand-lg .navbar-nav .nav-link {
     padding: 30px 15px;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #515151;
     letter-spacing: 1px;
@@ -1892,8 +1892,14 @@ input[type=checkbox]:checked+label:before {
 }
 
 .listing-thumbnail {
+    max-height: 200px;
     cursor: pointer !important;
     position: relative;
+}
+
+.listing-thumbnail>a.listing-photo>img {
+
+    max-height: 250px !important;
 }
 
 .form-check-label {
@@ -1922,16 +1928,69 @@ input[type=checkbox]:checked+label:before {
     background: rgba(0, 0, 0, 0.45);
 }
 
+
+
 .listing-item-box .detail {
     padding: 20px 20px 5px;
     background: white;
     position: relative;
+    /* text-overflow: ellipsis;
+    white-space: nowrap; */
+}
+
+.listing-item-box .detail p {
+
+    white-space: nowrap;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detail p.text-recommend {
+
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detail p {
+
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.detail h3.title {
+
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 50px;
+}
+
+
+.detail h5.location {
+
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .listing-item-box .detail .title {
     font-size: 22px;
     margin-bottom: 10px;
     font-weight: 600;
+
+
+    white-space: nowrap;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .listing-item-box .detail .title a:hover {
@@ -6307,6 +6366,7 @@ footer {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
+    line-height: 20px !important;
 }
 
 
