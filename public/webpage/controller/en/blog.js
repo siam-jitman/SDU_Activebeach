@@ -101,6 +101,7 @@ $(function () {
 
                 requestServiceBlogDetail();
                 requestServiceReviewComments();
+
             }, 1000);
         }, 1000);
     });
@@ -159,6 +160,8 @@ function requestServiceBlogDetail() {
             service_name: resultData.service_name
         };
 
+        requestServiceTrackingBlog(resultData.blog_id[PAGE_LANGUAGE]);
+
         // sessionStorage.setItem("BLOG_AFTER_CHENGE_LANGUAGE", JSON.stringify(BLOG_AFTER_CHENGE_LANGUAGE));
 
         requestServiceBlogArticleResult(resultData.author);
@@ -183,7 +186,7 @@ function requestServiceBlogArticleResult(author) {
     var dooSuccess = function (res) {
         // alert("success");
 
-        var resultData = res.data.blogs;
+        var resultData = res.data.blogs == null ? [] : res.data.blogs;
 
         for (var i = 0; i < resultData.length; i++) {
             resultData[i].blog_id = resultData[i].blog_id[PAGE_LANGUAGE];
@@ -199,6 +202,24 @@ function requestServiceBlogArticleResult(author) {
     }
 
     requestService(URL_BLOG_ARTICLE_RESULT, "GET", param, dooSuccess);
+}
+
+function requestServiceTrackingBlog(id) {
+    var client_id = guid();
+    if (localStorage.getItem("client_id") != undefined) {
+        client_id = localStorage.getItem("client_id");
+    }
+    var param = {
+        blog_id: id,
+        client_id: client_id,
+        lang: PAGE_LANGUAGE
+    }
+
+    var dooSuccess = function (res) {
+
+    }
+
+    requestService(URL_TRACKING_BLOG, "GET", param, dooSuccess);
 }
 
 function requestServiceReviewComments(scroll, id) {
@@ -250,17 +271,32 @@ function requestServiceBlogAddedComment() {
 
     var blogId = window.location.href.split("/blog/post/")[1].split("/")[0];
 
-    var param = {
-        client_id: client_id,
-        name: $("#name-send-review").val(),
-        subject: $("#subject-send-review").val(),
-        comments: $("#comments-send-review").val(),
-        uploads: $("#file-image-upload-review")[0].files[0],
-        action: "add",
-        blogId: blogId
+    if ($("#file-image-upload-review")[0].files[0]) {
 
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            uploads: $("#file-image-upload-review")[0].files[0],
+            action: "add",
+            blog_id: blogId,
+            lang: PAGE_LANGUAGE
+
+        }
+    } else {
+
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            action: "add",
+            blog_id: blogId,
+            lang: PAGE_LANGUAGE
+
+        }
     }
-
     var dooSuccess = function (res) {
         if (res.data.success) {
             $("#name-send-review").val("");

@@ -104,7 +104,7 @@
                 <div class="col-lg-8 col-md-12">
 
                     <!-- gallery start -->
-                    <div class="gallery">
+                    <div class="gallery" id="galleryImage">
                         <!-- <h3 class="heading-2">
                             รูปภาพ
                         </h3> -->
@@ -133,7 +133,7 @@
                     </div>
 
 
-                    <div class="container">
+                    <div class="container" id="galleryVideo">
                         <div class="slick-slider-area">
                             <div class="row slick-carousel">
                                 <div id="video-detail-content"
@@ -379,7 +379,8 @@
                                     </div>
                                     <div class="detail">
                                         <a class="icon">
-                                            <i style="content: url({{icon}}); margin-top: 10px !important;"></i>
+                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                                         </a>
                                         <h3 class="title">
                                             <a>{{title}}</a>
@@ -460,7 +461,8 @@
                                     </div>
                                     <div class="detail">
                                         <a class="icon">
-                                            <i style="content: url({{icon}}); margin-top: 10px !important;"></i>
+                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                                         </a>
                                         <h3 class="title">
                                             <a>{{title}}</a>
@@ -541,7 +543,8 @@
                                     </div>
                                     <div class="detail">
                                         <a class="icon">
-                                            <i style="content: url({{icon}}); margin-top: 10px !important;"></i>
+                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                                         </a>
                                         <h3 class="title">
                                             <a>{{title}}</a>
@@ -622,7 +625,8 @@
                                     </div>
                                     <div class="detail">
                                         <a class="icon">
-                                            <i style="content: url({{icon}}); margin-top: 10px !important;"></i>
+                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                                         </a>
                                         <h3 class="title">
                                             <a>{{title}}</a>
@@ -676,9 +680,9 @@
                         <ul class="contact-info">
                             <li>
                                 <i class="flaticon-pin"></i>Dr. Chawalsak Phetchanchai
-Computer Science Program,
- Suan Dusit University, 
-295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
+                                Computer Science Program,
+                                Suan Dusit University,
+                                295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a

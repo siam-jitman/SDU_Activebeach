@@ -123,12 +123,15 @@ app.post('/formdata/*', async (req, res, next) => {
     Object.keys(req.body).forEach(key => {
         form.append(key, req.body[key]);
     });
-    Object.keys(req.files).forEach(key => {
-        form.append(key, Buffer.from(req.files[key].data), {
-            filename: req.files[key].name
+    if (req.files) {
+
+        Object.keys(req.files).forEach(key => {
+            form.append(key, Buffer.from(req.files[key].data), {
+                filename: req.files[key].name
+            });
+            // form.append(key, req.files[key]);
         });
-        // form.append(key, req.files[key]);
-    });
+    }
 
     let proxy = new ProxyCtrl();
     let serviceResponse = await proxy.post(serviceContext, form, {

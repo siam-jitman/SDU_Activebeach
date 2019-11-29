@@ -187,13 +187,25 @@ function requestServiceReviewDetail() {
         templateScore.prepend('<span class="ratings-box">' + res.data.ratings + '/' + res.data.max_rating + '</span>');
 
 
-        var templateSlideDetailContent = $("#slide-detail-content").html();
-        $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
-        createSlick("#slide-detail-content");
+        if (res.data.images.length === 0) {
 
-        var templateVideoDetailContent = $("#video-detail-content").html();
-        $("#video-detail-content").html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
-        createSlick("#video-detail-content");
+            $("#galleryImage").css("diaplay", "none");
+        } else {
+
+            var templateSlideDetailContent = $("#slide-detail-content").html();
+            $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
+            createSlick("#slide-detail-content");
+        }
+
+        if (res.data.video.length === 0) {
+
+            $("#galleryVideo").css("diaplay", "none");
+        } else {
+
+            var templateVideoDetailContent = $("#video-detail-content").html();
+            $("#video-detail-content").html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
+            createSlick("#video-detail-content");
+        }
 
         var templateDescriptionDetailContent = $("#description-detail-content").html();
         $("#description-detail-content").html(bindDataToTemplate(templateDescriptionDetailContent, resulrList));
@@ -456,7 +468,7 @@ function requestServiceReviewArticles() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.blogs;
+        var resultList = res.data.blogs == null ? [] : res.data.blogs;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].blog_id[PAGE_LANGUAGE] != undefined) {
@@ -560,15 +572,27 @@ function requestServiceReviewAddedComment() {
     }
 
 
-    var param = {
-        client: client_id,
-        name: $("#name-send-review").val(),
-        subject: $("#subject-send-review").val(),
-        comments: $("#comments-send-review").val(),
-        uploads: $("#file-image-upload-review")[0].files[0],
-        action: "add",
-        meta_id: meta_id
+    if ($("#file-image-upload-review")[0].files[0]) {
 
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            uploads: $("#file-image-upload-review")[0].files[0],
+            action: "add",
+            meta_id: meta_id
+        }
+    } else {
+
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            action: "add",
+            meta_id: meta_id
+        }
     }
 
     var dooSuccess = function (res) {
