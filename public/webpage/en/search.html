@@ -65,10 +65,13 @@
             <div class="inline-search-area-2 row">
                 <div class="search-col col-lg-6 col-md-6 col-sm-12">
                     <input type="text" name="search" class="form-control has-icon b-radius"
-                        placeholder="Destination name">
+                        placeholder="Destination name" id="index-txt-search-mobile">
+                    <select class="selectpicker search-fields" id="index-category-select-mobile">
+                        <option value="{{categoryNameValue}}">{{categoryNameDisplay}}</option>
+                    </select>
                 </div>
                 <div class="search-col col-12">
-                    <button class="btn button-theme btn-search btn-block b-radius">
+                    <button class="btn button-theme btn-search btn-block b-radius" onclick="clickBtnSearchBar()">
                         <i class="fa fa-search"></i><strong>Search</strong>
                     </button>
                 </div>
@@ -157,7 +160,7 @@
     <div class="listing-section content-area content-list">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-md-12">
+                <div class="col-lg-8 col-md-12">
                     <!-- Listing item box start -->
 
                     <div id="viewSearchType">
@@ -174,7 +177,7 @@
 
 
 
-                <div class="col-lg-3 col-md-12">
+                <div class="col-lg-4 col-md-12">
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div id="faq" class="faq-accordion">
@@ -185,42 +188,44 @@
                                     </a>
                                 </div>
                                 <div id="collapse1" class="card-block collapse show">
-                                    <div class="row justify-content-md-center" id="content-recommend-search-event">
-                                        <div class="content-recommend">
-                                            <div class="listing-item-box"
-                                                onclick="clickToDetailEvent('{{event_id}}' , '{{event_name}}')">
-                                                <div class="listing-thumbnail">
-                                                    <a href="./detail-event.html?id={{event_id}}&name={{event_name}}"
-                                                        class="listing-photo">
-                                                        <!-- <div class="tag">Restourant</div> -->
-                                                        <div class="location">
-                                                            <i class="flaticon-pin"></i>{{location}}
-                                                        </div>
-                                                        <div class="ratings content-recommend-ratings-event-{{event_id}}"
-                                                            data-start="{{ratings}}">
-                                                            <span>( {{reviwes}} )</span>
-                                                        </div>
-                                                        <img class="d-block w-100" src="{{thumbnail}}"
-                                                            alt="listing-photo">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <a class="icon">
-                                                        <i onclick="clickToSearehByType('{{service_id}}')"
-                                                            style="content: url({{icon}}); margin-top: 0px !important;"></i>
-                                                    </a>
-                                                    <h3 class="title">
-                                                        <a
-                                                            href="./detail-event.html?id={{event_id}}&name={{event_name}}">
-                                                            <div class="txt-content-recommend">{{event_name}}
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-auto" id="content-recommend-search-event"
+                                            style="width: 100% !important;">
+                                            <div class="content-recommend">
+                                                <div class="listing-item-box"
+                                                    onclick="clickToDetailEvent('{{event_id}}' , '{{event_name}}')">
+                                                    <div class="listing-thumbnail">
+                                                        <a href="./detail-event.html?id={{event_id}}&name={{event_name}}"
+                                                            class="listing-photo">
+                                                            <!-- <div class="tag">Restourant</div> -->
+                                                            <div class="location">
+                                                                <i class="flaticon-pin"></i>{{location}}
                                                             </div>
+                                                            <div class="ratings content-recommend-ratings-event-{{event_id}}"
+                                                                data-start="{{ratings}}">
+                                                                <span>( {{reviwes}} )</span>
+                                                            </div>
+                                                            <img class="d-block w-100" src="{{thumbnail}}"
+                                                                alt="listing-photo">
                                                         </a>
-                                                    </h3>
-                                                    <p class="text-recommend">{{description}}</p>
+                                                    </div>
+                                                    <div class="detail">
+                                                        <a class="icon">
+                                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;""></i>
+                                                        </a>
+                                                        <h3 class="title">
+                                                            <a
+                                                                href="./detail-event.html?id={{event_id}}&name={{event_name}}">
+                                                                <div class="txt-content-recommend">{{event_name}}
+                                                                </div>
+                                                            </a>
+                                                        </h3>
+                                                        <p class="text-recommend">{{description}}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="link-more-content-recommend">
                                         <div class="text-right">
@@ -260,42 +265,44 @@
                                     </a>
                                 </div>
                                 <div id="collapse2" class="card-block collapse show">
-                                    <div class="row justify-content-md-center" id="content-recommend-search-tips">
-                                        <div class="content-recommend">
-                                            <div class="listing-item-box"
-                                                onclick="clickToDetailTips('{{event_id}}' , '{{event_name}}')">
-                                                <div class="listing-thumbnail">
-                                                    <a href="./detail-tips.html?id={{event_id}}&name={{event_name}}"
-                                                        class="listing-photo">
-                                                        <!-- <div class="tag">Restourant</div> -->
-                                                        <div class="location">
-                                                            <i class="flaticon-pin"></i>{{location}}
-                                                        </div>
-                                                        <div class="ratings content-recommend-ratings-tips-{{event_id}}"
-                                                            data-start="{{ratings}}">
-                                                            <span>( {{reviwes}} )</span>
-                                                        </div>
-                                                        <img class="d-block w-100" src="{{thumbnail}}"
-                                                            alt="listing-photo">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <a class="icon">
-                                                        <i onclick="clickToSearehByType('{{service_id}}')"
-                                                            style="content: url({{icon}}); margin-top: 0px !important;"></i>
-                                                    </a>
-                                                    <h3 class="title">
-                                                        <a
-                                                            href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
-                                                            <div class="txt-content-recommend">{{event_name}}
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-auto" id="content-recommend-search-tips"
+                                            style="width: 100% !important;">
+                                            <div class="content-recommend">
+                                                <div class="listing-item-box"
+                                                    onclick="clickToDetailTips('{{event_id}}' , '{{event_name}}')">
+                                                    <div class="listing-thumbnail">
+                                                        <a href="./detail-tips.html?id={{event_id}}&name={{event_name}}"
+                                                            class="listing-photo">
+                                                            <!-- <div class="tag">Restourant</div> -->
+                                                            <div class="location">
+                                                                <i class="flaticon-pin"></i>{{location}}
                                                             </div>
+                                                            <div class="ratings content-recommend-ratings-tips-{{event_id}}"
+                                                                data-start="{{ratings}}">
+                                                                <span>( {{reviwes}} )</span>
+                                                            </div>
+                                                            <img class="d-block w-100" src="{{thumbnail}}"
+                                                                alt="listing-photo">
                                                         </a>
-                                                    </h3>
-                                                    <p class="text-recommend">{{description}}</p>
+                                                    </div>
+                                                    <div class="detail">
+                                                        <a class="icon">
+                                                            <i onclick="clickToSearehByType('{{service_id}}')"
+                                                                style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;""></i>
+                                                        </a>
+                                                        <h3 class="title">
+                                                            <a
+                                                                href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
+                                                                <div class="txt-content-recommend">{{event_name}}
+                                                                </div>
+                                                            </a>
+                                                        </h3>
+                                                        <p class="text-recommend">{{description}}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="link-more-content-recommend">
                                         <div class="text-right">
@@ -335,36 +342,38 @@
                                     </a>
                                 </div>
                                 <div id="collapse3" class="card-block collapse show">
-                                    <div class="row justify-content-md-center" id="content-recommend-search-article">
-                                        <div class="content-recommend">
-                                            <div class="listing-item-box">
-                                                <div class="listing-thumbnail">
-                                                    <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')"
-                                                        class="listing-photo">
-                                                        <!-- <div class="tag">Restourant</div> -->
-                                                        <!-- <div class="location">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-auto" id="content-recommend-search-article"
+                                            style="width: 100% !important;">
+                                            <div class="content-recommend">
+                                                <div class="listing-item-box">
+                                                    <div class="listing-thumbnail">
+                                                        <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')"
+                                                            class="listing-photo">
+                                                            <!-- <div class="tag">Restourant</div> -->
+                                                            <!-- <div class="location">
                                                             <i class="flaticon-pin"></i>{{location}}
                                                         </div> -->
-                                                        <div class="ratings content-recommend-ratings-article-{{event_id}}"
-                                                            data-start="{{ratings}}">
-                                                            <span>( {{reviwes}} )</span>
-                                                        </div>
-                                                        <img class="d-block w-100" src="{{thumbnail}}"
-                                                            alt="listing-photo">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <h3 class="title">
-                                                        <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')">
-                                                            <div class="txt-content-recommend">{{event_name}}
+                                                            <div class="ratings content-recommend-ratings-article-{{event_id}}"
+                                                                data-start="{{ratings}}">
+                                                                <span>( {{reviwes}} )</span>
                                                             </div>
+                                                            <img class="d-block w-100" src="{{thumbnail}}"
+                                                                alt="listing-photo">
                                                         </a>
-                                                    </h3>
-                                                    <p class="text-recommend">{{description}}</p>
+                                                    </div>
+                                                    <div class="detail">
+                                                        <h3 class="title">
+                                                            <a onclick="clickToBlogDetail('{{event_id}}' , '{{slug}}')">
+                                                                <div class="txt-content-recommend">{{event_name}}
+                                                                </div>
+                                                            </a>
+                                                        </h3>
+                                                        <p class="text-recommend">{{description}}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="link-more-content-recommend">
                                         <div class="text-right">

@@ -169,7 +169,9 @@ function genContentSearchDetail(dataList) {
             }
         }
     }
-
+    if (rawResultArray.length === 0) {
+        $("#result-search-listing").append("<center><h2>ไม่พบข้อมูล</h2></center>");
+    }
     closeLoading();
 }
 
@@ -196,8 +198,14 @@ function requestServiceInterestingCategorys() {
         }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
         $("#txt-search-bar").val(DATA_PARAM_IN_URL["text"]);
         $("#select-search-bar").val(DATA_PARAM_IN_URL["category_id"] == undefined ? DATA_PARAM_IN_URL["category_id"] : DATA_PARAM_IN_URL["category_id"]);
-        $('.selectpicker').selectpicker("refresh");
 
+        var templateCategorySelectMobile = $("#index-category-select-mobile").html();
+        $("#index-category-select-mobile").html(bindDataListToTemplate(templateCategorySelectMobile, [{
+            categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
+            categoryNameValue: ""
+        }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
+
+        $('.selectpicker').selectpicker("refresh");
 
 
         loadMainModalFavorite();
@@ -451,4 +459,19 @@ function requestServiceSearchArticleResult() {
     }
 
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
+}
+
+function clickBtnSearchBar(category_id) {
+    if (category_id == undefined) {
+
+        var param = {
+            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#index-txt-search").val(),
+            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#index-category-select").val(),
+        };
+    } else {
+        var param = {
+            category_id: category_id
+        };
+    }
+    window.location.href = "./search-article.html?" + convertJsonToParameterURL(param);
 }

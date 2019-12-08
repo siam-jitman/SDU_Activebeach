@@ -26,6 +26,8 @@ $(function () {
             var templateCategoryFirst = $("#index-category-first").html();
             var templateCategoryContent = $("#index-category-content").html();
 
+
+
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
             $("#index-category-select").html(bindDataListToTemplate(templateCategorySelect, [{
                 categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
@@ -33,6 +35,11 @@ $(function () {
             }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
             $("#index-category-first").html(bindDataToTemplate(templateCategoryFirst, JSON.parse(JSON.stringify(DATA_CATEGORYS[0]))));
 
+            var templateCategorySelectMobile = $("#index-category-select-mobile").html();
+            $("#index-category-select-mobile").html(bindDataListToTemplate(templateCategorySelectMobile, [{
+                categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
+                categoryNameValue: ""
+            }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
 
             loadMainModalFavorite();
 
@@ -172,11 +179,11 @@ $(function () {
             DATA_HOME_RECOMMEND_LANDMARK = []
             DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
-                if (dataList[i].title) {
-                    if (dataList[i].title[PAGE_LANGUAGE]) {
-                        var title = dataList[i].title[PAGE_LANGUAGE];
+                if (dataList[i].name) {
+                    if (dataList[i].name[PAGE_LANGUAGE]) {
+                        var title = dataList[i].name[PAGE_LANGUAGE];
                     } else {
-                        var title = dataList[i].title;
+                        var title = dataList[i].name;
                     }
                 } else {
                     var title = "";
@@ -227,11 +234,11 @@ $(function () {
             DATA_HOME_RECOMMEND_LANDMARK = []
             DATA_HOME_RECOMMEND_ATTACTIONS = []
             for (var i = 0; i < dataList.length; i++) {
-                if (dataList[i].title) {
-                    if (dataList[i].title[PAGE_LANGUAGE]) {
-                        var title = dataList[i].title[PAGE_LANGUAGE];
+                if (dataList[i].name) {
+                    if (dataList[i].name[PAGE_LANGUAGE]) {
+                        var title = dataList[i].name[PAGE_LANGUAGE];
                     } else {
-                        var title = dataList[i].title;
+                        var title = dataList[i].name;
                     }
                 } else {
                     var title = "";
@@ -285,8 +292,8 @@ function clickBtnSearchBar(category_id) {
     if (category_id == undefined) {
 
         var param = {
-            text: $("#index-txt-search").val(),
-            category_id: $("#index-category-select").val()
+            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#index-txt-search").val(),
+            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#index-category-select").val(),
         };
     } else {
         var param = {

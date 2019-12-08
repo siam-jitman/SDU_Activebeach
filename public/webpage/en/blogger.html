@@ -66,31 +66,25 @@
     <!-- Main header end -->
 
     <!-- Search mobile -->
-    <div class="search-area-3 clearfix d-md-none d-lg-none d-xl-none">
+    <!-- <div class="search-area-3 clearfix d-md-none d-lg-none d-xl-none">
         <div class="container">
             <div class="inline-search-area-2 row">
                 <div class="search-col col-lg-6 col-md-6 col-sm-12">
                     <input type="text" name="search" class="form-control has-icon b-radius"
-                        placeholder="Destination name">
-                </div>
-                <!-- <div class="search-col col-lg-6 col-md-6 col-sm-12">
-                    <select class="selectpicker search-fields" name="location">
-                        <option disable>Choose a category</option>
-                        <option>ทะเล</option>
-                        <option>วัด/โบราณสถาน</option>
-                        <option>ร้านอาหาร</option>
-                        <option>ฟิตเนส</option>
-                        <option>โยคะ</option>
+                        placeholder="Destination name" id="index-txt-search-mobile">
+                    <select class="selectpicker search-fields" id="index-category-select-mobile">
+                        <option value="{{categoryNameValue}}">{{categoryNameDisplay}}</option>
                     </select>
-                </div> -->
+                </div>
                 <div class="search-col col-12">
-                    <button class="btn button-theme btn-search btn-block b-radius">
-                        <i class="fa fa-search"></i><strong>Search</strong>
+                    <button class="btn button-theme btn-search btn-block b-radius"
+                        onclick="clickBtnSearchBar()"></button>
+                    <i class="fa fa-search"></i><strong>Search</strong>
                     </button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Search mobile -->
 
 
@@ -191,9 +185,9 @@
                         <ul class="contact-info">
                             <li>
                                 <i class="flaticon-pin"></i>Dr. Chawalsak Phetchanchai
-Computer Science Program,
- Suan Dusit University, 
-295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
+                                Computer Science Program,
+                                Suan Dusit University,
+                                295 Ratchasima road, Dusit, Dusit, Bangkok,Thailan
                             </li>
                             <li>
                                 <i class="flaticon-mail-1"></i><a
