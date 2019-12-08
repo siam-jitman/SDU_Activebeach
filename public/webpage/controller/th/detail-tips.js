@@ -137,7 +137,7 @@ function requestServiceTripAndEventDetail() {
             facebook: res.data.facebook,
             // images: res.data.images,
             images: res.data.images,
-            image_main: res.data.images[0],
+            image_main: res.data.thumbnail,
             line: res.data.line,
             location: res.data.location,
             // location_url: res.data.location_url,

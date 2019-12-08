@@ -23,7 +23,7 @@ $(function () {
             $('#alert-error').hide();
             if (localStorage.getItem("client_id") && localStorage.getItem("client_id") != "") {
                 $("#menu-login-group").hide();
-                $("#menu-profile-group").show();
+                $("#menu-profile-group").css("display", "flex");
             } else {
                 $("#menu-login-group").show();
                 $("#menu-profile-group").hide();
@@ -124,6 +124,10 @@ $(function () {
         } else {
             $('.sticky-header').addClass('header-shrink');
             $('.logo img').attr('src', '../img/logos/black-logo.png');
+        }
+
+        if ((window.location.href.indexOf("index.html") >= 0) || (window.location.href.endsWith("/th/")) || (window.location.href.endsWith("/en/"))) {
+            $('.btn-back-page').css("display", "none");
         }
     }
 
@@ -598,7 +602,7 @@ function requestServiceGetToken() {
                 name_member: res.data.user.first_name + " " + res.data.user.last_name
             }));
             $("#menu-login-group").hide();
-            $("#menu-profile-group").show();
+            $("#menu-profile-group").css("display", "flex");;
             closeLoading();
             $('#modalLogin').modal('hide');
         } else {
@@ -609,7 +613,7 @@ function requestServiceGetToken() {
                 name_member: "ข้อมูลสมาชิก"
             }));
             $("#menu-login-group").hide();
-            $("#menu-profile-group").show();
+            $("#menu-profile-group").css("display", "flex");;
             closeLoading();
             $('#modalLogin').modal('hide');
         }

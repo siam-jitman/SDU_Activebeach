@@ -93,6 +93,18 @@ ul {
     color: #535353;
 }
 
+.menu-login-group {
+    margin-top: 10px;
+}
+
+.menu-profile-group {
+    margin-top: 10px;
+    display: none;
+}
+
+.btn-back-page {
+    display: none;
+}
 
 .blogger-content-ellipsis {
     white-space: nowrap;
@@ -1103,7 +1115,7 @@ input[type=checkbox]:checked+label:before {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     text-align: center;
 }
@@ -2082,11 +2094,11 @@ input[type=checkbox]:checked+label:before {
 }
 
 .slick-next {
-    right: -15px;
+    right: -40px;
 }
 
 .slick-prev {
-    left: -15px;
+    left: -40px;
 }
 
 .slick-slide,
@@ -3373,6 +3385,7 @@ footer {
     position: relative;
     text-align: center;
     margin: 0 0 15px 0;
+    box-shadow: 0.5rem .125rem .25rem rgba(0, 0, 0, .095) !important;
 }
 
 .category:hover:before {
@@ -6327,10 +6340,10 @@ footer {
     margin-right: 25px;
 }
 
-
 .content-recommend {
+    padding: 20px;
     margin: 10px 0px 10px 0px;
-    max-width: 70%;
+    max-width: 100%;
 }
 
 .content-recommend>.listing-item-box {
@@ -6338,19 +6351,20 @@ footer {
 }
 
 .content-recommend>.listing-item-box .icon {
-    width: 30px;
+    /* width: 30px;
     height: 30px;
     line-height: 30px;
     border-radius: 30px;
-    top: -15px;
+    top: -15px; */
 
 }
 
 .content-recommend>.listing-item-box .icon i {
-    width: 16px;
-    line-height: 16px;
-    height: 16px;
-    font-size: 16px;
+    /* width: 30px;
+    line-height: 30px;
+    height: 30px;
+    font-size: 30px; */
+    line-height: 50px;
 }
 
 .content-recommend>.listing-item-box .location {
@@ -6486,7 +6500,6 @@ footer {
 @media all and (min-width: 1200px) {}
 
 @media all and (min-width: 992px) {
-
 
     .not-home {
         margin-top: 120px;
@@ -6631,6 +6644,25 @@ footer {
 
 @media (max-width: 992px) {
 
+
+    .btn-back-page {
+        display: block;
+        cursor: pointer;
+    }
+
+    .btn-back-page>img {
+        max-width: 20px;
+    }
+
+    .navbar-brand {
+        margin: 0px !important;
+        margin-right: unset !important;
+    }
+
+    .listing-item-box-2 .listing-img img {
+        max-height: 200px;
+    }
+
     .btn {
         padding: unset !important;
     }
@@ -6719,10 +6751,10 @@ footer {
 
 
         background: rgba(0, 0, 0, 0.04) url("../img/relaxing-3112750_960_720.jpg") top left repeat;
-        background-size: cover;
-        height: 200px;
+        /* background-size: cover;
         background-position: center center;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat; */
+        background: #FFF;
         position: relative;
     }
 
@@ -7158,6 +7190,9 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .listing-item-box-2 .listing-img img {
+        max-height: 200px;
+    }
 
     .bootstrap-select {
         /* width: 95% !important; */
@@ -7191,7 +7226,7 @@ footer {
     }
 
     .listing-banner {
-        height: 350px;
+        height: 450px;
     }
 
     .banner_video_bg .carousel-item {
@@ -7852,6 +7887,9 @@ footer {
 }
 
 @media (max-width: 580px) {
+    .listing-item-box-2 .listing-img img {
+        max-height: 200px;
+    }
 
     .btn-link {
         font-size: 12px !important;
