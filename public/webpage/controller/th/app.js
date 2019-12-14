@@ -1,3 +1,21 @@
+var GOOGLE_API_KEY = "AIzaSyA2YAL6f4MU41XbgBwPaX2TbTaZF1azGk4";
+var CONFIG_SLIDE = {
+    'centerMode': true,
+    'slidesToShow': 3,
+    'slidesToScroll': 3,
+    'responsive': [{
+        'breakpoint': 1024,
+        'settings': {
+            'slidesToShow': 2
+        }
+    }, {
+        'breakpoint': 768,
+        'settings': {
+            'slidesToShow': 1
+        }
+    }]
+};
+
 $(function () {
 
     'use strict';
@@ -23,7 +41,7 @@ $(function () {
             $('#alert-error').hide();
             if (localStorage.getItem("client_id") && localStorage.getItem("client_id") != "") {
                 $("#menu-login-group").hide();
-                $("#menu-profile-group").css("display" , "flex");;
+                $("#menu-profile-group").css("display", "flex");;
             } else {
                 $("#menu-login-group").show();
                 $("#menu-profile-group").hide();
@@ -551,27 +569,27 @@ function clickBtnFavorite() {
 }
 
 function requestServiceInvokeToken() {
-    var dooSuccess = function (res) {
+    // var dooSuccess = function (res) {
 
-        if (res && res.data.success) {
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("expire");
-            localStorage.removeItem("client_id");
-            localStorage.removeItem("first_name");
-            localStorage.removeItem("last_name");
+    // if (res && res.data.success) {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("expire");
+    localStorage.removeItem("client_id");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
 
-            // $("#menu-login-group").show();
-            // $("#menu-profile-group").hide();
+    // $("#menu-login-group").show();
+    // $("#menu-profile-group").hide();
 
-            // closeLoading();
-            location.reload();
-        } else {
+    // closeLoading();
+    location.reload();
+    // } else {
 
-            closeLoading();
-        }
-    }
+    // closeLoading();
+    // }
+    // }
 
-    requestFormBodyService(URL_AUTH_INVOKE_TOKEN, "POST", "", dooSuccess);
+    // requestFormBodyService(URL_AUTH_INVOKE_TOKEN, "POST", "", dooSuccess);
 }
 
 function requestServiceAuthToken(param) {
@@ -594,14 +612,15 @@ function requestServiceAuthToken(param) {
 function requestServiceGetToken() {
     var dooSuccess = function (res) {
         if (res && res.data.success) {
-            localStorage.setItem("first_name", res.data.user.first_name);
-            localStorage.setItem("last_name", res.data.user.last_name);
+            console.log("requestServiceGetToken", res.data.user)
+            localStorage.setItem("first_name", res.data.user.authFirstName);
+            localStorage.setItem("last_name", res.data.user.authLastName);
             var templateHeaderNameMember = $("#header-name-member").html();
             $("#header-name-member").html(bindDataToTemplate(templateHeaderNameMember, {
-                name_member: res.data.user.first_name + " " + res.data.user.last_name
+                name_member: res.data.user.authFullName
             }));
             $("#menu-login-group").hide();
-            $("#menu-profile-group").css("display" , "flex");;
+            $("#menu-profile-group").css("display", "flex");;
             closeLoading();
             $('#modalLogin').modal('hide');
         } else {
@@ -609,10 +628,10 @@ function requestServiceGetToken() {
             localStorage.setItem("last_name", "");
             var templateHeaderNameMember = $("#header-name-member").html();
             $("#header-name-member").html(bindDataToTemplate(templateHeaderNameMember, {
-                name_member: "ข้อมูลสมาชิก"
+                name_member: "Member"
             }));
             $("#menu-login-group").hide();
-            $("#menu-profile-group").css("display" , "flex");;
+            $("#menu-profile-group").css("display", "flex");;
             closeLoading();
             $('#modalLogin').modal('hide');
         }

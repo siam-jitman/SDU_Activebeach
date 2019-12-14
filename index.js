@@ -92,7 +92,7 @@ app.get('/proxy/*', async (req, res, next) => {
     console.log(serviceContext);
 
     let proxy = new ProxyCtrl();
-    let serviceResponse = await proxy.get(serviceContext)
+    let serviceResponse = await proxy.get(serviceContext, req.headers.authorization ? req.headers.authorization : "")
     proxy.proxyResponse(res, serviceResponse);
 });
 

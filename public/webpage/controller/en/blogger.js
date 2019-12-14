@@ -106,12 +106,9 @@ $(function () {
 });
 
 function requestServiceBlogHistory() {
-    var client_id = guid();
-    if (localStorage.getItem("client_id") != undefined) {
-        client_id = localStorage.getItem("client_id");
-    }
 
     var author = window.location.href.split("/blog/author/")[1].split("/")[0];
+    var client_id = window.location.href.split("/blog/author/")[1].split("/")[1];
 
     var param = {
         author: author,

@@ -204,7 +204,7 @@
                                                             </div>
                                                             <div class="ratings content-recommend-ratings-event-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -283,7 +283,7 @@
                                                             </div>
                                                             <div class="ratings content-recommend-ratings-tips-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -334,7 +334,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-right">
+                    <div class="sidebar-right" id="main-content-recommend-search-article">
                         <!-- Advanced search start -->
                         <div id="faq" class="faq-accordion">
                             <div class="card m-b-0">
@@ -360,7 +360,7 @@
                                                         </div> -->
                                                             <div class="ratings content-recommend-ratings-article-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -548,7 +548,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-pad">
                     <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">
-                        <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-img">
+                        <a onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')" class="listing-img">
                             <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
 
                             <div class="ratings score-reviews-attaction-{{meta_id}}" data-start="{{ratings}}">
@@ -568,14 +568,14 @@
                 <div class="col-lg-7 col-md-7 col-pad">
                     <div class="detail">
                         <h3 class="title">
-                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">{{companyName}}</a>
+                            <a onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">{{companyName}}</a>
                         </h3>
                         <h5 class="location clearfix">
-                            <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}">
+                            <a onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
-                        <p>{{description}}</p>
+                        <p onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">{{description}}</p>
                     </div>
                 </div>
             </div>
@@ -586,8 +586,8 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="listing-item-box">
-                <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}')">
-                    <a href="./detail-event.html?id={{meta_id}}&name={{companyName}}" class="listing-photo">
+                <div class="listing-thumbnail" onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">
+                    <a onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')" class="listing-photo">
                         <!-- <div class="tag">Restourant</div> -->
                         <div class="location">
                             <i class="flaticon-pin"></i>{{location}}
@@ -602,7 +602,7 @@
                         <i
                             style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;"></i>
                     </a>
-                    <p>{{description}}
+                    <p onclick="clickBtnToDetailEvent('{{meta_id}}','{{companyName}}')">{{description}}
                     </p>
                 </div>
             </div>

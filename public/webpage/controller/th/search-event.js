@@ -94,6 +94,8 @@ function clickBtnToDetail(id) {
 
 function clickBtnToDetailEvent(id, name) {
 
+    console.log("clickBtnToDetailEvent", id, name);
+
     var param = {
         id: id,
         name: name
@@ -136,14 +138,14 @@ function genContentSearchDetail(dataList) {
 
     for (var i = 0; i < dataList.length; i++) {
 
-        rawResult = dataList[i];
+        rawResult = JSON.parse(JSON.stringify(dataList[i]));
         rawResult.meta_id = dataList[i].id[PAGE_LANGUAGE];
         rawResult.thumbnail = dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].name[PAGE_LANGUAGE];
-        rawResult.location = dataList[i].location;
+        rawResult.companyName = checkFieldForLanguageNull(dataList[i].name);
+        rawResult.location = dataList[i].address;
         rawResult.description = dataList[i].content;
         rawResult.reviews = "";
-        rawResult.reviews = dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
         rawResult.ratings = dataList[i].ratings;
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
@@ -252,7 +254,7 @@ function requestSearchResult() {
                     location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "Review"),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
 
@@ -343,9 +345,9 @@ function requestServiceSearchEventResult() {
         $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
         $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
 
-        SEARCH_RESULT_LIST = data.events;
-        RAW_SEARCH_RESULT_LIST = data.events;
-        MAX_SHOW_SIZE = data.events.length;
+        SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
+        RAW_SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
+        MAX_SHOW_SIZE = data.events === null ? 0 : data.events.length;
 
         SHOW_SIZE = COUNT_SHOW_SIZE;
         genSizeShowContentSearchDetail();
@@ -370,7 +372,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.trips;
+        var eventResultList = res.data.trips === null ? [] : res.data.trips;;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -380,10 +382,10 @@ function requestServiceSearchTipsResult() {
                     ...eventResultList[i],
                     event_id: eventResultList[i].id[PAGE_LANGUAGE],
                     event_name: eventResultList[i].name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
+                    location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -429,50 +431,56 @@ function requestServiceSearchArticleResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.blogs;
-        var rawEventResultList = [];
+        var eventResultList = res.data.blogs === undefined ? [] : res.data.blogs;
 
-        for (var i = 0; i < eventResultList.length; i++) {
-            if (i <= 2) {
-                rawEventResultList.push({
-                    ...eventResultList[i],
-                    event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
-                    event_name: eventResultList[i].subject,
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].content,
-                    ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
-                    thumbnail: eventResultList[i].thumbnail,
-                    icon: eventResultList[i].icon,
+        if (!eventResultList || eventResultList.length === 0) {
+            $("#main-content-recommend-search-article").css("display", "none")
+        } else {
+            var rawEventResultList = [];
 
-                    slug: eventResultList[i].slug[PAGE_LANGUAGE],
-                });
-            } else {
-                break;
-            }
-        }
+            for (var i = 0; i < eventResultList.length; i++) {
+                if (i <= 2) {
+                    rawEventResultList.push({
+                        ...eventResultList[i],
+                        event_id: eventResultList[i].blog_id[PAGE_LANGUAGE],
+                        event_name: eventResultList[i].subject,
+                        location: eventResultList[i].address,
+                        description: eventResultList[i].content,
+                        ratings: eventResultList[i].ratings,
+                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                        thumbnail: eventResultList[i].thumbnail,
+                        icon: eventResultList[i].icon,
 
-        var templateRecommendEvent = $("#content-recommend-search-article").html();
-        $("#content-recommend-search-article").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
-
-        for (var i = 0; i < eventResultList.length; i++) {
-
-            if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
-                var score = templateScore.data("start");
-                var iconStartSelect = '<i class="fa fa-star"></i>';
-                var iconStartNone = '<i class="fa fa-star-o"></i>';
-                for (var n = 5; n >= 1; n--) {
-                    if (n <= score) {
-                        templateScore.prepend(iconStartSelect);
-                    } else {
-                        templateScore.prepend(iconStartNone);
-                    }
+                        slug: eventResultList[i].slug[PAGE_LANGUAGE],
+                    });
+                } else {
+                    break;
                 }
-            } else {
-                break;
+            }
+
+            var templateRecommendEvent = $("#content-recommend-search-article").html();
+            $("#content-recommend-search-article").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
+
+            for (var i = 0; i < eventResultList.length; i++) {
+
+                if (i <= 2) {
+                    var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].blog_id[PAGE_LANGUAGE]);
+                    var score = templateScore.data("start");
+                    var iconStartSelect = '<i class="fa fa-star"></i>';
+                    var iconStartNone = '<i class="fa fa-star-o"></i>';
+                    for (var n = 5; n >= 1; n--) {
+                        if (n <= score) {
+                            templateScore.prepend(iconStartSelect);
+                        } else {
+                            templateScore.prepend(iconStartNone);
+                        }
+                    }
+                } else {
+                    break;
+                }
             }
         }
+
     }
 
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);

@@ -93,6 +93,14 @@ ul {
     color: #535353;
 }
 
+.image-google-map {
+    cursor: pointer;
+    max-width: 100%;
+    -webkit-box-shadow: 1px 1px 10px 0 rgba(66, 67, 67, 0.46);
+    -moz-box-shadow: 1px 1px 10px 0 rgba(66, 67, 67, 0.46);
+    box-shadow: 1px 1px 10px 0px rgba(66, 67, 67, 0.46);
+}
+
 .menu-login-group {
     margin-top: 10px;
 }
@@ -1853,6 +1861,7 @@ input[type=checkbox]:checked+label:before {
 
 /** listing item box  start **/
 .listing-item-box {
+    max-width: 400px;
     font-family: 'Sarabun', sans-serif;
     position: relative;
     margin-bottom: 30px;
@@ -4814,7 +4823,8 @@ footer {
 }
 
 .add-review .ratings-3 i:hover {
-    color: #ffc12b;
+    /* color: #ffc12b; */
+    cursor: pointer;
 }
 
 .add-review .ratings-3 {
@@ -6369,18 +6379,22 @@ footer {
 
 .content-recommend>.listing-item-box .location {
     white-space: nowrap;
-    width: 150px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: -1em !important;
+    padding-right: 1em !important;
 }
 
 .txt-content-recommend {
     white-space: nowrap;
-    width: 150px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
     line-height: 20px !important;
+    margin-right: -1em !important;
+    padding-right: 1em !important;
 }
 
 
@@ -6664,7 +6678,7 @@ footer {
     }
 
     .btn {
-        padding: unset !important;
+        /* padding: unset !important; */
     }
 
     .form-control {
@@ -7190,6 +7204,8 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+
     .listing-item-box-2 .listing-img img {
         max-height: 200px;
     }
@@ -7204,7 +7220,7 @@ footer {
     }
 
     .btn {
-        padding: unset !important;
+        /* padding: unset !important; */
     }
 
     .bootstrap-select button {
@@ -7887,6 +7903,15 @@ footer {
 }
 
 @media (max-width: 580px) {
+
+    .slick-next {
+        right: 0px;
+    }
+
+    .slick-prev {
+        left: 0px;
+    }
+
     .listing-item-box-2 .listing-img img {
         max-height: 200px;
     }

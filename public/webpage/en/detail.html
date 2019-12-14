@@ -222,11 +222,16 @@
                                 <div class="add-review-text clearfix">
                                     <span class="leave-rating-title">Rate it : </span>
                                     <div class="ratings-3">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star" id="select-ratings-1" onmouseover="overSelectRatings(1)"
+                                            onmouseleave="leaveSelectRatings(1)" onclick="clickSelectRatings(1)"></i>
+                                        <i class="fa fa-star" id="select-ratings-2" onmouseover="overSelectRatings(2)"
+                                            onmouseleave="leaveSelectRatings(2)" onclick="clickSelectRatings(2)"></i>
+                                        <i class="fa fa-star" id="select-ratings-3" onmouseover="overSelectRatings(3)"
+                                            onmouseleave="leaveSelectRatings(3)" onclick="clickSelectRatings(3)"></i>
+                                        <i class="fa fa-star" id="select-ratings-4" onmouseover="overSelectRatings(4)"
+                                            onmouseleave="leaveSelectRatings(4)" onclick="clickSelectRatings(4)"></i>
+                                        <i class="fa fa-star" id="select-ratings-5" onmouseover="overSelectRatings(5)"
+                                            onmouseleave="leaveSelectRatings(5)" onclick="clickSelectRatings(5)"></i>
                                     </div>
                                 </div>
                             </div>
@@ -273,11 +278,14 @@
 
                         <div class="sidebar-box-shadow">
                             <!-- Opening hours start -->
-                            <div class="widget opening-hours">
+                            <div class="widget opening-hours" id="main-map-detail-content">
                                 <h3 class="sidebar-title">Map</h3>
                                 <div class="s-border"></div>
                                 <div class="iframe-map-detail" id="map-detail-content">
-                                    <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe>
+                                    <!-- <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe> -->
+                                    <img onclick="linkToGoogleMap('{{location_latitude}}','{{location_longitude}}')"
+                                        src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=400x300&maptype=roadmap&markers=color:red%7C{{location_latitude}},{{location_longitude}}&key={{API_KEY}}"
+                                        class="image-google-map" />
                                 </div>
                             </div>
                             <!-- Recent listing start -->
@@ -344,7 +352,7 @@
 
 
             <!-- แนะนำสถานที่ใกล้เคียง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-attactions">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -381,8 +389,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-attactions"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-attactions">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -426,7 +433,7 @@
             <!-- แนะนำสถานที่ใกล้เคียง -->
 
             <!-- สถานที่เกี่ยวข้อง และ ทริปเกี่ยวข้อง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-tips">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -463,8 +470,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-tips"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-tips">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -508,7 +514,7 @@
             <!-- สถานที่เกี่ยวข้อง และ ทริปเกี่ยวข้อง -->
 
             <!-- Related activities -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-events">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -545,8 +551,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-events"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-events">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -590,7 +595,7 @@
             <!-- Related activities -->
 
             <!-- Related articles -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-articles">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -627,8 +632,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-articles"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-articles">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"

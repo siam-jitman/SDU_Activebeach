@@ -221,11 +221,16 @@
                                 <div class="add-review-text clearfix">
                                     <span class="leave-rating-title">ให้คะแนน : </span>
                                     <div class="ratings-3">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star" id="select-ratings-1" onmouseover="overSelectRatings(1)"
+                                            onmouseleave="leaveSelectRatings(1)" onclick="clickSelectRatings(1)"></i>
+                                        <i class="fa fa-star" id="select-ratings-2" onmouseover="overSelectRatings(2)"
+                                            onmouseleave="leaveSelectRatings(2)" onclick="clickSelectRatings(2)"></i>
+                                        <i class="fa fa-star" id="select-ratings-3" onmouseover="overSelectRatings(3)"
+                                            onmouseleave="leaveSelectRatings(3)" onclick="clickSelectRatings(3)"></i>
+                                        <i class="fa fa-star" id="select-ratings-4" onmouseover="overSelectRatings(4)"
+                                            onmouseleave="leaveSelectRatings(4)" onclick="clickSelectRatings(4)"></i>
+                                        <i class="fa fa-star" id="select-ratings-5" onmouseover="overSelectRatings(5)"
+                                            onmouseleave="leaveSelectRatings(5)" onclick="clickSelectRatings(5)"></i>
                                     </div>
                                 </div>
                             </div>
@@ -272,13 +277,14 @@
 
                         <div class="sidebar-box-shadow">
                             <!-- Opening hours start -->
-                            <div class="widget opening-hours">
+                            <div class="widget opening-hours" id="main-map-detail-content">
                                 <h3 class="sidebar-title">แผนที่</h3>
                                 <div class="s-border"></div>
                                 <div class="iframe-map-detail" id="map-detail-content">
-                                    <iframe
-                                        src="https://www.google.co.th/maps/place/5+%E0%B8%96%E0%B8%99%E0%B8%99+%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B2%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%B0%E0%B8%AB%E0%B9%8C+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87+%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10400/@13.7697691,100.557733,17z/data=!3m1!4b1!4m5!3m4!1s0x30e29e9a5abc6aef:0xc42d99262d86a1e9!8m2!3d13.7697691!4d100.5599217?hl=th&authuser=0"
-                                        frameborder="0" allowfullscreen=""></iframe>
+                                    <!-- <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe> -->
+                                    <img onclick="linkToGoogleMap('{{location_latitude}}','{{location_longitude}}')"
+                                        src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=400x300&maptype=roadmap&markers=color:red%7C{{location_latitude}},{{location_longitude}}&key={{API_KEY}}"
+                                        class="image-google-map" />
                                 </div>
                             </div>
                             <!-- Recent listing start -->
@@ -345,7 +351,7 @@
 
 
             <!-- แนะนำสถานที่ใกล้เคียง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-attactions">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -382,12 +388,11 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-attactions"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-attactions">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
-                                        onclick="clickBtnToDetailRecommendAttactions('{{meta_id}}', '{{company_id}}', '{{title}}')">
+                                        onclick="clickBtnToDetailRecommendAttactions('{{meta_id}}', '{{company_id}}', '{{title}}' , '{{service_id}}', '{{service_name}}')">
                                         <a class="listing-photo">
                                             <!-- <div class="tag">Restourant</div> -->
                                             <div class="location">
@@ -427,7 +432,7 @@
             <!-- แนะนำสถานที่ใกล้เคียง -->
 
             <!-- สถานที่เกี่ยวข้อง และ ทริปเกี่ยวข้อง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-tips">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -464,8 +469,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-tips"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-tips">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -509,7 +513,7 @@
             <!-- สถานที่เกี่ยวข้อง และ ทริปเกี่ยวข้อง -->
 
             <!-- กิจกรรมที่เกี่ยวข้อง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-events">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -546,8 +550,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-events"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-events">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -591,7 +594,7 @@
             <!-- กิจกรรมที่เกี่ยวข้อง -->
 
             <!-- บทความที่เกี่ยวข้อง -->
-            <div class="listing-item content-area bg-grea-3 bg-detail-recomand">
+            <div class="listing-item content-area bg-grea-3 bg-detail-recomand" id="main-content-recommend-articles">
                 <div class="container">
                     <!-- Main title -->
                     <div class="row">
@@ -628,8 +631,7 @@
                     </div>
                     <!-- Slick slider area start -->
                     <div class="slick-slider-area">
-                        <div class="row" id="content-recommend-articles"
-                            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        <div class="row" id="content-recommend-articles">
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
@@ -808,7 +810,9 @@
                 <div class="comment">
                     <div class="comment-author">
                         <a>
-                            <img src="{{client_image}}" title="{{name}}" alt="comments-user">
+                            <img id="client_comment_image_{{comment_id}}" src="{{client_image}}" title="{{name}}"
+                                alt="comments-user">
+                            <i id="client_comment_icon_{{comment_id}}" class="fa fa-user" style="display: none;"></i>
                         </a>
                     </div>
                     <div class="comment-content">

@@ -130,7 +130,7 @@ function requestServiceTripAndEventDetail() {
 
         var resulrList = {
 
-            company_name: res.data.name[PAGE_LANGUAGE],
+            company_name: checkFieldForLanguageNull(res.data.name),
             company_id: res.data.id[PAGE_LANGUAGE],
             contact: res.data.contact,
             // description: res.data.description,
@@ -174,10 +174,16 @@ function requestServiceTripAndEventDetail() {
 
         templateScore.prepend('<span class="ratings-box">' + res.data.ratings + '/' + res.data.max_rating + '</span>');
 
+        console.log("resulrList.images", resulrList.images)
 
-        var templateSlideDetailContent = $("#slide-detail-content").html();
-        $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
-        createSlick("#slide-detail-content");
+        if (resulrList.images === null || resulrList.images === undefined || resulrList.images.length <= 0) {
+
+            document.getElementById("galleryImage").setAttribute('style', 'display: none');
+        } else {
+            var templateSlideDetailContent = $("#slide-detail-content").html();
+            $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
+            createSlick("#slide-detail-content");
+        }
 
         // var templateVideoDetailContent = $("#video-detail-content").html();
         // $("#video-detail-content").html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
@@ -223,14 +229,21 @@ function requestServiceReviewComments(scroll, id) {
             // resultList[i].comments = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.";
         }
 
-        var templateTempComments = $("#temp-template-comments").html();
-        $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+        if (resultList.length <= 0) {
+            document.getElementById("content-detail-comments").setAttribute("style", "display:none");
+            document.getElementById("blank-content-detail-comments").setAttribute("style", "display:block");
+        } else {
+            var templateTempComments = $("#temp-template-comments").html();
+            $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
 
-        if (scroll) {
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#comment-id-" + id).offset().top - 150
-            }, 1000);
+            if (scroll) {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#comment-id-" + id).offset().top - 150
+                }, 1000);
+            }
         }
+
+
 
     }
 
@@ -243,40 +256,43 @@ function requestServiceReviewAddedComment() {
         client_id = localStorage.getItem("client_id");
     }
 
-    // if ($("#file-image-upload-review")[0].files[0]) {
+    if ($("#file-image-upload-review")[0].files[0]) {
 
-    //     var param = {
-    //         client_id: client_id,
-    //         name: $("#name-send-review").val(),
-    //         subject: $("#subject-send-review").val(),
-    //         comments: $("#comments-send-review").val(),
-    //         uploads: $("#file-image-upload-review")[0].files[0],
-    //         action: "add",
-    //         id: DATA_PARAM_IN_URL["id"],
-    //         category: "event"
-    //     }
-    // } else {
-    //     var param = {
-    //         client_id: client_id,
-    //         name: $("#name-send-review").val(),
-    //         subject: $("#subject-send-review").val(),
-    //         comments: $("#comments-send-review").val(),
-    //         action: "add",
-    //         id: DATA_PARAM_IN_URL["id"],
-    //         category: "event"
-    //     }
-    // }
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            uploads: $("#file-image-upload-review")[0].files[0],
+            action: "add",
+            id: DATA_PARAM_IN_URL["id"],
+            category: "event",
+            lang: PAGE_LANGUAGE,
+        }
+    } else {
 
-    var param = {
-        client_id: client_id,
-        name: $("#name-send-review").val(),
-        subject: $("#subject-send-review").val(),
-        comments: $("#comments-send-review").val(),
-        uploads: $("#file-image-upload-review")[0].files[0],
-        action: "add",
-        id: DATA_PARAM_IN_URL["id"],
-        category: "event"
+        var param = {
+            client: client_id,
+            name: $("#name-send-review").val(),
+            subject: $("#subject-send-review").val(),
+            comments: $("#comments-send-review").val(),
+            action: "add",
+            id: DATA_PARAM_IN_URL["id"],
+            category: "event",
+            lang: PAGE_LANGUAGE
+        }
     }
+
+    // var param = {
+    //     client_id: client_id,
+    //     name: $("#name-send-review").val(),
+    //     subject: $("#subject-send-review").val(),
+    //     comments: $("#comments-send-review").val(),
+    //     uploads: $("#file-image-upload-review")[0].files[0],
+    //     action: "add",
+    //     id: DATA_PARAM_IN_URL["id"],
+    //     category: "event"
+    // }
 
     var dooSuccess = function (res) {
         if (res.data.success) {
