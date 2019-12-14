@@ -125,12 +125,12 @@ function genContentSearchDetail(dataList) {
     var rawResultArray = [];
 
     for (var i = 0; i < dataList.length; i++) {
-        rawResult = dataList[i];
+        rawResult = JSON.parse(JSON.stringify(dataList[i]));
         rawResult.meta_id = dataList[i].blog_id[PAGE_LANGUAGE];
         // rawResult.meta_id = dataList[i].blog_scope;
         rawResult.thumbnail = dataList[i].thumbnail;
-        rawResult.companyName = dataList[i].subject;
-        rawResult.location = dataList[i].location;
+        rawResult.companyName = checkFieldForLanguageNull(dataList[i].subject);
+        rawResult.location = dataList[i].address;
         rawResult.description = dataList[i].content;
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " Reviews" : "");
         rawResult.ratings = dataList[i].ratings;
@@ -240,7 +240,7 @@ function requestSearchResult() {
                     location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
 
@@ -329,9 +329,9 @@ function requestServiceSearchEventResult() {
         $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
         $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "en" ? " List" : ""));
 
-        SEARCH_RESULT_LIST = data.blogs;
-        RAW_SEARCH_RESULT_LIST = data.blogs;
-        MAX_SHOW_SIZE = data.blogs.length;
+        SEARCH_RESULT_LIST = data.blogs === null ? [] : data.blogs;
+        RAW_SEARCH_RESULT_LIST = data.blogs === null ? [] : data.blogs;
+        MAX_SHOW_SIZE = data.blogs === null ? 0 : data.blogs.length;
 
         SHOW_SIZE = COUNT_SHOW_SIZE;
         genSizeShowContentSearchDetail();
@@ -356,7 +356,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.events;
+        var eventResultList = res.data.events === null ? [] : res.data.events;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -364,10 +364,10 @@ function requestServiceSearchTipsResult() {
                 ...eventResultList[i],
                 event_id: eventResultList[i].event_id,
                 event_name: eventResultList[i].event_name[PAGE_LANGUAGE],
-                location: eventResultList[i].location,
+                location: eventResultList[i].address,
                 description: eventResultList[i].description,
                 ratings: eventResultList[i].ratings,
-                reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
+                reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "en" ? " List" : ""),
                 thumbnail: eventResultList[i].thumbnail,
                 icon: eventResultList[i].icon,
             });
@@ -410,46 +410,52 @@ function requestServiceSearchArticleResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.trips;
-        var rawEventResultList = [];
+        var eventResultList = res.data.blogs === undefined ? [] : res.data.blogs;
 
-        for (var i = 0; i < eventResultList.length; i++) {
-            if (i <= 2) {
-                rawEventResultList.push({
-                    ...eventResultList[i],
-                    event_id: eventResultList[i].trip_id,
-                    event_name: eventResultList[i].trip_name[PAGE_LANGUAGE],
-                    location: eventResultList[i].location,
-                    description: eventResultList[i].description,
-                    ratings: eventResultList[i].ratings,
-                    reviwes: eventResultList[i].reviwes + (PAGE_LANGUAGE == "en" ? " List" : ""),
-                    thumbnail: eventResultList[i].thumbnail,
-                    icon: eventResultList[i].icon,
+        if (!eventResultList || eventResultList.length === 0) {
+            $("#main-content-recommend-search-article").css("display", "none")
+        } else {
 
-                });
-            } else {
-                break;
-            }
-        }
+            var rawEventResultList = [];
 
-        var templateRecommendEvent = $("#content-recommend-search-article").html();
-        $("#content-recommend-search-article").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
+            for (var i = 0; i < eventResultList.length; i++) {
+                if (i <= 2) {
+                    rawEventResultList.push({
+                        ...eventResultList[i],
+                        event_id: eventResultList[i].id[PAGE_LANGUAGE],
+                        event_name: eventResultList[i].name[PAGE_LANGUAGE],
+                        location: eventResultList[i].address,
+                        description: eventResultList[i].content,
+                        ratings: eventResultList[i].ratings,
+                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
+                        thumbnail: eventResultList[i].thumbnail,
+                        icon: eventResultList[i].icon,
 
-        for (var i = 0; i < eventResultList.length; i++) {
-            if (i <= 2) {
-                var templateScore = $(".content-recommend-ratings-article-" + i);
-                var score = templateScore.data("start");
-                var iconStartSelect = '<i class="fa fa-star"></i>';
-                var iconStartNone = '<i class="fa fa-star-o"></i>';
-                for (var n = 5; n >= 1; n--) {
-                    if (n <= score) {
-                        templateScore.prepend(iconStartSelect);
-                    } else {
-                        templateScore.prepend(iconStartNone);
-                    }
+                    });
+                } else {
+                    break;
                 }
-            } else {
-                break;
+            }
+
+            var templateRecommendEvent = $("#content-recommend-search-article").html();
+            $("#content-recommend-search-article").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
+
+            for (var i = 0; i < eventResultList.length; i++) {
+                if (i <= 2) {
+                    var templateScore = $(".content-recommend-ratings-article-" + eventResultList[i].id[PAGE_LANGUAGE]);
+                    var score = templateScore.data("start");
+                    var iconStartSelect = '<i class="fa fa-star"></i>';
+                    var iconStartNone = '<i class="fa fa-star-o"></i>';
+                    for (var n = 5; n >= 1; n--) {
+                        if (n <= score) {
+                            templateScore.prepend(iconStartSelect);
+                        } else {
+                            templateScore.prepend(iconStartNone);
+                        }
+                    }
+                } else {
+                    break;
+                }
             }
         }
     }

@@ -148,8 +148,8 @@ function requestServiceReviewDetail() {
             images: res.data.images,
             image_main: res.data.thumbnail,
             line: res.data.line,
-            location: res.data.location,
-            // location_url: res.data.location_url,
+            // location: res.data.location,
+            // // location_url: res.data.location_url,
             location: res.data.location,
             max_rating: res.data.max_rating,
             meta_id: res.data.meta_id,
@@ -160,8 +160,21 @@ function requestServiceReviewDetail() {
             service_name: res.data.service_name[PAGE_LANGUAGE],
             // video: res.data.video,
             video: res.data.video,
-            website: res.data.website
+            website: res.data.website,
+
+            location_url: res.data.location_url ? res.data.location_url : "",
+            location_latitude: res.data.location_latitude ? res.data.location_latitude : "13.736717",
+            location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
+            map_exsist: res.data.map_exsist ? res.data.map_exsist : true,
+            API_KEY: GOOGLE_API_KEY,
         };
+
+        if (!resulrList.map_exsist) {
+            document.getElementById("main-map-detail-content").setAttribute("style", "display: none")
+        } else {
+            var templateMapDetailContent = $("#map-detail-content").html();
+            $("#map-detail-content").html(bindDataToTemplate(templateMapDetailContent, resulrList));
+        }
 
         // for (var i = 0; i < res.data.length; i++) {
         //     resulrList.push({
@@ -188,8 +201,8 @@ function requestServiceReviewDetail() {
 
 
         if (res.data.images.length === 0) {
-
-            $("#galleryImage").css("diaplay", "none");
+            // $("#galleryImage")[0].setAttribute('style', '"diaplay: none"');
+            document.getElementById("galleryImage").setAttribute('style', 'display: none');
         } else {
 
             var templateSlideDetailContent = $("#slide-detail-content").html();
@@ -199,11 +212,11 @@ function requestServiceReviewDetail() {
 
         if (res.data.video.length === 0) {
 
-            $("#galleryVideo").css("diaplay", "none");
+            document.getElementById("galleryVideo").setAttribute('style', 'display: none');
         } else {
 
             var templateVideoDetailContent = $("#video-detail-content").html();
-            $("#video-detail-content").html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
+            $("#video-detail-content")[0].html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
             createSlick("#video-detail-content");
         }
 
@@ -212,9 +225,6 @@ function requestServiceReviewDetail() {
 
         var templateLocationDetailContent = $("#location-detail-content").html();
         $("#location-detail-content").html(bindDataToTemplate(templateLocationDetailContent, resulrList));
-
-        var templateMapDetailContent = $("#map-detail-content").html();
-        $("#map-detail-content").html(bindDataToTemplate(templateMapDetailContent, resulrList));
 
         var templateContactDetailContent = $("#contact-detail-content").html();
         $("#contact-detail-content").html(bindDataListToTemplateNotMap(templateContactDetailContent, resulrList.contact));
@@ -234,11 +244,21 @@ function requestServiceReviewDetail() {
 
         meta_id = res.data.meta_id;
 
+        var oldScore = JSON.parse(localStorage.getItem("score_company"));
+        if (oldScore) {
+            for (var i = 0; i < oldScore.length; i++) {
+                if (oldScore[i].meta_id === meta_id) {
+                    overSelectRatings(oldScore[i].score);
+                }
+            }
+        }
+
         var paramTracking = {
             client_id: localStorage.getItem("client_id") === undefined ? new Date().getTime() : localStorage.getItem("client_id"),
             company_id: res.data.company_id[PAGE_LANGUAGE],
             meta_id: res.data.meta_id,
         }
+
         requestServiceTrackingDetail(paramTracking)
         closeLoading();
     }
@@ -269,44 +289,57 @@ function requestServiceReviewNearbyAttactions() {
                 resultList[i].icon = resultList[i].icon;
                 resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
-                resultList[i].title = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
+                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
                 datalist.push(resultList[i])
             }
 
         }
 
-        var templateContentRecommendAttactions = $("#content-recommend-attactions").html();
-        $("#content-recommend-attactions").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
-        createSlick("#content-recommend-attactions");
+        if (datalist.length <= 0) {
+            document.getElementById("main-content-recommend-attactions").setAttribute("style", "display: none")
+        } else {
+            if (resultList.length == 1) {
+                CONFIG_SLIDE.slidesToShow = 1;
+            } else if (resultList.length == 2) {
+                CONFIG_SLIDE.slidesToShow = 2;
+            } else {
+                CONFIG_SLIDE.slidesToShow = 3;
+            }
+            var templateContentRecommendAttactions = $("#content-recommend-attactions").html();
+            $("#content-recommend-attactions").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
+            createSlick("#content-recommend-attactions", CONFIG_SLIDE);
 
-        for (var i = 0; i < datalist.length; i++) {
-            var templateScore = $(".content-recommend-attactions-ratings-" + (datalist[i].meta_id == undefined ? datalist[i].id[PAGE_LANGUAGE] : datalist[i].meta_id));
-            // var templateScore = $(".content-recommend-attactions-ratings-" + datalist[i].company_id[PAGE_LANGUAGE]);
-            var score = templateScore.data("start");
-            var iconStartSelect = '<i class="fa fa-star"></i>';
-            var iconStartNone = '<i class="fa fa-star-o"></i>';
-            for (var n = 5; n >= 1; n--) {
-                if (n <= score) {
-                    templateScore.prepend(iconStartSelect);
-                } else {
-                    templateScore.prepend(iconStartNone);
+            for (var i = 0; i < datalist.length; i++) {
+                var templateScore = $(".content-recommend-attactions-ratings-" + (datalist[i].meta_id == undefined ? datalist[i].id[PAGE_LANGUAGE] : datalist[i].meta_id));
+                // var templateScore = $(".content-recommend-attactions-ratings-" + datalist[i].company_id[PAGE_LANGUAGE]);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
                 }
             }
         }
+
     }
 
     requestService(URL_REVIEW_NEAR_BY_ATTACTION, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendAttactions(meta_id, company_id, title) {
+function clickBtnToDetailRecommendAttactions(meta_id, company_id, title, category_id, category_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: "ตอนเรียก ReviewNearbyAttactions ไม่มีค่านี้มาให้",
+        category_name: category_name,
         company_name: title,
         meta_id: meta_id,
         company_id: company_id,
-        category_id: "ตอนเรียก ReviewNearbyAttactions ไม่มีค่านี้มาให้",
+        category_id: category_id,
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
@@ -335,7 +368,7 @@ function requestServiceReviewTips() {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
@@ -345,21 +378,34 @@ function requestServiceReviewTips() {
 
         }
 
-        var templateContentRecommendAttactions = $("#content-recommend-tips").html();
-        $("#content-recommend-tips").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
-        createSlick("#content-recommend-tips");
 
-        for (var i = 0; i < datalist.length; i++) {
-            // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-            var templateScore = $(".content-recommend-tips-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
-            var score = templateScore.data("start");
-            var iconStartSelect = '<i class="fa fa-star"></i>';
-            var iconStartNone = '<i class="fa fa-star-o"></i>';
-            for (var n = 5; n >= 1; n--) {
-                if (n <= score) {
-                    templateScore.prepend(iconStartSelect);
-                } else {
-                    templateScore.prepend(iconStartNone);
+        if (datalist.length <= 0) {
+            document.getElementById("main-content-recommend-tips").setAttribute("style", "display: none")
+        } else {
+
+            if (resultList.length == 1) {
+                CONFIG_SLIDE.slidesToShow = 1;
+            } else if (resultList.length == 2) {
+                CONFIG_SLIDE.slidesToShow = 2;
+            } else {
+                CONFIG_SLIDE.slidesToShow = 3;
+            }
+            var templateContentRecommendAttactions = $("#content-recommend-tips").html();
+            $("#content-recommend-tips").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
+            createSlick("#content-recommend-tips", CONFIG_SLIDE);
+
+            for (var i = 0; i < datalist.length; i++) {
+                // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
+                var templateScore = $(".content-recommend-tips-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
                 }
             }
         }
@@ -405,7 +451,7 @@ function requestServiceReviewEvents() {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
@@ -415,21 +461,33 @@ function requestServiceReviewEvents() {
 
         }
 
-        var templateContentRecommendAttactions = $("#content-recommend-events").html();
-        $("#content-recommend-events").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
-        createSlick("#content-recommend-events");
+        if (datalist.length <= 0) {
+            document.getElementById("main-content-recommend-events").setAttribute("style", "display: none")
+        } else {
 
-        for (var i = 0; i < datalist.length; i++) {
-            // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-            var templateScore = $(".content-recommend-events-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
-            var score = templateScore.data("start");
-            var iconStartSelect = '<i class="fa fa-star"></i>';
-            var iconStartNone = '<i class="fa fa-star-o"></i>';
-            for (var n = 5; n >= 1; n--) {
-                if (n <= score) {
-                    templateScore.prepend(iconStartSelect);
-                } else {
-                    templateScore.prepend(iconStartNone);
+            if (resultList.length == 1) {
+                CONFIG_SLIDE.slidesToShow = 1;
+            } else if (resultList.length == 2) {
+                CONFIG_SLIDE.slidesToShow = 2;
+            } else {
+                CONFIG_SLIDE.slidesToShow = 3;
+            }
+            var templateContentRecommendAttactions = $("#content-recommend-events").html();
+            $("#content-recommend-events").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
+            createSlick("#content-recommend-events", CONFIG_SLIDE);
+
+            for (var i = 0; i < datalist.length; i++) {
+                // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
+                var templateScore = $(".content-recommend-events-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
                 }
             }
         }
@@ -485,22 +543,33 @@ function requestServiceReviewArticles() {
             }
 
         }
+        if (datalist.length <= 0) {
+            document.getElementById("main-content-recommend-articles").setAttribute("style", "display: none")
+        } else {
 
-        var templateContentRecommendAttactions = $("#content-recommend-articles").html();
-        $("#content-recommend-articles").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
-        createSlick("#content-recommend-articles");
+            if (resultList.length == 1) {
+                CONFIG_SLIDE.slidesToShow = 1;
+            } else if (resultList.length == 2) {
+                CONFIG_SLIDE.slidesToShow = 2;
+            } else {
+                CONFIG_SLIDE.slidesToShow = 3;
+            }
+            var templateContentRecommendAttactions = $("#content-recommend-articles").html();
+            $("#content-recommend-articles").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
+            createSlick("#content-recommend-articles", CONFIG_SLIDE);
 
-        for (var i = 0; i < datalist.length; i++) {
-            // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-            var templateScore = $(".content-recommend-articles-ratings-" + datalist[i].blog_id[PAGE_LANGUAGE]);
-            var score = templateScore.data("start");
-            var iconStartSelect = '<i class="fa fa-star"></i>';
-            var iconStartNone = '<i class="fa fa-star-o"></i>';
-            for (var n = 5; n >= 1; n--) {
-                if (n <= score) {
-                    templateScore.prepend(iconStartSelect);
-                } else {
-                    templateScore.prepend(iconStartNone);
+            for (var i = 0; i < datalist.length; i++) {
+                // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
+                var templateScore = $(".content-recommend-articles-ratings-" + datalist[i].blog_id[PAGE_LANGUAGE]);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
                 }
             }
         }
@@ -540,9 +609,10 @@ function requestServiceReviewComments(scroll, id) {
     var dooSuccess = function (res) {
         var resultList = res.data.comments;
         for (var i = 0; i < resultList.length; i++) {
-            resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
-            resultList[i].comment_date = moment().format('DD/MM/YYYY');
-            // resultList[i].comments = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.";
+            // resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
+            resultList[i].comment_date = moment(resultList[i].created_at).format('DD/MM/YYYY');
+
+
         }
 
 
@@ -553,6 +623,17 @@ function requestServiceReviewComments(scroll, id) {
 
         var templateTempComments = $("#temp-template-comments").html();
         $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+
+        for (var i = 0; i < resultList.length; i++) {
+            if (!resultList[i].client_image) {
+                document.getElementById("client_comment_image_" + resultList[i].comment_id).setAttribute("style", "display: none")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).removeAttribute("style")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "font-size: 40px");
+                // document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "display: block")
+            }
+
+        }
 
         if (scroll) {
             $([document.documentElement, document.body]).animate({
@@ -616,4 +697,79 @@ function requestServiceReviewAddedComment() {
     }
 
     requestFormDataService(URL_REVIEW_ADDED_COMMENT, "POST", param, dooSuccess);
+}
+
+function requestServiceVoteCompany(score) {
+    openLoading();
+    var param = {
+        meta_id: meta_id,
+        score: score,
+        lang: PAGE_LANGUAGE,
+        action: "add"
+    }
+    var dooSuccess = function (res) {
+        var oldScore = JSON.parse(localStorage.getItem("score_company"));
+        if (oldScore) {
+            oldScore.push({
+                meta_id: meta_id,
+                score: score
+            });
+        } else {
+            oldScore = []
+            oldScore.push({
+                meta_id: meta_id,
+                score: score
+            });
+        }
+
+        localStorage.setItem("score_company", JSON.stringify(oldScore))
+
+        closeLoading();
+        overSelectRatings(score);
+    }
+
+    requestFormDataService(URL_VOTE_COMPANY, "POST", param, dooSuccess, function () {
+        closeLoading();
+    });
+}
+
+function linkToGoogleMap(lat, long) {
+    if ($(window).width() > 992) {
+        window.open('https://www.google.com/maps?q=' + lat + ',' + long, '_blank');
+    } else {
+        window.location.href = 'https://www.google.com/maps?q=' + lat + ',' + long
+    }
+}
+
+function overSelectRatings(score) {
+    for (var i = 0; i < score; i++) {
+        document.getElementById("select-ratings-" + (i + 1)).setAttribute("style", "color: #ffc12b");
+    }
+}
+
+function leaveSelectRatings(score) {
+
+    var oldScore = JSON.parse(localStorage.getItem("score_company"));
+    if (oldScore) {
+
+
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+
+        for (var i = 0; i < oldScore.length; i++) {
+            if (oldScore[i].meta_id === meta_id) {
+                overSelectRatings(oldScore[i].score);
+            }
+        }
+
+    } else {
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+    }
+}
+
+function clickSelectRatings(score) {
+    requestServiceVoteCompany(score)
 }

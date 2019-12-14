@@ -167,21 +167,17 @@ function requestServiceBlogDetail() {
 
         // sessionStorage.setItem("BLOG_AFTER_CHENGE_LANGUAGE", JSON.stringify(BLOG_AFTER_CHENGE_LANGUAGE));
 
-        requestServiceBlogArticleResult(resultData.author);
+        requestServiceBlogArticleResult(resultData.author, resultData.client_id);
     }
 
     requestService(URL_BLOG_DETAIL, "GET", param, dooSuccess);
 }
 
-function requestServiceBlogArticleResult(author) {
-    var client_id = guid();
-    if (localStorage.getItem("client_id") != undefined) {
-        client_id = localStorage.getItem("client_id");
-    }
+function requestServiceBlogArticleResult(author, blogger_client_id) {
 
     var param = {
         author: author,
-        client: client_id,
+        client: blogger_client_id,
         lang: PAGE_LANGUAGE,
         pageSize: 3
     }
@@ -326,12 +322,7 @@ function requestServiceBlogAddedComment() {
 
 
 
-function clickViewProfileBlogger(username) {
+function clickViewProfileBlogger(username, blogger_client_id) {
 
-    var client_id = guid();
-    if (localStorage.getItem("client_id") != undefined) {
-        client_id = localStorage.getItem("client_id");
-    }
-
-    window.location.href = "/" + PAGE_LANGUAGE + "/blog/author/" + username + "/" + client_id + "/";
+    window.location.href = "/" + PAGE_LANGUAGE + "/blog/author/" + username + "/" + blogger_client_id + "/";
 }

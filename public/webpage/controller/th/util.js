@@ -48,16 +48,33 @@ function closeLoading() {
 
 }
 
-function createSlick(id) {
-    var slider = $(id);
-    slider.slick(CONFIG_SLICK);
+function createSlick(id, config) {
+    if (config) {
 
-    slider.closest('.slick-slider-area').find('.slick-prev').on("click", function () {
-        slider.slick('slickPrev');
-    });
-    slider.closest('.slick-slider-area').find('.slick-next').on("click", function () {
-        slider.slick('slickNext');
-    });
+        var slider = $(id);
+        slider.slick({
+            ...CONFIG_SLICK,
+            ...config
+        });
+
+        slider.closest('.slick-slider-area').find('.slick-prev').on("click", function () {
+            slider.slick('slickPrev');
+        });
+        slider.closest('.slick-slider-area').find('.slick-next').on("click", function () {
+            slider.slick('slickNext');
+        });
+    } else {
+
+        var slider = $(id);
+        slider.slick(CONFIG_SLICK);
+
+        slider.closest('.slick-slider-area').find('.slick-prev').on("click", function () {
+            slider.slick('slickPrev');
+        });
+        slider.closest('.slick-slider-area').find('.slick-next').on("click", function () {
+            slider.slick('slickNext');
+        });
+    }
 }
 
 
@@ -201,6 +218,20 @@ function bindDataToTemplate(prototypeTemplate, data) {
     return templateResult;
 }
 
+function bindDataToTemplateObject(prototypeTemplate, data) {
+    var templateResult = "";
+    var template = prototypeTemplate;
+    for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+            console.log("bindDataToTemplateObject data[key] ", data[key])
+            template = template.replace(new RegExp("{{" + key + "}}", 'g'), JSON.stringify(data[key]));
+            console.log("bindDataToTemplateObject template", template)
+        }
+    }
+    templateResult = templateResult + template;
+    return templateResult;
+}
+
 function bindDataListToTemplate(prototypeTemplate, data) {
     // console.log(TAG, "bindDataListToTemplate", prototypeTemplate, data);
     var templateList = "";
@@ -243,4 +274,24 @@ function guid() {
             v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
+}
+
+function checkFieldForLanguageNull(field) {
+    if (typeof field === "string" || !field[PAGE_LANGUAGE] || field[PAGE_LANGUAGE] === null) {
+        if (PAGE_LANGUAGE === "th") {
+            if (field["en"]) {
+                return field["en"].replace(/\r?\n|\r/g, "");
+            } else {
+                return field.replace(/\r?\n|\r/g, "");
+            }
+        } else {
+            if (field["th"]) {
+                return field["th"].replace(/\r?\n|\r/g, "");
+            } else {
+                return field.replace(/\r?\n|\r/g, "");
+            }
+        }
+    } else {
+        return field[PAGE_LANGUAGE].replace(/\r?\n|\r/g, "");
+    }
 }

@@ -19,10 +19,14 @@ module.exports = class ProxyCtrl {
         TAG = "[ProxyCtrl.js]" + " [" + TRACE_ID + "]";
     }
 
-    async get(url) {
+    async get(url, AuthStr) {
         try {
             console.log(TAG, "Full URL", Constants.URL_SERVICE + url);
-            const response = await axios.get(Constants.URL_SERVICE + url);
+            const response = await axios.get(Constants.URL_SERVICE + url, {
+                headers: {
+                    Authorization: AuthStr
+                }
+            });
             // console.log(TAG, "GET success", response);
             return response;
         } catch (error) {

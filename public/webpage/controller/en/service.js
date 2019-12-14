@@ -69,6 +69,13 @@ var URL_TRIP_AND_EVENT_DETAIL = SERVICE_TRIP_AND_EVENT + "TripAndEventDetail";
 var URL_TRIP_AND_EVENT_COMMENTS = SERVICE_TRIP_AND_EVENT + "TripAndEventComments";
 var URL_TRIP_AND_EVENT_ADDED_COMMENTS = SERVICE_DETAIL_PAGE_FORMDATA + "TripAndEventAddedComment";
 
+//Vote
+var SERVICE_VOTE_FORMDATA = SERVICE_HOST + SERVICE_CONTEXT_FORMBODY + SERVICE_VERSION + "Vote/";
+var URL_VOTE_COMPANY = SERVICE_VOTE_FORMDATA + "VoteCompany";
+var URL_VOTE_BLOG = SERVICE_VOTE_FORMDATA + "VoteBlog";
+var URL_VOTE_TRIP = SERVICE_VOTE_FORMDATA + "VoteTripAndEvent";
+var URL_VOTE_EVENT = SERVICE_VOTE_FORMDATA + "VoteTripAndEvent";
+
 function requestService(url, method, data, success, failure) {
     console.log(TAG, "start request service => ", url, " : method => ", method);
     $.ajax({
@@ -113,7 +120,7 @@ function requestFormDataService(url, method, data, success, failure) {
         },
         url: url,
         data: formData,
-        // contentType: "application/x-www-form-urlencoded",
+        contentType: false,
         async: false,
         cache: false,
         processData: false,

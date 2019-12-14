@@ -178,12 +178,12 @@
                             <div class="widget">
 
                                 <div class="row" id="content-admin-menu">
-                                    <a onclick="clickViewProfileBlogger('{{author}}')">
+                                    <a onclick="clickViewProfileBlogger('{{author}}' , '{{client_id}}')">
                                         <img class="../img-profile-content-blog img-fluid"
                                             src="../img/icons8-user-60.png">
                                     </a>
                                     <div>
-                                        <a onclick="clickViewProfileBlogger('{{author}}')">
+                                        <a onclick="clickViewProfileBlogger('{{author}}' , '{{client_id}}')">
                                             <h3 class="sidebar-title">{{author}}</h3>
                                         </a>
                                         <div class="s-border"></div>
@@ -213,7 +213,8 @@
 
                                 <div class="link-more-content-recommend" style="margin-right: unset;"
                                     id="btn-more-content-admin-menu">
-                                    <div class="text-right" onclick="clickViewProfileBlogger('{{author}}')">
+                                    <div class="text-right"
+                                        onclick="clickViewProfileBlogger('{{author}}' , '{{client_id}}')">
                                         <button type="button" class="btn btn-link btn-more">
                                             ดูทั้งหมด
                                         </button>

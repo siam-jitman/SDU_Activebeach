@@ -201,7 +201,7 @@ $(function () {
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
+                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }
@@ -256,7 +256,7 @@ $(function () {
                     "content": dataList[i].content,
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
-                    "reviews": dataList[i].reviwes + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
+                    "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer
                 });
             }

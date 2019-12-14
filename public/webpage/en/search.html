@@ -203,7 +203,7 @@
                                                             </div>
                                                             <div class="ratings content-recommend-ratings-event-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -214,14 +214,14 @@
                                                             <i onclick="clickToSearehByType('{{service_id}}')"
                                                                 style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;""></i>
                                                         </a>
-                                                        <h3 class="title">
-                                                            <a
-                                                                href="./detail-event.html?id={{event_id}}&name={{event_name}}">
-                                                                <div class="txt-content-recommend">{{event_name}}
-                                                                </div>
-                                                            </a>
-                                                        </h3>
-                                                        <p class="text-recommend">{{description}}</p>
+                                                        <h3 class=" title">
+                                                                <a
+                                                                    href="./detail-event.html?id={{event_id}}&name={{event_name}}">
+                                                                    <div class="txt-content-recommend">{{event_name}}
+                                                                    </div>
+                                                                </a>
+                                                                </h3>
+                                                                <p class="text-recommend">{{description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -280,7 +280,7 @@
                                                             </div>
                                                             <div class="ratings content-recommend-ratings-tips-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -291,14 +291,14 @@
                                                             <i onclick="clickToSearehByType('{{service_id}}')"
                                                                 style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;""></i>
                                                         </a>
-                                                        <h3 class="title">
-                                                            <a
-                                                                href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
-                                                                <div class="txt-content-recommend">{{event_name}}
-                                                                </div>
-                                                            </a>
-                                                        </h3>
-                                                        <p class="text-recommend">{{description}}</p>
+                                                        <h3 class=" title">
+                                                                <a
+                                                                    href="./detail-tips.html?id={{event_id}}&name={{event_name}}">
+                                                                    <div class="txt-content-recommend">{{event_name}}
+                                                                    </div>
+                                                                </a>
+                                                                </h3>
+                                                                <p class="text-recommend">{{description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -332,7 +332,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-right">
+                    <div class="sidebar-right" id="main-content-recommend-search-article">
                         <!-- Advanced search start -->
                         <div id="faq" class="faq-accordion">
                             <div class="card m-b-0">
@@ -356,7 +356,7 @@
                                                         </div> -->
                                                             <div class="ratings content-recommend-ratings-article-{{event_id}}"
                                                                 data-start="{{ratings}}">
-                                                                <span>( {{reviwes}} )</span>
+                                                                <span>( {{reviews}} )</span>
                                                             </div>
                                                             <img class="d-block w-100" src="{{thumbnail}}"
                                                                 alt="listing-photo">
@@ -571,7 +571,7 @@
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
-                        <p>{{description}}</p>
+                        <p onclick="clickBtnToDetail('{{meta_id}}')">{{description}}</p>
                     </div>
                 </div>
             </div>
@@ -602,7 +602,7 @@
                     <h3 class="title">
                         <a onclick="clickBtnToDetail('{{meta_id}}')">{{companyName}}</a>
                     </h3>
-                    <p>{{description}}
+                    <p onclick="clickBtnToDetail('{{meta_id}}')">{{description}}
                     </p>
                 </div>
             </div>

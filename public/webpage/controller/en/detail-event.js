@@ -127,7 +127,7 @@ function requestServiceTripAndEventDetail() {
 
         var resulrList = {
 
-            company_name: res.data.name[PAGE_LANGUAGE],
+            company_name: checkFieldForLanguageNull(res.data.name),
             company_id: res.data.id[PAGE_LANGUAGE],
             contact: res.data.contact,
             // description: res.data.description,
@@ -172,9 +172,14 @@ function requestServiceTripAndEventDetail() {
         templateScore.prepend('<span class="ratings-box">' + res.data.ratings + '/' + res.data.max_rating + '</span>');
 
 
-        var templateSlideDetailContent = $("#slide-detail-content").html();
-        $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
-        createSlick("#slide-detail-content");
+        if (resulrList.images === null || resulrList.images === undefined || resulrList.images.length <= 0) {
+
+            document.getElementById("galleryImage").setAttribute('style', 'display: none');
+        } else {
+            var templateSlideDetailContent = $("#slide-detail-content").html();
+            $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
+            createSlick("#slide-detail-content");
+        }
 
         // var templateVideoDetailContent = $("#video-detail-content").html();
         // $("#video-detail-content").html(bindDataListToTemplateNotMap(templateVideoDetailContent, resulrList.video));
@@ -218,15 +223,20 @@ function requestServiceReviewComments(scroll, id) {
             resultList[i].comments = resultList[i].content;
         }
 
-        var templateTempComments = $("#temp-template-comments").html();
-        $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+        if (resultList.length <= 0) {
+            document.getElementById("content-detail-comments").setAttribute("style", "display:none");
+            document.getElementById("blank-content-detail-comments").setAttribute("style", "display:block");
+        } else {
 
-        if (scroll) {
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#comment-id-" + id).offset().top - 150
-            }, 1000);
+            var templateTempComments = $("#temp-template-comments").html();
+            $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+            if (scroll) {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#comment-id-" + id).offset().top - 150
+                }, 1000);
+            }
         }
-
     }
 
     requestService(URL_TRIP_AND_EVENT_COMMENTS, "GET", param, dooSuccess);
