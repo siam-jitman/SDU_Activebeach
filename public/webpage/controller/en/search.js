@@ -319,7 +319,7 @@ function requestServiceSearchEventResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.events === null ? [] : res.data.events;
+        var eventResultList = res.data.events === undefined ? [] : res.data.events === null ? [] : res.data.events;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -340,7 +340,11 @@ function requestServiceSearchEventResult() {
             }
         }
 
+        if (rawEventResultList.length === 0) {
+            document.getElementById("main-content-recommend-search-event").setAttribute("style", "display: none");
+        }
         var templateRecommendEvent = $("#content-recommend-search-event").html();
+
         $("#content-recommend-search-event").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -377,7 +381,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.trips === null ? [] : res.data.trips;;
+        var eventResultList = res.data.trips === undefined ? [] : res.data.trips === null ? [] : res.data.trips;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -398,6 +402,9 @@ function requestServiceSearchTipsResult() {
             }
         }
 
+        if (rawEventResultList.length === 0) {
+            document.getElementById("main-content-recommend-search-tips").setAttribute("style", "display: none");
+        }
         var templateRecommendEvent = $("#content-recommend-search-tips").html();
         $("#content-recommend-search-tips").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
 
@@ -494,8 +501,8 @@ function clickBtnSearchBar(category_id) {
     if (category_id == undefined) {
 
         var param = {
-            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#index-txt-search").val(),
-            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#index-category-select").val(),
+            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#txt-search-bar").val(),
+            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#select-search-bar").val(),
         };
     } else {
         var param = {

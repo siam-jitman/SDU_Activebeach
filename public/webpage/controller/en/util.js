@@ -31,7 +31,7 @@ var CONFIG_SLICK_GALLERY = {
 function openLoading() {
     $("body").css("overflow", "hidden");
     $(".page_loader").css("display", "block");
-    $(".page_loader").css("opacity", 0.5);
+    $(".page_loader").css("opacity", 1);
 }
 
 
@@ -274,5 +274,13 @@ function checkFieldForLanguageNull(field) {
         }
     } else {
         return field[PAGE_LANGUAGE].replace(/\r?\n|\r/g, "");
+    }
+}
+
+function checkLogin() {
+    if (localStorage.getItem("client_id")) {
+        return true
+    } else {
+        return false
     }
 }

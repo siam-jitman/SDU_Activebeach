@@ -7,7 +7,7 @@
     "dev": "node index.js",
     "start": "npm install && npm install -g node-windows && npm link node-windows && node install-service.js",
     "stop": "node uninstall-service.js",
-    "restart": "npm run uninstall-service && npm run install-service",
+    "restart": "npm run stop && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

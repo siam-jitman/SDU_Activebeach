@@ -2,8 +2,8 @@ var Service = require('node-windows').Service;
 
 // Create a new service object
 var svc = new Service({
-  name:'Elderly Web Site',
-  script: 'D:\\Program\\website\\siam\\elderly\\index.js',
+  name:'Activebeach Web Page',
+  script: 'D:\\Program\\website\\siam\\activebeach\\index.js',
 });
 
 // Listen for the "uninstall" event so we know when it's done.

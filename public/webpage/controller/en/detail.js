@@ -367,6 +367,7 @@ function requestServiceReviewTips() {
                 resultList[i].company_id = resultList[i].trip_id;
                 resultList[i].meta_id = resultList[i].trip_id;
                 resultList[i].title = resultList[i].trip_name[PAGE_LANGUAGE] != undefined ? resultList[i].trip_name[PAGE_LANGUAGE] : resultList[i].trip_name;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
@@ -406,15 +407,15 @@ function requestServiceReviewTips() {
     requestService(URL_REVIEW_TIPS, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendTips(meta_id, company_id, title) {
+function clickBtnToDetailRecommendTips(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: "ตอนเรียก ReviewTips ไม่มีค่านี้มาให้",
+        category_name: service_name,
         company_name: title,
         meta_id: meta_id,
         company_id: company_id,
-        category_id: "ตอนเรียก ReviewTips ไม่มีค่านี้มาให้",
+        category_id: service_id,
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
@@ -448,6 +449,7 @@ function requestServiceReviewEvents() {
                 resultList[i].company_id = resultList[i].event_id;
                 resultList[i].meta_id = resultList[i].event_id;
                 resultList[i].title = resultList[i].event_name[PAGE_LANGUAGE] != undefined ? resultList[i].event_name[PAGE_LANGUAGE] : resultList[i].event_name;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
@@ -487,15 +489,15 @@ function requestServiceReviewEvents() {
     requestService(URL_REVIEW_EVENTS, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendEvents(meta_id, company_id, title) {
+function clickBtnToDetailRecommendEvents(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: "ตอนเรียก ReviewEvents ไม่มีค่านี้มาให้",
+        category_name: service_id,
         company_name: title,
         meta_id: meta_id,
         company_id: company_id,
-        category_id: "ตอนเรียก ReviewEvents ไม่มีค่านี้มาให้",
+        category_id: service_name,
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
@@ -530,6 +532,7 @@ function requestServiceReviewArticles() {
                 resultList[i].meta_id = resultList[i].blog_id[PAGE_LANGUAGE];
                 resultList[i].updated_at = moment(resultList[i].updated_at).format('DD/MM/YYYY HH:MM');
                 resultList[i].title = resultList[i].subject[PAGE_LANGUAGE] != undefined ? resultList[i].subject[PAGE_LANGUAGE] : resultList[i].subject;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
@@ -569,15 +572,15 @@ function requestServiceReviewArticles() {
     requestService(URL_REVIEW_ARTICLES, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendArticles(meta_id, company_id, title) {
+function clickBtnToDetailRecommendArticles(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: "ตอนเรียก ReviewArticles ไม่มีค่านี้มาให้",
+        category_name: service_id,
         company_name: title,
         meta_id: meta_id,
         company_id: company_id,
-        category_id: "ตอนเรียก ReviewArticles ไม่มีค่านี้มาให้",
+        category_id: service_name,
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);

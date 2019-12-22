@@ -29,7 +29,10 @@ $(function () {
         // setTimeout(function () {
         //     $(".page_loader").fadeOut("fast");
         // }, 100);
-
+        if (!checkLogin() && document.getElementById("main-content-add-review")) {
+            document.getElementById("main-content-add-review").setAttribute("style", "display: none");
+            document.getElementById("login-for-review").removeAttribute("style");
+        }
         $("#common-header").load("../template/th/common/header.html", function () {
             adjustHeader();
             doSticky();
@@ -38,7 +41,9 @@ $(function () {
 
         $("#mainModalLogin").load("../template/th/madal/login.html", function () {
             // $('#alert-error')..alert('close')
+
             $('#alert-error').hide();
+            $('#alert-error-blank').hide();
             if (localStorage.getItem("client_id") && localStorage.getItem("client_id") != "") {
                 $("#menu-login-group").hide();
                 $("#menu-profile-group").css("display", "flex");;
@@ -123,7 +128,7 @@ $(function () {
 
     function adjustHeader() {
         var windowWidth = $(window).width();
-        if (windowWidth > 992 && (window.location.href.indexOf("index.html") >= 0 || window.location.href.indexOf("detail-") >= 0 || window.location.href.indexOf("detail") >= 0)) {
+        if (windowWidth > 992 && (window.location.href.indexOf("index.html") >= 0 || (window.location.href.endsWith("/th/")) || (window.location.href.endsWith("/en/")) || window.location.href.indexOf("detail-") >= 0 || window.location.href.indexOf("detail") >= 0)) {
             if ($(document).scrollTop() >= 100) {
                 if ($('.header-shrink').length < 1) {
                     $('.sticky-header').addClass('header-shrink');
@@ -144,7 +149,27 @@ $(function () {
             $('.logo img').attr('src', '../img/logos/black-logo.png');
         }
         if ((window.location.href.indexOf("index.html") >= 0) || (window.location.href.endsWith("/th/")) || (window.location.href.endsWith("/en/"))) {
+            $('#label-page-main').css("font-weight", "bold");
+            $('#label-page-main').css("color", "rgb(240, 24, 34)");
             $('.btn-back-page').css("display", "none");
+        } else if ((window.location.href.indexOf("search.html?text=")) >= 0) {
+            $('#label-page-tourism').css("font-weight", "bold");
+            $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("search-event.html")) >= 0) {
+            $('#label-page-tourism').css("font-weight", "bold");
+            $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("search-tips.html")) >= 0) {
+            $('#label-page-tourism').css("font-weight", "bold");
+            $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+            $('#label-page-categories').css("font-weight", "bold");
+            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("search-article.html")) >= 0) {
+            $('#label-page-article').css("font-weight", "bold");
+            $('#label-page-article').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("issue.html")) >= 0) {
+            $('#label-page-qa').css("font-weight", "bold");
+            $('#label-page-qa').css("color", "rgb(240, 24, 34)");
         }
     }
 
@@ -536,14 +561,24 @@ function loadMainModalFavorite() {
 }
 
 function clickBtnLogin() {
-    // console.log($('#form-login').serialize());
 
     $('#alert-error').hide();
+    $('#alert-error-blank').hide();
     openLoading();
 
-    setTimeout(function () {
-        requestServiceAuthToken($('#form-login').serialize());
-    }, 500);
+    var form = $('#form-login').serialize();
+    var jsonForm = convertParameterURLToJsonNotDecode(form);
+
+    if (jsonForm.username === "" || jsonForm.password === "") {
+        setTimeout(function () {
+            $('#alert-error-blank').show();
+            closeLoading();
+        }, 500);
+    } else {
+        setTimeout(function () {
+            requestServiceAuthToken(form);
+        }, 500);
+    }
 }
 
 function clickBtnLogout() {
@@ -598,7 +633,10 @@ function requestServiceAuthToken(param) {
             localStorage.setItem("access_token", res.data.access_token);
             localStorage.setItem("client_id", res.data.client_id);
             localStorage.setItem("expire", res.data.expire);
-
+            if (document.getElementById("main-content-add-review")) {
+                document.getElementById("main-content-add-review").removeAttribute("style");
+                document.getElementById("login-for-review").setAttribute("style", "display: none");
+            }
             requestServiceGetToken();
         } else {
             closeLoading();
@@ -662,7 +700,9 @@ function requestServiceAccountRegister(param) {
         if (res && res.data) {
             if (res.data.success) {
                 $('#modalRegister').modal('hide');
+
                 $('#alert-error').hide();
+                $('#alert-error-blank').hide();
                 requestServiceAuthToken(convertJsonToParameterURLNotEncode({
                     username: paramJson.username,
                     password: paramJson.password,
@@ -706,7 +746,7 @@ function clickChangeLanguage(lang) {
     if (window.location.href.indexOf("/blog/post/") > -1) {
         window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/post/" + (typeof BLOG_AFTER_CHENGE_LANGUAGE.blog_id == "object" ? BLOG_AFTER_CHENGE_LANGUAGE.blog_id[INVERT_PAGE_LANGUAGE] : BLOG_AFTER_CHENGE_LANGUAGE.blog_id) + "/" + BLOG_AFTER_CHENGE_LANGUAGE.slug[INVERT_PAGE_LANGUAGE] + "/");
     } else if (window.location.href.indexOf("/blog/author/") > -1) {
-        window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/author/" + BLOGGER_USER + "/" + new Date().getTime() + "/");
+        window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/author/" + BLOGGER_USER.author + "/" + BLOGGER_USER.client_id + "/");
     } else {
         let page = window.location.href.split("/")[window.location.href.split("/").length - 1];
         window.location.href = "../" + lang + "/" + page;
