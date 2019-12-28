@@ -77,10 +77,10 @@
                         <div class="search-boxs">
                             <div class="search-col" style="width: 58%;">
                                 <input type="text" name="search" class="form-control has-icon b-radius"
-                                    id="index-txt-search" placeholder="Destination name">
+                                    id="txt-search-bar" placeholder="Destination name">
                             </div>
                             <div class="search-col categories b-radius">
-                                <select class="selectpicker search-fields" name="location" id="index-category-select">
+                                <select class="selectpicker search-fields" name="location" id="select-search-bar">
                                     <option value="{{categoryNameValue}}">{{categoryNameDisplay}}</option>
                                 </select>
                             </div>
@@ -245,7 +245,7 @@
                     <div class="slick-slide-item">
                         <div class="listing-item-box">
                             <div class="listing-thumbnail"
-                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}','{{service_id}}','{{service_name}}')">
                                 <a class="listing-photo">
                                     <!-- <div class="tag">Restourant</div> -->
                                     <div class="location">
@@ -260,11 +260,10 @@
                             <div class="detail">
                                 <a class="icon">
                                     <!-- <i class="flaticon-cook"></i> -->
-                                    <i style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;" max-width:30px; max-
-height:30px;
-                                    "></i>
+                                    <i
+                                        style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important; max-width:30px; max-height:30px; "></i>
                                 </a>
-                                <h3 class="title">
+                                <h3 class=" title">
                                     <a>{{title}}</a>
                                 </h3>
                                 <p>{{content}}</p>
@@ -325,7 +324,7 @@ height:30px;
                     <div class="slick-slide-item">
                         <div class="listing-item-box">
                             <div class="listing-thumbnail"
-                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
+                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}','{{service_id}}','{{service_name}}')">
                                 <a class="listing-photo">
                                     <!-- <div class="tag">Restourant</div> -->
                                     <div class="location">
@@ -340,11 +339,10 @@ height:30px;
                             <div class="detail">
                                 <a class="icon">
                                     <!-- <i class="flaticon-cook"></i> -->
-                                    <i style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;" max-width:30px; max-
-height:30px;
-                                        "></i>
+                                    <i
+                                        style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important; max-width:30px; max-height:30px; "></i>
                                 </a>
-                                <h3 class="title">
+                                <h3 class=" title">
                                     <a>{{title}}</a>
                                 </h3>
                                 <p>{{content}}</p>
@@ -403,31 +401,31 @@ height:30px;
                 <div class="row" id="index-slide-recommend-event"
                     data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
                     <div class="slick-slide-item">
-                        <div class="listing-item-box">
-                            <div class="listing-thumbnail"
-                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
-                                <a class="listing-photo">
+                        <div class="listing-item-box" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
+                            <div class="listing-thumbnail" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
+                                <a class="listing-photo" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
                                     <!-- <div class="tag">Restourant</div> -->
-                                    <div class="location">
+                                    <div class="location" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
                                         <i class="flaticon-pin"></i>{{address}}
                                     </div>
                                     <div class="ratings score-reviews-event-{{meta_id}}" data-start="{{ratings}}">
-                                        <span>( {{reviews}} )</span>
+                                        <span onclick="clickToDetailEvent('{{company_id}}','{{title}}')">( {{reviews}}
+                                            )</span onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
                                     </div>
-                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                    <img onclick="clickToDetailEvent('{{company_id}}','{{title}}')"
+                                        class="d-block w-100" src="{{image}}" alt="listing-photo">
                                 </a>
                             </div>
-                            <div class="detail">
+                            <div class="detail" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
                                 <a class="icon">
                                     <!-- <i class="flaticon-cook"></i> -->
-                                    <i style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;" max-width:30px; max-
-height:30px;
-                                            "></i>
+                                    <i
+                                        style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important; max-width:30px; max-height:30px; "></i>
                                 </a>
-                                <h3 class="title">
-                                    <a>{{title}}</a>
+                                <h3 class=" title" onclick="clickToDetailEvent('{{company_id}}','{{title}}')">
+                                    <a onclick="clickToDetailEvent('{{company_id}}','{{title}}')">{{title}}</a>
                                 </h3>
-                                <p>{{content}}</p>
+                                <p onclick="clickToDetailEvent('{{company_id}}','{{title}}')">{{content}}</p>
                             </div>
                         </div>
                     </div>
@@ -483,31 +481,33 @@ height:30px;
                 <div class="row" id="index-slide-recommend-tip"
                     data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
                     <div class="slick-slide-item">
-                        <div class="listing-item-box">
-                            <div class="listing-thumbnail"
-                                onclick="clickBtnToDetailRecommend('{{meta_id}}','{{company_id}}','{{title}}')">
-                                <a class="listing-photo">
+                        <div class="listing-item-box" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
+                            <div class="listing-thumbnail" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
+                                <a class="listing-photo" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                                     <!-- <div class="tag">Restourant</div> -->
-                                    <div class="location">
+                                    <div class="location" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                                         <i class="flaticon-pin"></i>{{address}}
                                     </div>
                                     <div class="ratings score-reviews-tip-{{meta_id}}" data-start="{{ratings}}">
-                                        <span>( {{reviews}} )</span>
+                                        <span onclick="clickToDetailTips('{{company_id}}','{{title}}')">( {{reviews}}
+                                            )</span onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                                     </div>
-                                    <img class="d-block w-100" src="{{image}}" alt="listing-photo">
+                                    <img onclick="clickToDetailTips('{{company_id}}','{{title}}')" class="d-block w-100"
+                                        src="{{image}}" alt="listing-photo">
                                 </a>
                             </div>
                             <div class="detail">
                                 <a class="icon">
                                     <!-- <i class="flaticon-cook"></i> -->
-                                    <i style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important;" max-width:30px; max-
-height:30px;
-                                                "></i>
+                                    <i
+                                        style="content: url({{icon}}); margin-top: 10px !important; max-width:30px !important; max-height:30px !important; max-width:30px; max-height:30px; "></i>
                                 </a>
-                                <h3 class="title">
-                                    <a>{{title}}</a>
+                                <h3 class=" title" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
+                                    <a onclick="clickToDetailTips('{{company_id}}','{{title}}')">{{title}}</a
+                                        onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                                 </h3>
-                                <p>{{content}}</p>
+                                <p onclick="clickToDetailTips('{{company_id}}','{{title}}')">{{content}}</p
+                                    onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                             </div>
                         </div>
                     </div>
@@ -594,7 +594,7 @@ height:30px;
                                 <a href="dashboard.html">Categories</a>
                             </li>
                             <li>
-                                <a href="listing-single.html">Article</a>
+                                <a onclick="clickMenuHeader('/search-article.html?text=&category_id=')">Article</a>
                             </li>
                             <li>
                                 <a href="listing-single.html">Q&A</a>

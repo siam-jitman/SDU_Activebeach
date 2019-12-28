@@ -78,7 +78,9 @@ $(function () {
         });
     });
 
-    requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {
+        "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+    }, function (res) {
 
         setTimeout(function () {
             // console.log("res.data.categorys", res.data.categorys)
@@ -132,7 +134,8 @@ function requestServiceBlogDetail() {
 
         var resultData = res.data;
 
-        resultData.updated_at = moment(resultData.updated_at).format("DD/MM/YYYY HH:mm");
+        moment.locale('en');
+        resultData.updated_at = moment(resultData.updated_at).lang("en").format("dddd DD MMMM YYYY HH:mm");
 
         var mainContentBlogDetail = $("#main-content-blog-detail").html();
         $("#main-content-blog-detail").html(bindDataToTemplate(mainContentBlogDetail, JSON.parse(JSON.stringify(resultData))));
@@ -192,11 +195,30 @@ function requestServiceBlogArticleResult(author, blogger_client_id) {
             resultData[i].blog_id = resultData[i].blog_id[PAGE_LANGUAGE];
             resultData[i].service_name = resultData[i].service_name[PAGE_LANGUAGE];
             resultData[i].slug = resultData[i].slug[PAGE_LANGUAGE];
+            resultData[i].ratings = resultData[i].ratings;
+            resultData[i].reviews = resultData[i].reviews + (PAGE_LANGUAGE === "th" ? " รีวิว" : " Reviews");
         }
 
         var contentBlogRecommend = $("#content-blog-recommend").html();
         $("#content-blog-recommend").html(bindDataListToTemplate(contentBlogRecommend, JSON.parse(JSON.stringify(resultData))));
 
+        for (var i = 0; i < resultData.length; i++) {
+            if (i <= 2) {
+                var templateScore = $(".content-recommend-ratings-article-" + resultData[i].blog_id);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
+                }
+            } else {
+                break;
+            }
+        }
 
         closeLoading();
     }
@@ -250,6 +272,16 @@ function requestServiceReviewComments(scroll, id) {
 
         var templateTempComments = $("#temp-template-comments").html();
         $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+        for (var i = 0; i < resultList.length; i++) {
+            if (!resultList[i].client_image || resultList[i].client_image == "") {
+                document.getElementById("client_comment_image_" + resultList[i].comment_id).setAttribute("style", "display: none")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).removeAttribute("style")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "font-size: 40px");
+                // document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "display: block")
+            }
+
+        }
 
         if (scroll) {
             $([document.documentElement, document.body]).animate({

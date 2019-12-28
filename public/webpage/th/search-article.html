@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="sorting-options2">
-                                    <button onclick="requestServiceSearchEventResult()"
+                                    <button onclick="clickBtnSearchBar()"
                                         class="btn button-theme btn-search btn-block b-radius btn-search-bar">
                                         <i class="fa fa-search"></i><strong>ค้นหา</strong>
                                     </button>
@@ -178,7 +178,7 @@
 
 
                 <div class="col-lg-4 col-md-12">
-                    <div class="sidebar-right">
+                    <div class="sidebar-right" id="main-content-recommend-search-event">
                         <!-- Advanced search start -->
                         <div id="faq" class="faq-accordion">
                             <div class="card m-b-0">
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-right">
+                    <div class="sidebar-right" id="main-content-recommend-search-tips">
                         <!-- Advanced search start -->
                         <div id="faq" class="faq-accordion">
                             <div class="card m-b-0">
@@ -478,7 +478,7 @@
                                 <a href="dashboard.html">หมวดหมู่</a>
                             </li>
                             <li>
-                                <a href="listing-single.html">บทความ</a>
+                                <a onclick="clickMenuHeader('/search-article.html?text=&category_id=')">บทความ</a>
                             </li>
                             <li>
                                 <a href="listing-single.html">ถามตอบ</a>

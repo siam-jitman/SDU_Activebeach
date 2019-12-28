@@ -105,8 +105,8 @@
                     <!-- <div class="col-lg-5 col-md-12 clearfix">
                         <div class="cover-buttons">
                             <ul>
-                                <li><a href="{{website}}">Web site</a></li>
-                                <li><a href="{{facebook}}">Facebook</a></li>
+                                <li><a href="{{website}}"  target="_blank">Web site</a></li>
+                                <li><a href="{{facebook}}" target="_blank">Facebook</a></li>
                                 <li style="display: none;"><a href="messages.html">Facebook</a></li>
                             </ul>
                         </div>
@@ -215,7 +215,11 @@
 
                     <!-- <form action="#" method="POST" enctype="multipart/form-data"> -->
                     <!-- add review start -->
-                    <div class="contact-2 add-review ca mtb-50">
+                    <div class="contact-2 add-review ca mtb-50" id="login-for-review" style="display: none;">
+                        <hr />
+                        <p>เข้าสู่ระบบเพื่อรีวิวเนื้อหานี้</p>
+                    </div>
+                    <div class="contact-2 add-review ca mtb-50" id="main-content-add-review">
                         <h3 class="heading-2 clearfix mb-0">Writing a review</h3>
                         <div class="row mb-30">
                             <div class="col-lg-12 col-md-12">
@@ -417,7 +421,7 @@
                                 <a href="dashboard.html">Categories</a>
                             </li>
                             <li>
-                                <a href="listing-single.html">Article</a>
+                                <a onclick="clickMenuHeader('/search-article.html?text=&category_id=')">Article</a>
                             </li>
                             <li>
                                 <a href="listing-single.html">Q&A</a>
@@ -480,7 +484,9 @@
                 <div class="comment">
                     <div class="comment-author">
                         <a>
-                            <img src="{{client_image}}" title="{{name}}" alt="comments-user">
+                            <img id="client_comment_image_{{comment_id}}" src="{{client_image}}" title="{{name}}"
+                                alt="comments-user">
+                            <i id="client_comment_icon_{{comment_id}}" class="fa fa-user" style="display: none;"></i>
                         </a>
                     </div>
                     <div class="comment-content">

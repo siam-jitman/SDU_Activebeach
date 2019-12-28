@@ -11,7 +11,13 @@
             <div class="modal-body">
                 <div id="alert-error-register" class="alert alert-danger hide" role="alert">
                 </div>
-                <form id="form-register">
+                <div id="alert-error-blank-register" class="alert alert-danger hide" role="alert">
+                    <strong>กรุณากรอกข้อมูลให้ครบถ้วน</strong>
+                </div>
+                <div id="alert-error-confirm-password" class="alert alert-danger hide" role="alert">
+                    <strong>รหัสผ่านไม่ตรงกัน</strong>
+                </div>
+                <form id="form-register" accept-charset="ISO-8859-1">
                     <div class="form-group">
                         <label for="username">ชื่อผู้ใช้ หรือ อีเมลล์</label>
                         <input type="text" name="username" class="form-control" id="username"

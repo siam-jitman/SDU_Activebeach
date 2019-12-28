@@ -183,7 +183,7 @@ function genContentSearchDetail(dataList) {
 }
 
 function requestServiceInterestingCategorys() {
-    requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
 
         for (var i = 0; i < res.data.categorys.length; i++) {
             DATA_CATEGORYS.push({
@@ -268,7 +268,11 @@ function requestSearchResult() {
             }
         }
 
+        if (rawEventResultList.length === 0) {
+            document.getElementById("main-content-recommend-search-event").setAttribute("style", "display: none");
+        }
         var templateRecommendEvent = $("#content-recommend-search-event").html();
+
         $("#content-recommend-search-event").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -369,7 +373,7 @@ function requestServiceSearchTipsResult() {
 
     var dooSuccess = function (res) {
 
-        var eventResultList = res.data.trips === null ? [] : res.data.trips;;
+        var eventResultList = res.data.trips === undefined ? [] : res.data.trips === null ? [] : res.data.trips;
         var rawEventResultList = [];
 
         for (var i = 0; i < eventResultList.length; i++) {
@@ -391,6 +395,9 @@ function requestServiceSearchTipsResult() {
             }
         }
 
+        if (rawEventResultList.length === 0) {
+            document.getElementById("main-content-recommend-search-tips").setAttribute("style", "display: none");
+        }
         var templateRecommendEvent = $("#content-recommend-search-tips").html();
         $("#content-recommend-search-tips").html(bindDataListToTemplate(templateRecommendEvent, rawEventResultList));
 
@@ -487,8 +494,8 @@ function clickBtnSearchBar(category_id) {
     if (category_id == undefined) {
 
         var param = {
-            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#index-txt-search").val(),
-            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#index-category-select").val(),
+            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#txt-search-bar").val(),
+            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#select-search-bar").val(),
         };
     } else {
         var param = {

@@ -5,7 +5,7 @@
             <a class="btn-back-page" onclick="window.history.go(-1); return false;">
                 <img src="https://icon-library.net/images/back-arrow-icon-png/back-arrow-icon-png-8.jpg" alt="logo">
             </a>
-            <a class="navbar-brand logo" href="index.html">
+            <a class="navbar-brand logo" onclick="clickMenuHeader('/index.html')">
                 <img src="img/logos/black-logo.png" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -15,27 +15,30 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav header-ml">
                     <li class="nav-item dropdown active">
-                        <a class="nav-link" href="./index.html">
+                        <a id="label-page-main" class="nav-link" onclick="clickMenuHeader('/index.html')">
                             Home
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" id="label-page-tourism" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             Tourism
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="./search.html?text=&category_id=">Tourism
+                            <li><a class="dropdown-item" id="one-label-page-tourism"
+                                    onclick="clickMenuHeader('/search.html?text=&category_id=')">Tourism
                                     destinations</a>
                             </li>
-                            <li><a class="dropdown-item" href="./search-event.html?text=&category_id=">Tourism
+                            <li><a class="dropdown-item" id="two-label-page-tourism"
+                                    onclick="clickMenuHeader('/search-event.html?text=&category_id=')">Tourism
                                     activities</a></li>
-                            <li><a class="dropdown-item" href="./search-tips.html?text=&category_id=">Tourism trips</a>
+                            <li><a class="dropdown-item" id="three-label-page-tourism"
+                                    onclick="clickMenuHeader('/search-tips.html?text=&category_id=')">Tourism trips</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                        <a id="label-page-categories" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             Categories
                         </a>
@@ -45,12 +48,13 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="./search-article.html?text=&category_id=">
+                        <a id="label-page-article" class="nav-link"
+                            onclick="clickMenuHeader('/search-article.html?text=&category_id=')">
                             Article
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="./issue.html">
+                        <a id="label-page-qa" class="nav-link" onclick="clickMenuHeader('/issue.html')">
                             Q&A
                         </a>
                     </li>

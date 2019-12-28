@@ -78,7 +78,9 @@ $(function () {
             captions: captionsTH
         });
 
-        requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_CATEGORYS, "GET", {
+            "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+        }, function (res) {
 
             for (var i = 0; i < res.data.categorys.length; i++) {
                 DATA_CATEGORYS.push({
@@ -280,9 +282,10 @@ function requestServiceReviewNearbyAttactions() {
 
                 resultList[i].thumbnail = resultList[i].thumbnail;
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
-                resultList[i].title = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
+                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
                 datalist.push(resultList[i])
             }
 
@@ -291,7 +294,6 @@ function requestServiceReviewNearbyAttactions() {
         if (datalist.length <= 0) {
             document.getElementById("main-content-recommend-attactions").setAttribute("style", "display: none")
         } else {
-
             if (resultList.length == 1) {
                 CONFIG_SLIDE.slidesToShow = 1;
             } else if (resultList.length == 2) {
@@ -304,8 +306,8 @@ function requestServiceReviewNearbyAttactions() {
             createSlick("#content-recommend-attactions", CONFIG_SLIDE);
 
             for (var i = 0; i < datalist.length; i++) {
-                // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-                var templateScore = $(".content-recommend-attactions-ratings-" + i);
+                var templateScore = $(".content-recommend-attactions-ratings-" + (datalist[i].meta_id == undefined ? datalist[i].id[PAGE_LANGUAGE] : datalist[i].meta_id));
+                // var templateScore = $(".content-recommend-attactions-ratings-" + datalist[i].company_id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -318,6 +320,7 @@ function requestServiceReviewNearbyAttactions() {
                 }
             }
         }
+
     }
 
     requestService(URL_REVIEW_NEAR_BY_ATTACTION, "GET", param, dooSuccess);
@@ -335,6 +338,9 @@ function clickBtnToDetailRecommendAttactions(meta_id, company_id, title, categor
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+
+
+
     //     }
     // }
 }
@@ -356,25 +362,26 @@ function requestServiceReviewTips() {
         var resultList = res.data.trips;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
+            if (resultList[i].id[PAGE_LANGUAGE] != undefined) {
 
 
-            if (resultList[i].trip_id != undefined) {
-
-                resultList[i].thumbnail = resultList[i].thumbnail;
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
-                resultList[i].company_id = resultList[i].trip_id;
-                resultList[i].meta_id = resultList[i].trip_id;
-                resultList[i].title = resultList[i].trip_name[PAGE_LANGUAGE] != undefined ? resultList[i].trip_name[PAGE_LANGUAGE] : resultList[i].trip_name;
+                resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
+                resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
+                resultList[i].title = resultList[i].name[PAGE_LANGUAGE] != undefined ? resultList[i].name[PAGE_LANGUAGE] : resultList[i].name;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
         }
 
+
         if (datalist.length <= 0) {
             document.getElementById("main-content-recommend-tips").setAttribute("style", "display: none")
         } else {
+
             if (resultList.length == 1) {
                 CONFIG_SLIDE.slidesToShow = 1;
             } else if (resultList.length == 2) {
@@ -388,7 +395,7 @@ function requestServiceReviewTips() {
 
             for (var i = 0; i < datalist.length; i++) {
                 // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-                var templateScore = $(".content-recommend-tips-ratings-" + i);
+                var templateScore = $(".content-recommend-tips-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -406,18 +413,25 @@ function requestServiceReviewTips() {
     requestService(URL_REVIEW_TIPS, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendTips(meta_id, company_id, title) {
+function clickBtnToDetailRecommendTips(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
+    // var param = {
+    //     category_name: service_name,
+    //     company_name: title,
+    //     meta_id: meta_id,
+    //     company_id: company_id,
+    //     category_id: service_id,
+    //     lang: PAGE_LANGUAGE
+    // };
+    // window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+
     var param = {
-        category_name: "ตอนเรียก ReviewTips ไม่มีค่านี้มาให้",
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: "ตอนเรียก ReviewTips ไม่มีค่านี้มาให้",
-        lang: PAGE_LANGUAGE
+        id: company_id,
+        name: title
     };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+    window.location.href = "./detail-tips.html?" + convertJsonToParameterURL(param);
+
     //     }
     // }
 }
@@ -439,15 +453,16 @@ function requestServiceReviewEvents() {
         var resultList = res.data.events;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
-            if (resultList[i].event_id != undefined) {
+            if (resultList[i].id[PAGE_LANGUAGE] != undefined) {
 
-                resultList[i].thumbnail = resultList[i].thumbnail;
+
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
-                resultList[i].company_id = resultList[i].event_id;
-                resultList[i].meta_id = resultList[i].event_id;
-                resultList[i].title = resultList[i].event_name[PAGE_LANGUAGE] != undefined ? resultList[i].event_name[PAGE_LANGUAGE] : resultList[i].event_name;
+                resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
+                resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
+                resultList[i].title = resultList[i].name[PAGE_LANGUAGE] != undefined ? resultList[i].name[PAGE_LANGUAGE] : resultList[i].name;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
@@ -456,6 +471,7 @@ function requestServiceReviewEvents() {
         if (datalist.length <= 0) {
             document.getElementById("main-content-recommend-events").setAttribute("style", "display: none")
         } else {
+
             if (resultList.length == 1) {
                 CONFIG_SLIDE.slidesToShow = 1;
             } else if (resultList.length == 2) {
@@ -469,7 +485,7 @@ function requestServiceReviewEvents() {
 
             for (var i = 0; i < datalist.length; i++) {
                 // var templateScore = $(".content-recommend-attactions-ratings-" + resultList[i].meta_id);
-                var templateScore = $(".content-recommend-events-ratings-" + i);
+                var templateScore = $(".content-recommend-events-ratings-" + datalist[i].id[PAGE_LANGUAGE]);
                 var score = templateScore.data("start");
                 var iconStartSelect = '<i class="fa fa-star"></i>';
                 var iconStartNone = '<i class="fa fa-star-o"></i>';
@@ -487,20 +503,12 @@ function requestServiceReviewEvents() {
     requestService(URL_REVIEW_EVENTS, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendEvents(meta_id, company_id, title) {
-    // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
-    //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
+function clickBtnToDetailRecommendEvents(meta_id, company_id, title, service_id, service_name) {
     var param = {
-        category_name: "ตอนเรียก ReviewEvents ไม่มีค่านี้มาให้",
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: "ตอนเรียก ReviewEvents ไม่มีค่านี้มาให้",
-        lang: PAGE_LANGUAGE
+        id: company_id,
+        name: title
     };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
-    //     }
-    // }
+    window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
 }
 
 function requestServiceReviewArticles() {
@@ -520,24 +528,26 @@ function requestServiceReviewArticles() {
         var resultList = res.data.blogs == null ? [] : res.data.blogs;
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
-            if (resultList[i].company_id != undefined) {
+            if (resultList[i].blog_id[PAGE_LANGUAGE] != undefined) {
 
-                resultList[i].thumbnail = resultList[i].thumbnail;
+
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "en" ? " Reviews" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].blog_id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].blog_id[PAGE_LANGUAGE];
                 resultList[i].updated_at = moment(resultList[i].updated_at).format('DD/MM/YYYY HH:MM');
                 resultList[i].title = resultList[i].subject[PAGE_LANGUAGE] != undefined ? resultList[i].subject[PAGE_LANGUAGE] : resultList[i].subject;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
+                resultList[i].slug = resultList[i].slug[PAGE_LANGUAGE];
                 datalist.push(resultList[i])
             }
 
         }
-
         if (datalist.length <= 0) {
             document.getElementById("main-content-recommend-articles").setAttribute("style", "display: none")
         } else {
+
             if (resultList.length == 1) {
                 CONFIG_SLIDE.slidesToShow = 1;
             } else if (resultList.length == 2) {
@@ -569,20 +579,13 @@ function requestServiceReviewArticles() {
     requestService(URL_REVIEW_ARTICLES, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendArticles(meta_id, company_id, title) {
-    // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
-    //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
-    var param = {
-        category_name: "ตอนเรียก ReviewArticles ไม่มีค่านี้มาให้",
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: "ตอนเรียก ReviewArticles ไม่มีค่านี้มาให้",
-        lang: PAGE_LANGUAGE
-    };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
-    //     }
-    // }
+function clickBtnToDetailRecommendArticles(id, slug) {
+    if (typeof slug === "object") {
+        slug = slug[PAGE_LANGUAGE];
+    } else {
+        slug = slug;
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }
 
 function requestServiceReviewComments(scroll, id) {
@@ -600,8 +603,8 @@ function requestServiceReviewComments(scroll, id) {
     var dooSuccess = function (res) {
         var resultList = res.data.comments;
         for (var i = 0; i < resultList.length; i++) {
-            resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
-            resultList[i].comment_date = moment().format('DD/MM/YYYY');
+            // resultList[i].client_image = "http://placehold.it/350x233?text=User" + (i + 1);
+            resultList[i].comment_date = moment(resultList[i].created_at).format('DD/MM/YYYY');
             // resultList[i].comments = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.";
         }
 
@@ -613,6 +616,16 @@ function requestServiceReviewComments(scroll, id) {
 
         var templateTempComments = $("#temp-template-comments").html();
         $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+        for (var i = 0; i < resultList.length; i++) {
+            if (!resultList[i].client_image) {
+                document.getElementById("client_comment_image_" + resultList[i].comment_id).setAttribute("style", "display: none")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).removeAttribute("style")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "font-size: 40px");
+                // document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "display: block")
+            }
+
+        }
 
         if (scroll) {
             $([document.documentElement, document.body]).animate({

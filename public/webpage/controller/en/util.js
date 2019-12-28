@@ -31,7 +31,7 @@ var CONFIG_SLICK_GALLERY = {
 function openLoading() {
     $("body").css("overflow", "hidden");
     $(".page_loader").css("display", "block");
-    $(".page_loader").css("opacity", 0.5);
+    $(".page_loader").css("opacity", 1);
 }
 
 
@@ -98,6 +98,22 @@ function convertJsonToParameterURL(json) {
 
 function convertParameterURLToJson() {
     var paramInput = decodeURIComponent(document.location.href.split("?")[1]);
+
+    var paramArr = paramInput.split("&");
+    var resultMap = {};
+    for (var i = 0; i < paramArr.length; i++) {
+        var key = paramArr[i].split("=")[0];
+        var value = paramArr[i].split("=")[1] == undefined ? "" : paramArr[i]
+            .split("=")[1];
+        resultMap[key] = decodeURI(value);
+        // console.log(key, value);
+    }
+
+    return resultMap;
+}
+
+function convertParameterURLToJsonDecode(data) {
+    var paramInput = data;
 
     var paramArr = paramInput.split("&");
     var resultMap = {};
@@ -274,5 +290,13 @@ function checkFieldForLanguageNull(field) {
         }
     } else {
         return field[PAGE_LANGUAGE].replace(/\r?\n|\r/g, "");
+    }
+}
+
+function checkLogin() {
+    if (localStorage.getItem("client_id")) {
+        return true
+    } else {
+        return false
     }
 }

@@ -77,7 +77,7 @@ $(function () {
             captions: captionsTH
         });
 
-        requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
 
             for (var i = 0; i < res.data.categorys.length; i++) {
                 DATA_CATEGORYS.push({
@@ -137,9 +137,9 @@ function requestServiceTripAndEventDetail() {
             images: res.data.images,
             image_main: res.data.thumbnail,
             line: res.data.line,
-            location: res.data.location,
+            // location: res.data.location,
             // location_url: res.data.location_url,
-            location: res.data.location,
+            location: res.data.address,
             max_rating: res.data.max_rating,
             meta_id: res.data.meta_id,
             opend: res.data.opend,
@@ -227,8 +227,19 @@ function requestServiceReviewComments(scroll, id) {
             document.getElementById("content-detail-comments").setAttribute("style", "display:none");
             document.getElementById("blank-content-detail-comments").setAttribute("style", "display:block");
         } else {
+            document.getElementById("blank-content-detail-comments").setAttribute("style", "display:none");
             var templateTempComments = $("#temp-template-comments").html();
             $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+            for (var i = 0; i < resultList.length; i++) {
+                if (!resultList[i].client_image) {
+                    document.getElementById("client_comment_image_" + resultList[i].comment_id).setAttribute("style", "display: none")
+                    document.getElementById("client_comment_icon_" + resultList[i].comment_id).removeAttribute("style")
+                    document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "font-size: 40px");
+                    // document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "display: block")
+                }
+
+            }
 
             if (scroll) {
                 $([document.documentElement, document.body]).animate({

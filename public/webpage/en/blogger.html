@@ -124,25 +124,38 @@
 
 
                         <div class="row" id="content-list-blog">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="listing-item-box-2">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-md-5 col-pad">
-                                            <div class="listing-thumbnail" onclick="">
-                                                <a onclick="clickToBlogDetail('{{blog_id}}','{{slug}}')"
-                                                    class="listing-img">
-                                                    <img src="{{thumbnail}}" alt="listing-photo-2" class="../img-fluid">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-pad">
-                                            <div class="detail">
-                                                <h3 class="title">
-                                                    <a
-                                                        onclick="clickToBlogDetail('{{blog_id}}','{{slug}}')">{{subject}}</a>
-                                                </h3>
-                                                <div class="blogger-content-ellipsis">
-                                                    {{content}}
+                            <div class="col-lg-4 col-md-6">
+
+
+
+                                <div class="row justify-content-md-center" style="height: 100%;">
+                                    <div class="col-md-auto" id="content-blog-recommend"
+                                        style="width: 100% !important; height: 100%;">
+                                        <div class="content-recommend" style="height: 100%;">
+                                            <div onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')"
+                                                class="listing-item-box" style="height: 100%;">
+                                                <div onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')"
+                                                    class="listing-thumbnail">
+                                                    <a onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')"
+                                                        class="listing-photo">
+                                                        <div class="ratings content-recommend-ratings-article-{{blog_id}}"
+                                                            data-start="{{ratings}}">
+                                                            <span>( {{reviews}} )</span>
+                                                        </div>
+                                                        <img onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')"
+                                                            class="d-block w-100" src="{{thumbnail}}"
+                                                            alt="listing-photo">
+                                                    </a>
+                                                </div>
+                                                <div class="detail">
+                                                    <h3 class="title">
+                                                        <a onclick="clickToBlogDetail('{{blog_id}}' , '{{slug}}')">
+                                                            <div class="txt-content-recommend">
+                                                                {{subject}}
+                                                            </div>
+                                                        </a>
+                                                    </h3>
+                                                    <p class="text-recommend">{{content}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +242,7 @@
                                 <a href="dashboard.html">Categories</a>
                             </li>
                             <li>
-                                <a href="listing-single.html">Article</a>
+                                <a onclick="clickMenuHeader('/search-article.html?text=&category_id=')">Article</a>
                             </li>
                             <li>
                                 <a href="listing-single.html">Q&A</a>

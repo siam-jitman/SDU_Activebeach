@@ -1,5 +1,5 @@
 var INVERT_PAGE_LANGUAGE = "";
-var BLOGGER_USER = "";
+var BLOGGER_USER = {};
 
 $(function () {
     'use strict';
@@ -78,7 +78,7 @@ $(function () {
         });
     });
 
-    requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
 
         setTimeout(function () {
             // console.log("res.data.categorys", res.data.categorys)
@@ -129,10 +129,30 @@ function requestServiceBlogHistory() {
             resultDataBlogs[i].blog_id = resultDataBlogs[i].blog_id[PAGE_LANGUAGE];
             resultDataBlogs[i].service_name = resultDataBlogs[i].service_name[PAGE_LANGUAGE];
             resultDataBlogs[i].slug = resultDataBlogs[i].slug[PAGE_LANGUAGE];
+            resultDataBlogs[i].ratings = resultDataBlogs[i].ratings;
+            resultDataBlogs[i].reviews = resultDataBlogs[i].reviews + (PAGE_LANGUAGE === "th" ? " รีวิว" : " Reviews");
         }
 
         var contentListBlog = $("#content-list-blog").html();
         $("#content-list-blog").html(bindDataListToTemplate(contentListBlog, JSON.parse(JSON.stringify(resultDataBlogs))));
+
+        for (var i = 0; i < resultDataBlogs.length; i++) {
+            // if (i <= 2) {
+            var templateScore = $(".content-recommend-ratings-article-" + resultDataBlogs[i].blog_id);
+            var score = templateScore.data("start");
+            var iconStartSelect = '<i class="fa fa-star"></i>';
+            var iconStartNone = '<i class="fa fa-star-o"></i>';
+            for (var n = 5; n >= 1; n--) {
+                if (n <= score) {
+                    templateScore.prepend(iconStartSelect);
+                } else {
+                    templateScore.prepend(iconStartNone);
+                }
+            }
+            // } else {
+            //     break;
+            // }
+        }
 
         if (PAGE_LANGUAGE == "th") {
             INVERT_PAGE_LANGUAGE = "en"
@@ -141,7 +161,10 @@ function requestServiceBlogHistory() {
             INVERT_PAGE_LANGUAGE = "th"
             // sessionStorage.setItem("INVERT_PAGE_LANGUAGE", "th");
         }
-        BLOGGER_USER = author;
+        BLOGGER_USER = {
+            author: author,
+            client_id: client_id
+        };
 
         closeLoading();
     }

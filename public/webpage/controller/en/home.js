@@ -5,7 +5,7 @@ $(function () {
     'use strict';
     $(window).on('load', function () {
 
-        requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
 
             for (var i = 0; i < res.data.categorys.length; i++) {
                 DATA_CATEGORYS.push({
@@ -22,12 +22,12 @@ $(function () {
 
             var templateCategoryMenu = $("#index-category-menu").html();
 
-            var templateCategorySelect = $("#index-category-select").html();
+            var templateCategorySelect = $("#select-search-bar").html();
             var templateCategoryFirst = $("#index-category-first").html();
             var templateCategoryContent = $("#index-category-content").html();
 
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
-            $("#index-category-select").html(bindDataListToTemplate(templateCategorySelect, [{
+            $("#select-search-bar").html(bindDataListToTemplate(templateCategorySelect, [{
                 categoryNameDisplay: "Choose a category",
                 categoryNameValue: ""
             }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
@@ -91,7 +91,9 @@ $(function () {
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
-                    "viewer": dataList[i].viewer
+                    "viewer": dataList[i].viewer,
+                    "service_id": dataList[i].service_id,
+                    "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
             }
 
@@ -147,7 +149,9 @@ $(function () {
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
-                    "viewer": dataList[i].viewer
+                    "viewer": dataList[i].viewer,
+                    "service_id": dataList[i].service_id,
+                    "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
             }
 
@@ -191,7 +195,7 @@ $(function () {
                     var title = "&nbsp;";
                 }
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
-                    "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
+                    "company_id": dataList[i].id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": title,
@@ -202,7 +206,9 @@ $(function () {
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
-                    "viewer": dataList[i].viewer
+                    "viewer": dataList[i].viewer,
+                    "service_id": dataList[i].service_id,
+                    "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
             }
 
@@ -246,7 +252,7 @@ $(function () {
                     var title = "&nbsp;";
                 }
                 DATA_HOME_RECOMMEND_ATTACTIONS.push({
-                    "company_id": dataList[i].company_id == undefined ? "" : dataList[i].company_id[PAGE_LANGUAGE] == undefined ? dataList[i].company_id : dataList[i].company_id[PAGE_LANGUAGE],
+                    "company_id": dataList[i].id[PAGE_LANGUAGE],
                     // "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "meta_id": dataList[i].meta_id == undefined ? dataList[i].id[PAGE_LANGUAGE] : dataList[i].meta_id,
                     "title": title,
@@ -257,7 +263,10 @@ $(function () {
                     "ratings": dataList[i].ratings,
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
-                    "viewer": dataList[i].viewer
+                    "viewer": dataList[i].viewer,
+
+                    "service_id": dataList[i].service_id,
+                    "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
             }
 
@@ -290,8 +299,8 @@ function clickBtnSearchBar(category_id) {
     if (category_id == undefined) {
 
         var param = {
-            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#index-txt-search").val(),
-            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#index-category-select").val(),
+            text: window.innerWidth <= 992 ? $("#index-txt-search-mobile").val() : $("#txt-search-bar").val(),
+            category_id: window.innerWidth <= 992 ? $("#index-category-select-mobile").val() : $("#select-search-bar").val(),
         };
     } else {
         var param = {
@@ -301,15 +310,15 @@ function clickBtnSearchBar(category_id) {
     window.location.href = "./search.html?" + convertJsonToParameterURL(param);
 }
 
-function clickBtnToDetailRecommend(meta_id, company_id, title) {
+function clickBtnToDetailRecommend(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: "ตอนเรียก service ไม่มีค่านี้มาให้",
+        category_name: service_id,
         company_name: title,
         meta_id: meta_id,
         company_id: company_id,
-        category_id: "ตอนเรียก service ไม่มีค่านี้มาให้",
+        category_id: service_name,
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
