@@ -78,7 +78,9 @@ $(function () {
             captions: captionsTH
         });
 
-        requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_CATEGORYS, "GET", {
+            "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+        }, function (res) {
 
             for (var i = 0; i < res.data.categorys.length; i++) {
                 DATA_CATEGORYS.push({
@@ -343,6 +345,7 @@ function clickBtnToDetailRecommendAttactions(meta_id, company_id, title, categor
         lang: PAGE_LANGUAGE
     };
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+
     //     }
     // }
 }
@@ -418,15 +421,22 @@ function requestServiceReviewTips() {
 function clickBtnToDetailRecommendTips(meta_id, company_id, title, service_id, service_name) {
     // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
     //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
+    // var param = {
+    //     category_name: service_name,
+    //     company_name: title,
+    //     meta_id: meta_id,
+    //     company_id: company_id,
+    //     category_id: service_id,
+    //     lang: PAGE_LANGUAGE
+    // };
+    // window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+
     var param = {
-        category_name: service_name,
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: service_id,
-        lang: PAGE_LANGUAGE
+        id: company_id,
+        name: title
     };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+    window.location.href = "./detail-tips.html?" + convertJsonToParameterURL(param);
+
     //     }
     // }
 }
@@ -499,19 +509,11 @@ function requestServiceReviewEvents() {
 }
 
 function clickBtnToDetailRecommendEvents(meta_id, company_id, title, service_id, service_name) {
-    // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
-    //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
     var param = {
-        category_name: service_id,
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: service_name,
-        lang: PAGE_LANGUAGE
+        id: company_id,
+        name: title
     };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
-    //     }
-    // }
+    window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
 }
 
 function requestServiceReviewArticles() {
@@ -542,6 +544,10 @@ function requestServiceReviewArticles() {
                 resultList[i].updated_at = moment(resultList[i].updated_at).format('DD/MM/YYYY HH:MM');
                 resultList[i].title = resultList[i].subject[PAGE_LANGUAGE] != undefined ? resultList[i].subject[PAGE_LANGUAGE] : resultList[i].subject;
                 resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
+
+                resultList[i].slug = resultList[i].slug[PAGE_LANGUAGE];
+
+
                 datalist.push(resultList[i])
             }
 
@@ -581,20 +587,13 @@ function requestServiceReviewArticles() {
     requestService(URL_REVIEW_ARTICLES, "GET", param, dooSuccess);
 }
 
-function clickBtnToDetailRecommendArticles(meta_id, company_id, title, service_id, service_name) {
-    // for (var i = 0; i < SEARCH_RESULT_LIST.length; i++) {
-    //     if (SEARCH_RESULT_LIST[i].meta_id == id) {
-    var param = {
-        category_name: service_id,
-        company_name: title,
-        meta_id: meta_id,
-        company_id: company_id,
-        category_id: service_name,
-        lang: PAGE_LANGUAGE
-    };
-    window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
-    //     }
-    // }
+function clickBtnToDetailRecommendArticles(id, slug) {
+    if (typeof slug === "object") {
+        slug = slug[PAGE_LANGUAGE];
+    } else {
+        slug = slug;
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }
 
 function requestServiceReviewComments(scroll, id) {

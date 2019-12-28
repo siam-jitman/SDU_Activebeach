@@ -112,6 +112,22 @@ function convertParameterURLToJson() {
     return resultMap;
 }
 
+function convertParameterURLToJsonDecode(data) {
+    var paramInput = data;
+
+    var paramArr = paramInput.split("&");
+    var resultMap = {};
+    for (var i = 0; i < paramArr.length; i++) {
+        var key = paramArr[i].split("=")[0];
+        var value = paramArr[i].split("=")[1] == undefined ? "" : paramArr[i]
+            .split("=")[1];
+        resultMap[key] = decodeURI(value);
+        // console.log(key, value);
+    }
+
+    return resultMap;
+}
+
 function convertParameterURLToJsonNotDecode(data) {
     var paramInput = data;
 

@@ -27,7 +27,9 @@ $(function () {
         // setTimeout(function () {
         //     $(".page_loader").fadeOut("fast");
         // }, 100);
-
+        if ($("#name-send-review") && localStorage.getItem("first_name") && localStorage.getItem("last_name")) {
+            $("#name-send-review").val(localStorage.getItem("first_name") + " " + localStorage.getItem("last_name"));
+        }
         if (!checkLogin() && document.getElementById("main-content-add-review")) {
             document.getElementById("main-content-add-review").setAttribute("style", "display: none");
             document.getElementById("login-for-review").removeAttribute("style");
@@ -68,6 +70,8 @@ $(function () {
 
         $("#mainModalRegister").load("../template/en/madal/register.html", function () {
             $('#alert-error-register').hide();
+            $('#alert-error-blank-register').hide();
+            $('#alert-error-confirm-password').hide();
         });
 
         // $("#mainModalFavorite").load("../template/en/madal/favorite.html", function () {
@@ -154,19 +158,38 @@ $(function () {
             $('#label-page-main').css("font-weight", "bold");
             $('#label-page-main').css("color", "rgb(240, 24, 34)");
             $('.btn-back-page').css("display", "none");
-        } else if ((window.location.href.indexOf("search.html?text=")) >= 0) {
+        } else if ((window.location.href.indexOf("search.html?text=")) >= 0 || (window.location.href.indexOf("detail.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
-        } else if ((window.location.href.indexOf("search-event.html")) >= 0) {
+
+
+            $('#one-label-page-tourism').css("font-weight", "bold");
+            $('#one-label-page-tourism').css("color", "rgb(240, 24, 34)");
+
+        } else if ((window.location.href.indexOf("search-event.html")) >= 0 || (window.location.href.indexOf("detail-event.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
-        } else if ((window.location.href.indexOf("search-tips.html")) >= 0) {
+
+
+            $('#two-label-page-tourism').css("font-weight", "bold");
+            $('#two-label-page-tourism').css("color", "rgb(240, 24, 34)");
+
+        } else if ((window.location.href.indexOf("search-tips.html")) >= 0 || (window.location.href.indexOf("detail-tips.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+
+
+            $('#three-label-page-tourism').css("font-weight", "bold");
+            $('#three-label-page-tourism').css("color", "rgb(240, 24, 34)");
+
         } else if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-            $('#label-page-categories').css("font-weight", "bold");
-            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        } else if ((window.location.href.indexOf("search-article.html")) >= 0) {
+            $('#label-page-tourism').css("font-weight", "bold");
+            $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+
+
+            $('#one-label-page-tourism').css("font-weight", "bold");
+            $('#one-label-page-tourism').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("search-article.html") >= 0) || ((window.location.href.indexOf("/blog/")) >= 0)) {
             $('#label-page-article').css("font-weight", "bold");
             $('#label-page-article').css("color", "rgb(240, 24, 34)");
         } else if ((window.location.href.indexOf("issue.html")) >= 0) {
@@ -569,7 +592,7 @@ function clickBtnLogin() {
     openLoading();
 
     var form = $('#form-login').serialize();
-    var jsonForm = convertParameterURLToJsonNotDecode(form);
+    var jsonForm = convertParameterURLToJsonDecode(form);
 
     if (jsonForm.username === "" || jsonForm.password === "") {
         setTimeout(function () {
@@ -590,11 +613,37 @@ function clickBtnLogout() {
 
 function clickBtnRegister() {
 
-    $('#alert-error-register').hide();
     openLoading();
-    setTimeout(function () {
-        requestServiceAccountRegister($('#form-register').serialize());
-    }, 500);
+    $('#alert-error-register').hide();
+    $('#alert-error-blank-register').hide();
+    $('#alert-error-confirm-password').hide();
+
+    var form = $('#form-register').serialize();
+    var jsonForm = convertParameterURLToJsonDecode(form);
+
+    console.log("clickBtnRegister", jsonForm)
+
+    if (jsonForm.username === "" || jsonForm.password === "" || jsonForm.confirmPassword === "" || jsonForm.firstName === "" || jsonForm.lastName === "" || (jsonForm.gender != "Male" && jsonForm.gender != "Female")) {
+        setTimeout(function () {
+            $('#alert-error-blank-register').show();
+            closeLoading();
+        }, 500);
+    } else {
+
+        if (jsonForm.confirmPassword != jsonForm.password) {
+            setTimeout(function () {
+                console.log("confirm-password")
+                $('#alert-error-confirm-password').show();
+                closeLoading();
+            }, 500);
+        } else {
+
+            setTimeout(function () {
+                requestServiceAccountRegister(jsonForm);
+            }, 500);
+        }
+
+    }
 }
 
 function clickBtnFavorite() {
@@ -675,9 +724,13 @@ function requestServiceGetToken() {
             closeLoading();
             $('#modalLogin').modal('hide');
         }
+        if (!res.data.user.isFavorite) {
 
+            $('#modalFavorite').modal('show');
+        } else {
 
-        $('#modalFavorite').modal('show');
+            $('#modalFavorite').modal('hide');
+        }
 
 
     }
@@ -696,7 +749,7 @@ function requestServiceAccountFavorite(param) {
 
 function requestServiceAccountRegister(param) {
 
-    var paramJson = convertParameterURLToJsonNotDecode(param);
+    var paramJson = param;
 
     var dooSuccess = function (res) {
         if (res && res.data) {
@@ -729,7 +782,7 @@ function requestServiceAccountRegister(param) {
         }
     }
 
-    requestFormBodyService(URL_ACCOUNT_REGISTER, "POST", param, dooSuccess);
+    requestFormBodyService(URL_ACCOUNT_REGISTER, "POST", convertJsonToParameterURLNotEncode(param), dooSuccess);
 }
 
 function clickMenuHeader(toPage) {

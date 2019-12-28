@@ -105,8 +105,8 @@
                     <!-- <div class="col-lg-5 col-md-12 clearfix">
                         <div class="cover-buttons">
                             <ul>
-                                <li><a href="{{website}}">Web site</a></li>
-                                <li><a href="{{facebook}}">Facebook</a></li>
+                                <li><a href="{{website}}"  target="_blank">Web site</a></li>
+                                <li><a href="{{facebook}}" target="_blank">Facebook</a></li>
                                 <li style="display: none;"><a href="messages.html">Facebook</a></li>
                             </ul>
                         </div>
@@ -486,7 +486,9 @@
                 <div class="comment">
                     <div class="comment-author">
                         <a>
-                            <img src="{{client_image}}" title="{{name}}" alt="comments-user">
+                            <img id="client_comment_image_{{comment_id}}" src="{{client_image}}" title="{{name}}"
+                                alt="comments-user">
+                            <i id="client_comment_icon_{{comment_id}}" class="fa fa-user" style="display: none;"></i>
                         </a>
                     </div>
                     <div class="comment-content">

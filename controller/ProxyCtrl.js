@@ -56,8 +56,8 @@ module.exports = class ProxyCtrl {
 
     convertJsonToParameterURL(json) {
         let newJson = Object.keys(json).map((item) => {
-            let newObjKey = encodeURIComponent(item);
-            let newObjValue = this.urlEncode(encodeURIComponent(json[item]), true);
+            let newObjKey = item;
+            let newObjValue = json[item];
             let newObj = newObjKey + '=' + newObjValue;
             return newObj;
         }).join('&')

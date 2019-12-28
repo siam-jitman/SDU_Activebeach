@@ -14,9 +14,16 @@
                 </div>
                 <form id="form-favorite">
                     <div class="form-group">
-                        <label for="username">จังหวัดที่ท่านอยากไป </label>
-                        <input type="text" name="province" class="form-control" id="province"
-                            placeholder="จังหวัดที่ท่านอยากไป">
+                        <label for="username">Province you want to go to </label>
+                        <!-- <input type="text" name="province" class="form-control" id="province"
+                            placeholder="จังหวัดที่ท่านอยากไป"> -->
+                        <select class="custom-select" name="province">
+                            <option selected>Province you want to go to</option>
+                            <option value="ชลบุรี">ชลบุรี</option>
+                            <option value="จันทรบุรี">จันทรบุรี</option>
+                            <option value="ตราด">ตราด</option>
+                            <option value="ระยอง">ระยอง</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="categoryId">ประเภทบริการ (เลือกได้หลายค่า)</label>

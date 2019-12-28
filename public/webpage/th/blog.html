@@ -440,7 +440,10 @@
                 <div class="comment">
                     <div class="comment-author">
                         <a>
-                            <img src="{{client_image}}" title="{{name}}" alt="comments-user">
+
+                            <img id="client_comment_image_{{comment_id}}" src="{{client_image}}" title="{{name}}"
+                                alt="comments-user">
+                            <i id="client_comment_icon_{{comment_id}}" class="fa fa-user" style="display: none;"></i>
                         </a>
                     </div>
                     <div class="comment-content">

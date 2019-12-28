@@ -78,7 +78,7 @@ $(function () {
         });
     });
 
-    requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
 
         setTimeout(function () {
             // console.log("res.data.categorys", res.data.categorys)

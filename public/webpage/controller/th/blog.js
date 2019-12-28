@@ -78,7 +78,9 @@ $(function () {
         });
     });
 
-    requestService(URL_INTERSTING_CATEGORYS, "GET", null, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {
+        "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+    }, function (res) {
 
         setTimeout(function () {
             // console.log("res.data.categorys", res.data.categorys)
@@ -269,6 +271,16 @@ function requestServiceReviewComments(scroll, id) {
 
         var templateTempComments = $("#temp-template-comments").html();
         $("#content-detail-comments").html(bindDataListToTemplate(templateTempComments, resultList));
+
+        for (var i = 0; i < resultList.length; i++) {
+            if (!resultList[i].client_image || resultList[i].client_image == "") {
+                document.getElementById("client_comment_image_" + resultList[i].comment_id).setAttribute("style", "display: none")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).removeAttribute("style")
+                document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "font-size: 40px");
+                // document.getElementById("client_comment_icon_" + resultList[i].comment_id).setAttribute("style", "display: block")
+            }
+
+        }
 
         if (scroll) {
             $([document.documentElement, document.body]).animate({

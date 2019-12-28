@@ -3,7 +3,7 @@
 <head>
     <title>Active Beach</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
     <!-- External CSS libraries -->
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
@@ -104,8 +104,8 @@
                     <div class="col-lg-5 col-md-12 clearfix">
                         <div class="cover-buttons">
                             <ul>
-                                <li><a href="{{website}}">Web site</a></li>
-                                <li><a href="{{facebook}}">Facebook</a></li>
+                                <li><a href="{{website}}" target="_blank">Web site</a></li>
+                                <li><a href="{{facebook}}" target="_blank">Facebook</a></li>
                                 <li style="display: none;"><a href="messages.html">Facebook</a></li>
                             </ul>
                         </div>
@@ -639,7 +639,7 @@
                             <div class="slick-slide-item">
                                 <div class="listing-item-box">
                                     <div class="listing-thumbnail"
-                                        onclick="clickBtnToDetailRecommendArticles('{{meta_id}}', '{{company_id}}', '{{title}}' , '{{service_id}}', '{{service_name}}')">
+                                        onclick="clickBtnToDetailRecommendArticles('{{company_id}}', '{{slug}}')">
                                         <a class="listing-photo">
                                             <!-- <div class="tag">Restourant</div> -->
                                             <div class="ratings content-recommend-articles-ratings-{{meta_id}}"
