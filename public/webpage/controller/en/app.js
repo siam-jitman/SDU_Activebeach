@@ -804,10 +804,11 @@ function clickChangeLanguage(lang) {
         window.location.replace(window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/" + INVERT_PAGE_LANGUAGE + "/blog/author/" + BLOGGER_USER.author + "/" + BLOGGER_USER.client_id + "/");
     } else {
         let page = window.location.href.split("/")[window.location.href.split("/").length - 1];
+        // var paramInUrl = convertParameterURLToJson();
+        // window.location.href = "../" + lang + "/" + page + "?" + convertJsonToParameterURL(paramInUrl);
         window.location.href = "../" + lang + "/" + page;
     }
 }
-
 
 function clickToSearehByType(id) {
 
@@ -841,7 +842,6 @@ function clickToSearehArticleByType() {
     window.location.href = "./search-article.html?text=&" + convertJsonToParameterURL(param);
 }
 
-
 function clickToDetailEvent(id, name) {
 
     var param = {
@@ -869,7 +869,6 @@ function clickToBlogDetail(id, slug) {
     window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/blog/post/" + id + "/" + slug + "/";
 }
 
-
 function clickToDetail(category_name, company_name, meta_id, company_id, category_id, lang) {
     var param = {
         category_name: category_name,
@@ -887,4 +886,89 @@ function clickToDetail(category_name, company_name, meta_id, company_id, categor
     }
 
     window.location.href = "./detail.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMorePage(endpoint, apiName) {
+    var paramInUrl = convertParameterURLToJson();
+    var param = {
+        ...paramInUrl,
+        endpoint: endpoint,
+        apiName: apiName,
+        text: ""
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMorePageTrip(endpoint, apiName) {
+    var paramInUrl = convertParameterURLToJson();
+    var param = {
+        ...paramInUrl,
+        endpoint: endpoint,
+        apiName: apiName,
+        text: ""
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-tips.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMorePageEvent(endpoint, apiName) {
+    var paramInUrl = convertParameterURLToJson();
+    var param = {
+        ...paramInUrl,
+        endpoint: endpoint,
+        apiName: apiName,
+        text: ""
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-event.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMorePageArticle(endpoint, apiName) {
+    var paramInUrl = convertParameterURLToJson();
+    var param = {
+        ...paramInUrl,
+        endpoint: endpoint,
+        apiName: apiName,
+        text: ""
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-article.html?" + convertJsonToParameterURL(param);
+}
+
+function onClickMorePageType(endpoint, apiName) {
+    var paramInUrl = convertParameterURLToJson();
+    var param = {
+        ...paramInUrl,
+        endpoint: endpoint,
+        apiName: apiName,
+        text: ""
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-type.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMoreFirstPage(endpoint, apiName) {
+    var param = {
+        endpoint: endpoint,
+        apiName: apiName,
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-first.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMoreFirstPageEvent(endpoint, apiName) {
+    var param = {
+        endpoint: endpoint,
+        apiName: apiName,
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-event-first.html?" + convertJsonToParameterURL(param);
+}
+
+
+
+function clickMoreFirstPageTips(endpoint, apiName) {
+    var param = {
+        endpoint: endpoint,
+        apiName: apiName,
+    }
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/more-tips-first.html?" + convertJsonToParameterURL(param);
+}
+
+function clickMenuFooter(page) {
+    window.location.href = "/" + PAGE_LANGUAGE.toLowerCase() + "/" + page;
 }

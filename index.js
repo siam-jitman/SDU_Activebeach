@@ -57,6 +57,27 @@ app.get("/en/blog/post/:param1?/:param2?/*", (req, res) => {
     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/en/blog.html'));
 });
 
+// more
+// app.use('/th/more/:param1?/', express.static(__dirname + "/public/webpage/"));
+// app.get("/th/more/:param1?/", (req, res) => {
+//     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+// });
+// app.use('/th/more/:param1?/', express.static(__dirname + "/public/webpage/"));
+// app.get("/th/more/:param1?/", (req, res) => {
+//     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+// });
+// app.get("/th/more/:param1?/:param2?/*", (req, res) => {
+//     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/th/more.html'));
+// });
+
+// app.use('/en/more/:param1?/', express.static(__dirname + "/public/webpage/"));
+// app.get("/en/more/:param1?/", (req, res) => {
+//     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/'));
+// });
+// app.get("/en/more/:param1?/:param2?/*", (req, res) => {
+//     res.sendFile(path.join(path.resolve(__dirname) + '/public/webpage/en/more.html'));
+// });
+
 app.use(cors());
 // app.use(bodyParser.json({
 //     limit: '50mb'

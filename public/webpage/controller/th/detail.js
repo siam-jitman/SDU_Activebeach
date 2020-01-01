@@ -289,7 +289,7 @@ function requestServiceReviewNearbyAttactions() {
 
                 resultList[i].thumbnail = resultList[i].thumbnail;
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
                 resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
                 resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
@@ -371,7 +371,7 @@ function requestServiceReviewTips() {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
@@ -462,7 +462,7 @@ function requestServiceReviewEvents() {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].id[PAGE_LANGUAGE];
@@ -537,7 +537,7 @@ function requestServiceReviewArticles() {
 
 
                 resultList[i].icon = resultList[i].icon;
-                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
                 resultList[i].ratings = resultList[i].ratings;
                 resultList[i].company_id = resultList[i].blog_id[PAGE_LANGUAGE];
                 resultList[i].meta_id = resultList[i].blog_id[PAGE_LANGUAGE];
