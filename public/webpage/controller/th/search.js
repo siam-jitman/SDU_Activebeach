@@ -151,7 +151,7 @@ function genContentSearchDetail(dataList) {
         rawResult.location = dataList[i].address;
         rawResult.description = dataList[i].content;
         rawResult.reviews = "";
-        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
         rawResult.ratings = dataList[i].ratings;
         rawResult.icon = dataList[i].icon;
 
@@ -252,8 +252,8 @@ function requestSearchResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
         SEARCH_RESULT_LIST = data.searchs === null ? [] : data.searchs;
         RAW_SEARCH_RESULT_LIST = data.searchs === null ? [] : data.searchs;
@@ -334,7 +334,7 @@ function requestServiceSearchEventResult() {
                     location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -395,7 +395,7 @@ function requestServiceSearchTipsResult() {
                     location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -461,7 +461,7 @@ function requestServiceSearchArticleResult() {
                         location: eventResultList[i].address,
                         description: eventResultList[i].content,
                         ratings: eventResultList[i].ratings,
-                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                         thumbnail: eventResultList[i].thumbnail,
                         slug: eventResultList[i].slug[PAGE_LANGUAGE],
                         icon: eventResultList[i].icon

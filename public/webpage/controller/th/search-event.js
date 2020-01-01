@@ -145,7 +145,7 @@ function genContentSearchDetail(dataList) {
         rawResult.location = dataList[i].address;
         rawResult.description = dataList[i].content;
         rawResult.reviews = "";
-        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : "");
+        rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
         rawResult.ratings = dataList[i].ratings;
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
@@ -346,8 +346,8 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
         SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
         RAW_SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
@@ -389,7 +389,7 @@ function requestServiceSearchTipsResult() {
                     location: eventResultList[i].address,
                     description: eventResultList[i].content,
                     ratings: eventResultList[i].ratings,
-                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                    reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
                 });
@@ -454,7 +454,7 @@ function requestServiceSearchArticleResult() {
                         location: eventResultList[i].address,
                         description: eventResultList[i].content,
                         ratings: eventResultList[i].ratings,
-                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : ""),
+                        reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                         thumbnail: eventResultList[i].thumbnail,
                         icon: eventResultList[i].icon,
 
