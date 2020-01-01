@@ -158,7 +158,7 @@ $(function () {
             $('#label-page-main').css("font-weight", "bold");
             $('#label-page-main').css("color", "rgb(240, 24, 34)");
             $('.btn-back-page').css("display", "none");
-        } else if ((window.location.href.indexOf("search.html?text=")) >= 0 || (window.location.href.indexOf("detail.html")) >= 0) {
+        } else if ((window.location.href.indexOf("more-first.html")) >= 0 || (window.location.href.indexOf("more.html")) >= 0 || (window.location.href.indexOf("search.html?text=")) >= 0 || (window.location.href.indexOf("detail.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
 
@@ -166,7 +166,7 @@ $(function () {
             $('#one-label-page-tourism').css("font-weight", "bold");
             $('#one-label-page-tourism').css("color", "rgb(240, 24, 34)");
 
-        } else if ((window.location.href.indexOf("search-event.html")) >= 0 || (window.location.href.indexOf("detail-event.html")) >= 0) {
+        } else if ((window.location.href.indexOf("more-event")) >= 0 || (window.location.href.indexOf("search-event.html")) >= 0 || (window.location.href.indexOf("detail-event.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
 
@@ -174,7 +174,7 @@ $(function () {
             $('#two-label-page-tourism').css("font-weight", "bold");
             $('#two-label-page-tourism').css("color", "rgb(240, 24, 34)");
 
-        } else if ((window.location.href.indexOf("search-tips.html")) >= 0 || (window.location.href.indexOf("detail-tips.html")) >= 0) {
+        } else if ((window.location.href.indexOf("more-tips")) >= 0 || (window.location.href.indexOf("search-tips.html")) >= 0 || (window.location.href.indexOf("detail-tips.html")) >= 0) {
             $('#label-page-tourism').css("font-weight", "bold");
             $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
 
