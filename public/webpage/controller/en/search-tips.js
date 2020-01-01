@@ -340,8 +340,8 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : ""));
+        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
         SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;
         RAW_SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;

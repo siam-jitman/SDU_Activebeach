@@ -5,7 +5,9 @@ $(function () {
     'use strict';
     $(window).on('load', function () {
 
-        requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
+        requestService(URL_INTERSTING_CATEGORYS, "GET", {
+            "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+        }, function (res) {
 
             for (var i = 0; i < res.data.categorys.length; i++) {
                 DATA_CATEGORYS.push({
@@ -61,7 +63,9 @@ $(function () {
             $('.selectpicker').selectpicker("refresh");
         });
 
-        requestService(URL_INTERSTING_LANDMARK, "GET", null, function (res) {
+        requestService(URL_INTERSTING_LANDMARK, "GET", {
+            lang: PAGE_LANGUAGE
+        }, function (res) {
             var dataList = res.data.landmarks;
             DATA_HOME_RECOMMEND_LANDMARK = []
             DATA_HOME_RECOMMEND_ATTACTIONS = []
@@ -121,7 +125,9 @@ $(function () {
 
         });
 
-        requestService(URL_NEAR_BY_ATTACTIONS, "GET", null, function (res) {
+        requestService(URL_NEAR_BY_ATTACTIONS, "GET", {
+            lang: PAGE_LANGUAGE
+        }, function (res) {
 
             var dataList = res.data.attactions;
             DATA_HOME_RECOMMEND_LANDMARK = []
@@ -179,7 +185,9 @@ $(function () {
             }
         });
 
-        requestService(URL_INTERSTING_EVENTS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_EVENTS, "GET", {
+            lang: PAGE_LANGUAGE
+        }, function (res) {
 
             var dataList = res.data.events;
             DATA_HOME_RECOMMEND_LANDMARK = []
@@ -237,7 +245,9 @@ $(function () {
             }
         });
 
-        requestService(URL_INTERSTING_TIPS, "GET", null, function (res) {
+        requestService(URL_INTERSTING_TIPS, "GET", {
+            lang: PAGE_LANGUAGE
+        }, function (res) {
 
             var dataList = res.data.trips;
             DATA_HOME_RECOMMEND_LANDMARK = []

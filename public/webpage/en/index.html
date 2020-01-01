@@ -130,8 +130,8 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="text-right">
+                <div class="col-4">
+                    <div class="text-right" onclick="onClickMorePageType('FirstPage' , 'InterestingCategorys')">
                         <button type="button" class="btn btn-link btn-more">
                             See all
                         </button>
@@ -152,7 +152,7 @@
                             </svg>
                         </button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-sm-12 col-pad" id="index-category-first">
@@ -214,8 +214,8 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="text-right">
+                <div class="col-4">
+                    <div class="text-right" onclick="clickMoreFirstPage('Popular destination' , 'InterestingLandmark')">
                         <button type="button" class="btn btn-link btn-more">
                             See all
                         </button>
@@ -236,7 +236,7 @@
                             </svg>
                         </button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- Slick slider area start -->
             <div class="slick-slider-area">
@@ -293,8 +293,8 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="text-right">
+                <div class="col-4">
+                    <div class="text-right" onclick="clickMoreFirstPage('Destinations near you' , 'NearbyAttactions')">
                         <button type="button" class="btn btn-link btn-more">
                             See all
                         </button>
@@ -315,7 +315,7 @@
                             </svg>
                         </button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- Slick slider area start -->
             <div class="slick-slider-area">
@@ -372,8 +372,9 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="text-right">
+                <div class="col-4">
+                    <div class="text-right"
+                        onclick="clickMoreFirstPageEvent('Interesting activities' , 'InterestingEvents')">
                         <button type="button" class="btn btn-link btn-more">
                             See all
                         </button>
@@ -394,7 +395,7 @@
                             </svg>
                         </button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- Slick slider area start -->
             <div class="slick-slider-area">
@@ -452,8 +453,8 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="text-right">
+                <div class="col-4">
+                    <div class="text-right" onclick="clickMoreFirstPageTips('Interesting trips' , 'InterestingTips')">
                         <button type="button" class="btn btn-link btn-more">
                             See all
                         </button>
@@ -474,7 +475,7 @@
                             </svg>
                         </button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- Slick slider area start -->
             <div class="slick-slider-area">
@@ -572,16 +573,17 @@
                         <h4>Shortcut</h4>
                         <ul class="links">
                             <li>
-                                <a href="#">Home</a>
+                                <a onclick="clickMenuFooter('index.html')">Home</a>
                             </li>
                             <li>
-                                <a href="#">Tourism destinations</a>
+                                <a onclick="clickMenuFooter('search.html?text=&category_id=')">Tourism destinations</a>
                             </li>
                             <li>
-                                <a href="#">Tourism activities</a>
+                                <a onclick="clickMenuFooter('search-event.html?text=&category_id=')">Tourism
+                                    activities</a>
                             </li>
                             <li>
-                                <a href="contact.html">Tourism trips</a>
+                                <a onclick="clickMenuFooter('search-tips.html?text=&category_id=')">Tourism trips</a>
                             </li>
                         </ul>
                     </div>
@@ -591,13 +593,13 @@
                         <h4>&nbsp;</h4>
                         <ul class="links">
                             <li>
-                                <a href="dashboard.html">Categories</a>
+                                <a onclick="onClickMorePageType('FirstPage' , 'InterestingCategorys')">Categories</a>
                             </li>
                             <li>
                                 <a onclick="clickMenuHeader('/search-article.html?text=&category_id=')">Article</a>
                             </li>
                             <li>
-                                <a href="listing-single.html">Q&A</a>
+                                <a onclick="clickMenuFooter('issue.html')">Q&A</a>
                             </li>
                         </ul>
                     </div>

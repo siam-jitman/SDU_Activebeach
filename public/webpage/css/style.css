@@ -66,6 +66,11 @@ strong {
     color: #535353;
 }
 
+#header-name-member {
+
+    color: #FFF !important;
+}
+
 span {
     color: #535353;
 }
