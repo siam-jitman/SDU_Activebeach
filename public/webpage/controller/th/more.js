@@ -220,7 +220,7 @@ function requestSearchResult() {
         meta_id: paramInUrl.meta_id,
         category_name: paramInUrl.category_name,
         company_name: paramInUrl.company_name,
-        lang:  PAGE_LANGUAGE,
+        lang: PAGE_LANGUAGE,
         // lang:paramInUrl.lang,
     }
 
@@ -242,6 +242,12 @@ function requestSearchResult() {
             SEARCH_RESULT_LIST = data.attactions === null ? [] : data.attactions;
             RAW_SEARCH_RESULT_LIST = data.attactions === null ? [] : data.attactions;
             MAX_SHOW_SIZE = data.attactions === null ? 0 : data.attactions.length;
+        } else if (paramInUrl.apiName === "ReviewSimilarLocation") {
+
+            $("#lable-search-type-all").html("แนะนำสถานที่คล้ายคลึงกัน" + ' "<span>' + DATA_PARAM_IN_URL.company_name + '</span>" ');
+            SEARCH_RESULT_LIST = data.similar_locations === null ? [] : data.similar_locations;
+            RAW_SEARCH_RESULT_LIST = data.similar_locations === null ? [] : data.similar_locations;
+            MAX_SHOW_SIZE = data.similar_locations === null ? 0 : data.similar_locations.length;
         } else if (paramInUrl.apiName === "ReviewEvents") {
 
             SEARCH_RESULT_LIST = data.events === null ? [] : data.events;

@@ -100,6 +100,7 @@ $(function () {
         });
 
         requestServiceReviewNearbyAttactions();
+        requestServiceReviewSimilarLocation();
         requestServiceReviewTips();
         requestServiceReviewEvents();
         requestServiceReviewArticles();
@@ -509,6 +510,67 @@ function clickBtnToDetailRecommendEvents(meta_id, company_id, title, service_id,
         name: title
     };
     window.location.href = "./detail-event.html?" + convertJsonToParameterURL(param);
+}
+
+function requestServiceReviewSimilarLocation() {
+
+    var param = {
+        meta_id: DATA_PARAM_IN_URL["meta_id"],
+        lang: PAGE_LANGUAGE,
+
+    }
+
+    var dooSuccess = function (res) {
+        var datalist = [];
+        var resultList = res.data.similar_locations;
+        for (var i = 0; i < resultList.length; i++) {
+            // console.log(i)
+            if (resultList[i].company_id != undefined) {
+
+                resultList[i].thumbnail = resultList[i].thumbnail;
+                resultList[i].icon = resultList[i].icon;
+                resultList[i].reviews = resultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
+                resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
+                resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
+                resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
+                datalist.push(resultList[i])
+            }
+
+        }
+
+        if (datalist.length <= 0) {
+            document.getElementById("main-content-recommend-similar-location").setAttribute("style", "display: none")
+        } else {
+            if (resultList.length == 1) {
+                CONFIG_SLIDE.slidesToShow = 1;
+            } else if (resultList.length == 2) {
+                CONFIG_SLIDE.slidesToShow = 2;
+            } else {
+                CONFIG_SLIDE.slidesToShow = 3;
+            }
+            var templateContentRecommendAttactions = $("#content-recommend-similar-location").html();
+            $("#content-recommend-similar-location").html(bindDataListToTemplate(templateContentRecommendAttactions, datalist));
+            createSlick("#content-recommend-similar-location", CONFIG_SLIDE);
+
+            for (var i = 0; i < datalist.length; i++) {
+                var templateScore = $(".content-recommend-similar-location-ratings-" + (datalist[i].meta_id == undefined ? datalist[i].id[PAGE_LANGUAGE] : datalist[i].meta_id));
+                // var templateScore = $(".content-recommend-attactions-ratings-" + datalist[i].company_id[PAGE_LANGUAGE]);
+                var score = templateScore.data("start");
+                var iconStartSelect = '<i class="fa fa-star"></i>';
+                var iconStartNone = '<i class="fa fa-star-o"></i>';
+                for (var n = 5; n >= 1; n--) {
+                    if (n <= score) {
+                        templateScore.prepend(iconStartSelect);
+                    } else {
+                        templateScore.prepend(iconStartNone);
+                    }
+                }
+            }
+        }
+
+    }
+
+    requestService(URL_REVIEW_SINILAR_LOCATION, "GET", param, dooSuccess);
 }
 
 function requestServiceReviewArticles() {
