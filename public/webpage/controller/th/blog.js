@@ -1,5 +1,6 @@
 var INVERT_PAGE_LANGUAGE = "";
 var BLOG_AFTER_CHENGE_LANGUAGE = {};
+var scoped_id = null;
 
 $(function () {
     'use strict';
@@ -164,6 +165,17 @@ function requestServiceBlogDetail() {
             slug: resultData.slug,
             service_name: resultData.service_name
         };
+
+        scoped_id = res.data.blog_scope;
+
+        var oldScore = JSON.parse(localStorage.getItem("score_blog"));
+        if (oldScore) {
+            for (var i = 0; i < oldScore.length; i++) {
+                if (oldScore[i].scoped_id === scoped_id) {
+                    overSelectRatings(oldScore[i].score);
+                }
+            }
+        }
 
 
         requestServiceTrackingBlog(resultData.blog_id[PAGE_LANGUAGE]);
@@ -357,4 +369,71 @@ function requestServiceBlogAddedComment() {
 function clickViewProfileBlogger(username, blogger_client_id) {
 
     window.location.href = "/" + PAGE_LANGUAGE + "/blog/author/" + username + "/" + blogger_client_id + "/";
+}
+
+function overSelectRatings(score) {
+    for (var i = 0; i < score; i++) {
+        document.getElementById("select-ratings-" + (i + 1)).setAttribute("style", "color: #ffc12b");
+    }
+}
+
+function leaveSelectRatings(score) {
+
+    var oldScore = JSON.parse(localStorage.getItem("score_blog"));
+    if (oldScore) {
+
+
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+
+        for (var i = 0; i < oldScore.length; i++) {
+            if (oldScore[i].scoped_id === scoped_id) {
+                overSelectRatings(oldScore[i].score);
+            }
+        }
+
+    } else {
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+    }
+}
+
+function clickSelectRatings(score) {
+    requestServiceVoteBlog(score)
+}
+
+function requestServiceVoteBlog(score) {
+    openLoading();
+    var param = {
+        scoped_id: scoped_id,
+        score: score,
+        lang: PAGE_LANGUAGE,
+        action: "add"
+    }
+    var dooSuccess = function (res) {
+        var oldScore = JSON.parse(localStorage.getItem("score_blog"));
+        if (oldScore) {
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        } else {
+            oldScore = []
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        }
+
+        localStorage.setItem("score_blog", JSON.stringify(oldScore))
+
+        closeLoading();
+        overSelectRatings(score);
+    }
+
+    requestFormDataService(URL_VOTE_BLOG, "POST", param, dooSuccess, function () {
+        closeLoading();
+    });
 }

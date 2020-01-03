@@ -1,4 +1,5 @@
 var DATA_CATEGORYS = [];
+var scoped_id = null;
 
 $(function () {
     'use strict';
@@ -200,6 +201,16 @@ function requestServiceTripAndEventDetail() {
             }
         });
 
+        scoped_id = res.data.scope_id;
+
+        var oldScore = JSON.parse(localStorage.getItem("score_event"));
+        if (oldScore) {
+            for (var i = 0; i < oldScore.length; i++) {
+                if (oldScore[i].scoped_id === scoped_id) {
+                    overSelectRatings(oldScore[i].score);
+                }
+            }
+        }
 
         closeLoading();
     }
@@ -295,4 +306,138 @@ function requestServiceReviewAddedComment() {
     }
 
     requestFormDataService(URL_TRIP_AND_EVENT_ADDED_COMMENTS, "POST", param, dooSuccess);
+}
+
+function overSelectRatings(score) {
+    for (var i = 0; i < score; i++) {
+        document.getElementById("select-ratings-" + (i + 1)).setAttribute("style", "color: #ffc12b");
+    }
+}
+
+function leaveSelectRatings(score) {
+
+    var oldScore = JSON.parse(localStorage.getItem("score_event"));
+    if (oldScore) {
+
+
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+
+        for (var i = 0; i < oldScore.length; i++) {
+            if (oldScore[i].scoped_id === scoped_id) {
+                overSelectRatings(oldScore[i].score);
+            }
+        }
+
+    } else {
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+    }
+}
+
+function clickSelectRatings(score) {
+    requestServiceVoteTripAndEvent(score)
+}
+
+function requestServiceVoteTripAndEvent(score) {
+    openLoading();
+    var param = {
+        scoped_id: scoped_id,
+        score: score,
+        lang: PAGE_LANGUAGE,
+        action: "add"
+    }
+    var dooSuccess = function (res) {
+        var oldScore = JSON.parse(localStorage.getItem("score_event"));
+        if (oldScore) {
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        } else {
+            oldScore = []
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        }
+
+        localStorage.setItem("score_event", JSON.stringify(oldScore))
+
+        closeLoading();
+        overSelectRatings(score);
+    }
+
+    requestFormDataService(URL_VOTE_EVENT, "POST", param, dooSuccess, function () {
+        closeLoading();
+    });
+}
+
+function overSelectRatings(score) {
+    for (var i = 0; i < score; i++) {
+        document.getElementById("select-ratings-" + (i + 1)).setAttribute("style", "color: #ffc12b");
+    }
+}
+
+function leaveSelectRatings(score) {
+
+    var oldScore = JSON.parse(localStorage.getItem("score_event"));
+    if (oldScore) {
+
+
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+
+        for (var i = 0; i < oldScore.length; i++) {
+            if (oldScore[i].scoped_id === scoped_id) {
+                overSelectRatings(oldScore[i].score);
+            }
+        }
+
+    } else {
+        for (var i = 0; i < score; i++) {
+            document.getElementById("select-ratings-" + (i + 1)).removeAttribute("style");
+        }
+    }
+}
+
+function clickSelectRatings(score) {
+    requestServiceVoteTripAndEvent(score)
+}
+
+function requestServiceVoteTripAndEvent(score) {
+    openLoading();
+    var param = {
+        scoped_id: scoped_id,
+        score: score,
+        lang: PAGE_LANGUAGE,
+        action: "add"
+    }
+    var dooSuccess = function (res) {
+        var oldScore = JSON.parse(localStorage.getItem("score_event"));
+        if (oldScore) {
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        } else {
+            oldScore = []
+            oldScore.push({
+                scoped_id: scoped_id,
+                score: score
+            });
+        }
+
+        localStorage.setItem("score_event", JSON.stringify(oldScore))
+
+        closeLoading();
+        overSelectRatings(score);
+    }
+
+    requestFormDataService(URL_VOTE_EVENT, "POST", param, dooSuccess, function () {
+        closeLoading();
+    });
 }
