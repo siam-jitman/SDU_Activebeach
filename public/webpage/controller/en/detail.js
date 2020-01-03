@@ -522,7 +522,7 @@ function requestServiceReviewSimilarLocation() {
 
     var dooSuccess = function (res) {
         var datalist = [];
-        var resultList = res.data.similar_locations;
+        var resultList = res.data.similar_locations ? res.data.similar_locations : [];
         for (var i = 0; i < resultList.length; i++) {
             // console.log(i)
             if (resultList[i].company_id != undefined) {

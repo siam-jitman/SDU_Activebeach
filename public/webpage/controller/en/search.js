@@ -268,7 +268,9 @@ function requestSearchResult() {
 }
 
 function requestServiceInterestingCategorys() {
-    requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {
+        "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+    }, function (res) {
 
         for (var i = 0; i < res.data.categorys.length; i++) {
             DATA_CATEGORYS.push({
@@ -296,6 +298,9 @@ function requestServiceInterestingCategorys() {
             categoryNameDisplay: "Choose a category",
             categoryNameValue: ""
         }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
+$("#index-txt-search-mobile").val(DATA_PARAM_IN_URL["text"]);
+        $("#index-category-select-mobile").val(DATA_PARAM_IN_URL["category_id"] == undefined ? DATA_PARAM_IN_URL["category_id"] : DATA_PARAM_IN_URL["category_id"]);
+        
 
         $('.selectpicker').selectpicker("refresh");
 

@@ -204,6 +204,8 @@ function requestServiceInterestingCategorys() {
             categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
             categoryNameValue: ""
         }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
+$("#index-txt-search-mobile").val(DATA_PARAM_IN_URL["text"]);
+        $("#index-category-select-mobile").val(DATA_PARAM_IN_URL["category_id"] == undefined ? DATA_PARAM_IN_URL["category_id"] : DATA_PARAM_IN_URL["category_id"]);
 
         $('.selectpicker').selectpicker("refresh");
 
