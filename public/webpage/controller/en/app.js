@@ -1,3 +1,10 @@
+if ('serviceWorker' in navigator) {
+    console.log('👷', 'serviceWorker', navigator);
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/js/service-worker.js');
+    });
+}
+
 var GOOGLE_API_KEY = "AIzaSyA2YAL6f4MU41XbgBwPaX2TbTaZF1azGk4";
 var CONFIG_SLIDE = {
     "slidesToShow": 3,

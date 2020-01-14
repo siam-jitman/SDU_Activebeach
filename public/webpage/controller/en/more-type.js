@@ -2,9 +2,11 @@ var TAG = "[search.js]"
 var DATA_CATEGORYS = [];
 var SEARCH_RESULT_LIST = [];
 var RAW_SEARCH_RESULT_LIST = [];
-var COUNT_SHOW_SIZE = 6;
-var SHOW_SIZE = 6;
-var MAX_SHOW_SIZE = 6;
+var COUNT_SHOW_SIZE = 10;
+var SHOW_SIZE = 10;
+var MAX_SHOW_SIZE = 10;
+var CURRENT_PAGE = 1;
+var scroll = 0
 
 $(function () {
     'use strict';
@@ -35,9 +37,11 @@ $(function () {
 
         });
 
-        $("#loadContentSearchMore").on('click', function () {
-            genSizeShowContentSearchDetail(true);
-        });
+        //$("#loadContentSearchMore").on('click', function () {
+        //            scroll = $("body").scrollTop();
+        //            console.log("loadContentSearchMore", scroll)
+        //            requestServiceSearchEventResult(true);
+        //        });
 
         $("#select-sort-bar").change(function () {
             console.log($("#select-sort-bar").val())
@@ -110,9 +114,9 @@ function clickBtnToDetail(id) {
 }
 
 function genSizeShowContentSearchDetail(nextMore) {
-    if (nextMore) {
-        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
-    }
+    //    if (nextMore) {
+    //        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    //    }
     var searchResultListMazSize = [];
     for (var i = 0; i < SHOW_SIZE; i++) {
         if (SEARCH_RESULT_LIST[i] != undefined) {
@@ -127,6 +131,12 @@ function genSizeShowContentSearchDetail(nextMore) {
     }
 
     genContentSearchDetail(searchResultListMazSize);
+}
+
+function clickLoadContentSearchMore() {
+    scroll = window.scrollY;
+    console.log("loadContentSearchMore => ", scroll)
+    requestServiceSearchEventResult(true);
 }
 
 function genContentSearchDetail(dataList) {
@@ -189,7 +199,7 @@ function requestSearchResult() {
         meta_id: paramInUrl.meta_id,
         category_name: paramInUrl.category_name,
         company_name: paramInUrl.company_name,
-        lang:  PAGE_LANGUAGE,
+        lang: PAGE_LANGUAGE,
         // lang:paramInUrl.lang,
     }
 
@@ -199,19 +209,23 @@ function requestSearchResult() {
         var data = res.data;
 
         // $("#lable-search-type-all").html(data.title + ' "<span>' + DATA_PARAM_IN_URL.company_name + '</span>" ');
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.total + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
 
         SEARCH_RESULT_LIST = data.categorys === null ? [] : data.categorys;
         RAW_SEARCH_RESULT_LIST = data.categorys === null ? [] : data.categorys;
         MAX_SHOW_SIZE = data.categorys === null ? 0 : data.categorys.length;
 
-        SHOW_SIZE = COUNT_SHOW_SIZE;
-        genSizeShowContentSearchDetail();
+        //SHOW_SIZE = COUNT_SHOW_SIZE;
+        if (nextMore) {
+            genSizeShowContentSearchDetail()
+        } else {
+            genSizeShowContentSearchDetail();
+        }
 
-        $('html, body').animate({
-            scrollTop: 0
-        }, 500);
+        //$('html, body').animate({
+        //            scrollTop: 0
+        //        }, 500);
     }
 
     requestService(SERVICE_HOST + SERVICE_CONTEXT + SERVICE_VERSION + paramInUrl.endpoint + "/" + paramInUrl.apiName, "GET", param, dooSuccess);
@@ -254,13 +268,19 @@ function requestServiceInterestingCategorys() {
     });
 }
 
-function requestServiceSearchEventResult() {
-
+function requestServiceSearchEventResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
@@ -315,13 +335,19 @@ function requestServiceSearchEventResult() {
     requestService(URL_SEARCH_EVENT_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchTipsResult() {
-
+function requestServiceSearchTipsResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
@@ -377,13 +403,19 @@ function requestServiceSearchTipsResult() {
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchArticleResult() {
-
+function requestServiceSearchArticleResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 

@@ -2,9 +2,11 @@ var TAG = "[search.js]"
 var DATA_CATEGORYS = [];
 var SEARCH_RESULT_LIST = [];
 var RAW_SEARCH_RESULT_LIST = [];
-var COUNT_SHOW_SIZE = 6;
-var SHOW_SIZE = 6;
-var MAX_SHOW_SIZE = 6;
+var COUNT_SHOW_SIZE = 10;
+var SHOW_SIZE = 10;
+var MAX_SHOW_SIZE = 10;
+var CURRENT_PAGE = 1;
+var scroll = 0
 
 $(function () {
     'use strict';
@@ -35,9 +37,11 @@ $(function () {
 
         });
 
-        $("#loadContentSearchMore").on('click', function () {
-            genSizeShowContentSearchDetail(true);
-        });
+        //$("#loadContentSearchMore").on('click', function () {
+        //            scroll = $("body").scrollTop();
+        //            console.log("loadContentSearchMore", scroll)
+        //            requestServiceSearchEventResult(true);
+        //        });
 
         $("#select-sort-bar").change(function () {
             console.log($("#select-sort-bar").val())
@@ -101,9 +105,9 @@ function clickBtnToDetailTips(id, name) {
 }
 
 function genSizeShowContentSearchDetail(nextMore) {
-    if (nextMore) {
-        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
-    }
+    //    if (nextMore) {
+    //        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    //    }
     var searchResultListMazSize = [];
     for (var i = 0; i < SHOW_SIZE; i++) {
         if (SEARCH_RESULT_LIST[i] != undefined) {
@@ -118,6 +122,12 @@ function genSizeShowContentSearchDetail(nextMore) {
     }
 
     genContentSearchDetail(searchResultListMazSize);
+}
+
+function clickLoadContentSearchMore() {
+    scroll = window.scrollY;
+    console.log("loadContentSearchMore => ", scroll)
+    requestServiceSearchEventResult(true);
 }
 
 function genContentSearchDetail(dataList) {
@@ -182,7 +192,9 @@ function genContentSearchDetail(dataList) {
 }
 
 function requestServiceInterestingCategorys() {
-    requestService(URL_INTERSTING_CATEGORYS, "GET", {"lang" : window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]}, function (res) {
+    requestService(URL_INTERSTING_CATEGORYS, "GET", {
+        "lang": window.location.href.split(window.location.hostname + (window.location.port != "" ? ":" + window.location.port : "") + "/")[1].split("/")[0]
+    }, function (res) {
 
         for (var i = 0; i < res.data.categorys.length; i++) {
             DATA_CATEGORYS.push({
@@ -210,7 +222,7 @@ function requestServiceInterestingCategorys() {
             categoryNameDisplay: "Choose a category",
             categoryNameValue: ""
         }].concat(JSON.parse(JSON.stringify(DATA_CATEGORYS)))));
-$("#index-txt-search-mobile").val(DATA_PARAM_IN_URL["text"]);
+        $("#index-txt-search-mobile").val(DATA_PARAM_IN_URL["text"]);
         $("#index-category-select-mobile").val(DATA_PARAM_IN_URL["category_id"] == undefined ? DATA_PARAM_IN_URL["category_id"] : DATA_PARAM_IN_URL["category_id"]);
 
         $('.selectpicker').selectpicker("refresh");
@@ -224,8 +236,16 @@ $("#index-txt-search-mobile").val(DATA_PARAM_IN_URL["text"]);
 }
 
 
-function requestSearchResult() {
-
+function requestSearchResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    } else {
+        COUNT_SHOW_SIZE = 10;
+        SHOW_SIZE = 10;
+        MAX_SHOW_SIZE = 10;
+        CURRENT_PAGE = 1;
+    }
     openLoading();
 
     var param = {
@@ -233,7 +253,8 @@ function requestSearchResult() {
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
-
+        page: CURRENT_PAGE,
+        page_size: 10,
     }
 
 
@@ -297,13 +318,19 @@ function requestSearchResult() {
     requestService(URL_SEARCH_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchEventResult() {
-
+function requestServiceSearchEventResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
@@ -342,31 +369,41 @@ function requestServiceSearchEventResult() {
             $("#lable-search-page").html($("#txt-search-bar").val())
 
         }
-        $("#lable-search-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-count").html(data.total + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.total + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
-        SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;
-        RAW_SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;
-        MAX_SHOW_SIZE = data.trips === null ? 0 : data.trips.length;
+        SEARCH_RESULT_LIST = data.trips === null ? SEARCH_RESULT_LIST.concat([]) : SEARCH_RESULT_LIST.concat(data.trips);
+        RAW_SEARCH_RESULT_LIST = data.trips === null ? RAW_SEARCH_RESULT_LIST.concat([]) : RAW_SEARCH_RESULT_LIST.concat(data.trips);
+        MAX_SHOW_SIZE = data.total
 
-        SHOW_SIZE = COUNT_SHOW_SIZE;
-        genSizeShowContentSearchDetail();
+        //SHOW_SIZE = COUNT_SHOW_SIZE;
+        if (nextMore) {
+            genSizeShowContentSearchDetail()
+        } else {
+            genSizeShowContentSearchDetail();
+        }
 
-        $('html, body').animate({
-            scrollTop: 0
-        }, 500);
+        //$('html, body').animate({
+        //            scrollTop: 0
+        //        }, 500);
     }
 
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchTipsResult() {
-
+function requestServiceSearchTipsResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
@@ -422,13 +459,19 @@ function requestServiceSearchTipsResult() {
 }
 
 
-function requestServiceSearchArticleResult() {
-
+function requestServiceSearchArticleResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 

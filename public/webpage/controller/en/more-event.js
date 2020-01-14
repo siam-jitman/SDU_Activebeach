@@ -2,9 +2,11 @@ var TAG = "[search.js]"
 var DATA_CATEGORYS = [];
 var SEARCH_RESULT_LIST = [];
 var RAW_SEARCH_RESULT_LIST = [];
-var COUNT_SHOW_SIZE = 6;
-var SHOW_SIZE = 6;
-var MAX_SHOW_SIZE = 6;
+var COUNT_SHOW_SIZE = 10;
+var SHOW_SIZE = 10;
+var MAX_SHOW_SIZE = 10;
+var CURRENT_PAGE = 1;
+var scroll = 0
 
 $(function () {
     'use strict';
@@ -35,9 +37,11 @@ $(function () {
 
         });
 
-        $("#loadContentSearchMore").on('click', function () {
-            genSizeShowContentSearchDetail(true);
-        });
+        //$("#loadContentSearchMore").on('click', function () {
+        //            scroll = $("body").scrollTop();
+        //            console.log("loadContentSearchMore", scroll)
+        //            requestServiceSearchEventResult(true);
+        //        });
 
         $("#select-sort-bar").change(function () {
             console.log($("#select-sort-bar").val())
@@ -104,9 +108,9 @@ function clickBtnToDetailEvent(id, name) {
 }
 
 function genSizeShowContentSearchDetail(nextMore) {
-    if (nextMore) {
-        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
-    }
+    //    if (nextMore) {
+    //        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    //    }
     var searchResultListMazSize = [];
     for (var i = 0; i < SHOW_SIZE; i++) {
         if (SEARCH_RESULT_LIST[i] != undefined) {
@@ -121,6 +125,12 @@ function genSizeShowContentSearchDetail(nextMore) {
     }
 
     genContentSearchDetail(searchResultListMazSize);
+}
+
+function clickLoadContentSearchMore() {
+    scroll = window.scrollY;
+    console.log("loadContentSearchMore => ", scroll)
+    requestServiceSearchEventResult(true);
 }
 
 function genContentSearchDetail(dataList) {
@@ -182,7 +192,14 @@ function genContentSearchDetail(dataList) {
     if (rawResultArray.length === 0) {
         $("#result-search-listing").append("<center><h2>ไม่พบข้อมูล</h2></center>");
     }
+
     closeLoading();
+    //if (scroll != 0) {
+    //        console.log("window.scrollTo(0, scroll)")
+    //        setTimeout(function () {
+    //            window.scrollTo(0, scroll);
+    //        }, 1000)
+    //    }
 }
 
 function requestServiceInterestingCategorys() {
@@ -222,8 +239,16 @@ function requestServiceInterestingCategorys() {
 }
 
 
-function requestSearchResult() {
-
+function requestSearchResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    } else {
+        COUNT_SHOW_SIZE = 10;
+        SHOW_SIZE = 10;
+        MAX_SHOW_SIZE = 10;
+        CURRENT_PAGE = 1;
+    }
     openLoading();
 
     var param = {
@@ -231,7 +256,8 @@ function requestSearchResult() {
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
-
+        page: CURRENT_PAGE,
+        page_size: 10,
     }
 
 
@@ -310,7 +336,7 @@ function requestServiceSearchEventResult() {
         meta_id: paramInUrl.meta_id,
         category_name: paramInUrl.category_name,
         company_name: paramInUrl.company_name,
-        lang:  PAGE_LANGUAGE,
+        lang: PAGE_LANGUAGE,
         // lang:paramInUrl.lang,
     }
 
@@ -320,13 +346,13 @@ function requestServiceSearchEventResult() {
         var data = res.data;
 
         $("#lable-search-type-all").html(data.title + ' "<span>' + DATA_PARAM_IN_URL.company_name + '</span>" ');
-        $("#lable-search-type-all-count").html(data.count + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
+        $("#lable-search-type-all-count").html(data.total + (PAGE_LANGUAGE == "th" ? " รายการ" : " List"));
 
         if (paramInUrl.apiName === "ReviewTips") {
 
-            SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;
-            RAW_SEARCH_RESULT_LIST = data.trips === null ? [] : data.trips;
-            MAX_SHOW_SIZE = data.trips === null ? 0 : data.trips.length;
+            SEARCH_RESULT_LIST = data.trips === null ? SEARCH_RESULT_LIST.concat([]) : SEARCH_RESULT_LIST.concat(data.trips);
+            RAW_SEARCH_RESULT_LIST = data.trips === null ? RAW_SEARCH_RESULT_LIST.concat([]) : RAW_SEARCH_RESULT_LIST.concat(data.trips);
+            MAX_SHOW_SIZE = data.total
         } else if (paramInUrl.apiName === "ReviewNearbyAttactions") {
 
             SEARCH_RESULT_LIST = data.attactions === null ? [] : data.attactions;
@@ -334,9 +360,9 @@ function requestServiceSearchEventResult() {
             MAX_SHOW_SIZE = data.attactions === null ? 0 : data.attactions.length;
         } else if (paramInUrl.apiName === "ReviewEvents") {
 
-            SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
-            RAW_SEARCH_RESULT_LIST = data.events === null ? [] : data.events;
-            MAX_SHOW_SIZE = data.events === null ? 0 : data.events.length;
+            SEARCH_RESULT_LIST = data.events === null ? SEARCH_RESULT_LIST.concat([]) : SEARCH_RESULT_LIST.concat(data.events);
+            RAW_SEARCH_RESULT_LIST = data.events === null ? RAW_SEARCH_RESULT_LIST.concat([]) : RAW_SEARCH_RESULT_LIST.concat(data.events);
+            MAX_SHOW_SIZE = data.total
         } else if (paramInUrl.apiName === "ReviewArticles") {
 
             SEARCH_RESULT_LIST = data.blogs === null ? [] : data.blogs;
@@ -345,24 +371,34 @@ function requestServiceSearchEventResult() {
         }
 
 
-        SHOW_SIZE = COUNT_SHOW_SIZE;
-        genSizeShowContentSearchDetail();
+        //SHOW_SIZE = COUNT_SHOW_SIZE;
+        if (nextMore) {
+            genSizeShowContentSearchDetail()
+        } else {
+            genSizeShowContentSearchDetail();
+        }
 
-        $('html, body').animate({
-            scrollTop: 0
-        }, 500);
+        //$('html, body').animate({
+        //            scrollTop: 0
+        //        }, 500);
     }
 
     requestService(SERVICE_HOST + SERVICE_CONTEXT + SERVICE_VERSION + paramInUrl.endpoint + "/" + paramInUrl.apiName, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchTipsResult() {
-
+function requestServiceSearchTipsResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
@@ -418,13 +454,19 @@ function requestServiceSearchTipsResult() {
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchArticleResult() {
-
+function requestServiceSearchArticleResult(nextMore) {
+    if (nextMore) {
+        CURRENT_PAGE = CURRENT_PAGE + 1;
+        SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    }
+    openLoading();
     var param = {
         q: $("#txt-search-bar").val(),
         order: $("#select-sort-bar").val() == "" ? "asc" : $("#select-sort-bar").val(),
         category_id: $("#select-search-bar").val(),
         lang: PAGE_LANGUAGE,
+        page: CURRENT_PAGE,
+        page_size: 10,
 
     }
 
