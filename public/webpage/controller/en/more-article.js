@@ -311,7 +311,7 @@ function requestSearchResult(nextMore) {
     requestService(URL_SEARCH_RESULT, "GET", param, dooSuccess);
 }
 
-function requestServiceSearchEventResult() {
+function requestServiceSearchEventResult(nextMore) {
 
     openLoading();
 
@@ -353,9 +353,9 @@ function requestServiceSearchEventResult() {
             MAX_SHOW_SIZE = data.total
         } else if (paramInUrl.apiName === "ReviewArticles") {
 
-            SEARCH_RESULT_LIST = data.blogs === null ? [] : data.blogs;
-            RAW_SEARCH_RESULT_LIST = data.blogs === null ? [] : data.blogs;
-            MAX_SHOW_SIZE = data.blogs === null ? 0 : data.blogs.length;
+            SEARCH_RESULT_LIST = data.blogs === null ? SEARCH_RESULT_LIST.concat([]) : SEARCH_RESULT_LIST.concat(data.blogs);
+            RAW_SEARCH_RESULT_LIST = data.blogs === null ? RAW_SEARCH_RESULT_LIST.concat([]) : RAW_SEARCH_RESULT_LIST.concat(data.blogs);
+            MAX_SHOW_SIZE = data.total
         }
 
 

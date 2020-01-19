@@ -322,6 +322,25 @@
 
                 </div>
                 <div class="col-lg-4 col-md-12">
+
+                    <div class="sidebar-right">
+                        <!-- Booking now start -->
+
+                        <div class="sidebar-box-shadow">
+                            <!-- Opening hours start -->
+                            <div class="widget opening-hours" id="main-map-detail-content">
+                                <h3 class="sidebar-title">Map</h3>
+                                <div class="s-border"></div>
+                                <div class="iframe-map-detail" id="map-detail-content">
+                                    <!-- <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe> -->
+                                    <img onclick="linkToGoogleMap('{{location_latitude}}','{{location_longitude}}')"
+                                        src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=400x300&maptype=roadmap&markers=color:red%7C{{location_latitude}},{{location_longitude}}&key={{API_KEY}}"
+                                        class="image-google-map" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="sidebar-right">
                         <div class="sidebar-box-shadow">
                             <div class="widget opening-hours">

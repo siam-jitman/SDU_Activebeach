@@ -162,7 +162,7 @@ function requestServiceReviewDetail() {
             location_url: res.data.location_url ? res.data.location_url : "",
             location_latitude: res.data.location_latitude ? res.data.location_latitude : "13.736717",
             location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
-            map_exsist: res.data.map_exsist ? res.data.map_exsist : true,
+            map_exsist: res.data.map_exsist,
             API_KEY: GOOGLE_API_KEY,
         };
 

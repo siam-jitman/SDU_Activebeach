@@ -141,7 +141,13 @@ function requestServiceTripAndEventDetail() {
             image_main: res.data.thumbnail,
             line: res.data.line,
             // location: res.data.location,
-            // location_url: res.data.location_url,
+
+            location_latitude: res.data.location_latitude ? res.data.location_latitude : "13.736717",
+            location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
+            map_exsist: res.data.map_exsist,
+            API_KEY: GOOGLE_API_KEY,
+
+
             location: res.data.address,
             max_rating: res.data.max_rating,
             meta_id: res.data.meta_id,
@@ -154,6 +160,14 @@ function requestServiceTripAndEventDetail() {
             // video: res.data.video,
             website: res.data.website
         };
+
+
+        if (!resulrList.map_exsist) {
+            document.getElementById("main-map-detail-content").setAttribute("style", "display: none")
+        } else {
+            var templateMapDetailContent = $("#map-detail-content").html();
+            $("#map-detail-content").html(bindDataToTemplate(templateMapDetailContent, resulrList));
+        }
 
         var templateHeadContentMain = $("#head-content-main").html();
         $("#head-content-main").html(bindDataToTemplate(templateHeadContentMain, JSON.parse(JSON.stringify(resulrList))));
@@ -371,4 +385,13 @@ function requestServiceVoteTripAndEvent(score) {
     requestFormDataService(URL_VOTE_TRIP, "POST", param, dooSuccess, function () {
         closeLoading();
     });
+}
+
+
+function linkToGoogleMap(lat, long) {
+    if ($(window).width() > 992) {
+        window.open('https://www.google.com/maps?q=' + lat + ',' + long, '_blank');
+    } else {
+        window.location.href = 'https://www.google.com/maps?q=' + lat + ',' + long
+    }
 }

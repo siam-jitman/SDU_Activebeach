@@ -38,6 +38,23 @@ $(function () {
         //     $(".page_loader").fadeOut("fast");
         // }, 100);
 
+        if (document.getElementById("txt-search-bar")) {
+
+            document.getElementById("txt-search-bar").addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    // code for enter
+                    clickBtnSearchBar()
+                }
+            });
+
+            document.getElementById("select-search-bar").addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    // code for enter
+                    clickBtnSearchBar()
+                }
+            });
+        }
+
         if ($("#name-send-review") && localStorage.getItem("first_name") && localStorage.getItem("last_name")) {
             $("#name-send-review").val(localStorage.getItem("first_name") + " " + localStorage.getItem("last_name"));
         }
@@ -149,19 +166,27 @@ $(function () {
                     $('.sticky-header').addClass('header-shrink');
                 }
                 if ($('.do-sticky').length < 1) {
-                    $('.logo img').attr('src', '../img/logos/black-logo.png');
+                    if ($('.logo img').attr('src') != '../img/logos/black-logo.png') {
+                        $('.logo img').attr('src', '../img/logos/black-logo.png');
+                    }
                 }
             } else {
                 $('.sticky-header').removeClass('header-shrink');
                 if ($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
-                    $('.logo img').attr('src', '../img/logos/logo.png');
+                    if ($('.logo img').attr('src') != '../img/logos/logo.png') {
+                        $('.logo img').attr('src', '../img/logos/logo.png');
+                    }
                 } else {
-                    $('.logo img').attr('src', '../img/logos/black-logo.png');
+                    if ($('.logo img').attr('src') != '../img/logos/black-logo.png') {
+                        $('.logo img').attr('src', '../img/logos/black-logo.png');
+                    }
                 }
             }
         } else {
             $('.sticky-header').addClass('header-shrink');
-            $('.logo img').attr('src', '../img/logos/black-logo.png');
+            if ($('.logo img').attr('src') != '../img/logos/black-logo.png') {
+                $('.logo img').attr('src', '../img/logos/black-logo.png');
+            }
         }
         if ((window.location.href.indexOf("index.html") >= 0) || (window.location.href.endsWith("/th/")) || (window.location.href.endsWith("/en/"))) {
             $('#label-page-main').css("font-weight", "bold");

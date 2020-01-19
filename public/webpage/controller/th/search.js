@@ -340,6 +340,11 @@ function requestServiceSearchEventResult(nextMore) {
     if (nextMore) {
         CURRENT_PAGE = CURRENT_PAGE + 1;
         SHOW_SIZE = SHOW_SIZE + COUNT_SHOW_SIZE;
+    } else {
+        COUNT_SHOW_SIZE = 10;
+        SHOW_SIZE = 10;
+        MAX_SHOW_SIZE = 10;
+        CURRENT_PAGE = 1;
     }
     openLoading();
     var param = {
@@ -541,7 +546,8 @@ function requestServiceSearchArticleResult(nextMore) {
     requestService(URL_SEARCH_ARTICLE_RESULT, "GET", param, dooSuccess);
 }
 
-function clickBtnSearchBar(category_id) {
+function clickBtnSearchBar(e, category_id) {
+    console.log("clickBtnSearchBar", e);
     if (category_id == undefined) {
 
         var param = {
