@@ -226,7 +226,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active show" id="sub-header-content-detail" data-toggle="pill"
                                     href="#content-detail" role="tab" aria-controls="pills-home"
-                                    aria-selected="false">รายละเอียด</a>
+                                    aria-selected="false">ข้อมูลเพิ่มเติม</a>
                             </li>
                             <!-- <li class="nav-item" id="header-review-content-detail">
                                 <a class="nav-link" id="sub-header-review-content-detail" data-toggle="pill"
@@ -239,7 +239,27 @@
                         <div class="tab-content tab-detail-content" id="pills-tabContent">
                             <div class="tab-pane fade active show" id="content-detail" role="tabpanel"
                                 aria-labelledby="pills-home-tab">
-                                <div id="description-detail-content">{{description}}</div>
+                                <div id="description-detail-content">
+                                    <!-- {{description}} -->
+                                </div>
+
+
+                                <div id="link-detail-content">
+                                    <ul>
+                                        <li><a class="btn btn-link btn-more" href="{{url}}" target="_blank">ข้อมูล
+                                                {{company_name}} {{number}} </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div id="link-detail-content-mobile">
+                                    <ul>
+                                        <li><a class="btn btn-link btn-more" href="{{url}}" target="_blank">ข้อมูล
+                                                {{company_name}} {{number}} </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <!-- <div class="tab-pane fade" id="content-detail-comments" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">

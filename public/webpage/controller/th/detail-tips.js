@@ -97,14 +97,14 @@ $(function () {
             var templateCategoryMenu = $("#index-category-menu").html();
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+            if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+                $('#label-page-categories').css("font-weight", "bold");
+                $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+            }
 
 
             loadMainModalFavorite();
@@ -139,6 +139,13 @@ function requestServiceTripAndEventDetail() {
 
     var dooSuccess = function (res) {
 
+        res.data.content = "[url]https://www.google.com[/url]"
+
+        res.data.urls = res.data.content;
+        res.data.urls = res.data.urls.replace(/\[url\]/g, "\"");
+        res.data.urls = res.data.urls.replace(/\[\/url\]/g, "\",");
+        res.data.urls = eval("[" + res.data.urls + "]");
+
         var resulrList = {
 
             company_name: checkFieldForLanguageNull(res.data.name),
@@ -170,6 +177,14 @@ function requestServiceTripAndEventDetail() {
             location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
             map_exsist: res.data.map_exsist,
             API_KEY: GOOGLE_API_KEY,
+
+            urls: res.data.urls.map((item, index) => {
+                return {
+                    number: index + 1,
+                    company_name: checkFieldForLanguageNull(res.data.name),
+                    url: item
+                }
+            })
 
         };
 
@@ -208,6 +223,12 @@ function requestServiceTripAndEventDetail() {
             $("#slide-detail-content").html(bindDataListToTemplateNotMap(templateSlideDetailContent, resulrList.images));
             createSlick("#slide-detail-content");
         }
+
+        var templateLinkDetailContent = $("#link-detail-content").html();
+        $("#link-detail-content").html(bindDataListToTemplate(templateLinkDetailContent, resulrList.urls));
+
+        var templateLinkDetailContentMobile = $("#link-detail-content-mobile").html();
+        $("#link-detail-content-mobile").html(bindDataListToTemplate(templateLinkDetailContentMobile, resulrList.urls));
 
 
         // var templateVideoDetailContent = $("#video-detail-content").html();

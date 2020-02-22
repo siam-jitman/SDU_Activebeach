@@ -239,51 +239,70 @@
                         <div class="tab-content tab-detail-content" id="pills-tabContent">
                             <div class="tab-pane fade active show" id="content-detail" role="tabpanel"
                                 aria-labelledby="pills-home-tab">
-                                <div id="description-detail-content">{{description}}</div>
+                                <<div id="description-detail-content">
+                                    <!-- {{description}} -->
                             </div>
-                            <!-- <div class="tab-pane fade" id="content-detail-comments" role="tabpanel"
+
+                            <div id="link-detail-content">
+                                <ul>
+                                    <li><a class="btn btn-link btn-more" href="{{url}}" target="_blank">ข้อมูล
+                                            {{company_name}} {{number}} </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div id="link-detail-content-mobile">
+                                <ul>
+                                    <li><a class="btn btn-link btn-more" href="{{url}}" target="_blank">ข้อมูล
+                                            {{company_name}} {{number}} </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="content-detail-comments" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
                             </div> -->
-                        </div>
                     </div>
+                </div>
 
-                    <!-- amenities start -->
+                <!-- amenities start -->
 
-                    <!-- gallery start -->
+                <!-- gallery start -->
 
-                    <!-- Location start -->
+                <!-- Location start -->
 
-                    <!-- video start -->
+                <!-- video start -->
 
-                    <!-- Reviews start -->
+                <!-- Reviews start -->
 
-                    <!-- <form action="#" method="POST" enctype="multipart/form-data"> -->
-                    <!-- add review start -->
-                    <div class="contact-2 add-review ca mtb-50" id="login-for-review" style="display: none;">
-                        <hr />
-                        <p>เข้าสู่ระบบเพื่อรีวิวเนื้อหานี้</p>
-                    </div>
-                    <div class="contact-2 add-review ca mtb-50" id="main-content-add-review">
-                        <h3 class="heading-2 clearfix mb-0">เขียนรีวิว</h3>
-                        <div class="row mb-30">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="add-review-text clearfix">
-                                    <span class="leave-rating-title">ให้คะแนน : </span>
-                                    <div class="ratings-3">
-                                        <i class="fa fa-star" id="select-ratings-1" onmouseover="overSelectRatings(1)"
-                                            onmouseleave="leaveSelectRatings(1)" onclick="clickSelectRatings(1)"></i>
-                                        <i class="fa fa-star" id="select-ratings-2" onmouseover="overSelectRatings(2)"
-                                            onmouseleave="leaveSelectRatings(2)" onclick="clickSelectRatings(2)"></i>
-                                        <i class="fa fa-star" id="select-ratings-3" onmouseover="overSelectRatings(3)"
-                                            onmouseleave="leaveSelectRatings(3)" onclick="clickSelectRatings(3)"></i>
-                                        <i class="fa fa-star" id="select-ratings-4" onmouseover="overSelectRatings(4)"
-                                            onmouseleave="leaveSelectRatings(4)" onclick="clickSelectRatings(4)"></i>
-                                        <i class="fa fa-star" id="select-ratings-5" onmouseover="overSelectRatings(5)"
-                                            onmouseleave="leaveSelectRatings(5)" onclick="clickSelectRatings(5)"></i>
-                                    </div>
+                <!-- <form action="#" method="POST" enctype="multipart/form-data"> -->
+                <!-- add review start -->
+                <div class="contact-2 add-review ca mtb-50" id="login-for-review" style="display: none;">
+                    <hr />
+                    <p>เข้าสู่ระบบเพื่อรีวิวเนื้อหานี้</p>
+                </div>
+                <div class="contact-2 add-review ca mtb-50" id="main-content-add-review">
+                    <h3 class="heading-2 clearfix mb-0">เขียนรีวิว</h3>
+                    <div class="row mb-30">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="add-review-text clearfix">
+                                <span class="leave-rating-title">ให้คะแนน : </span>
+                                <div class="ratings-3">
+                                    <i class="fa fa-star" id="select-ratings-1" onmouseover="overSelectRatings(1)"
+                                        onmouseleave="leaveSelectRatings(1)" onclick="clickSelectRatings(1)"></i>
+                                    <i class="fa fa-star" id="select-ratings-2" onmouseover="overSelectRatings(2)"
+                                        onmouseleave="leaveSelectRatings(2)" onclick="clickSelectRatings(2)"></i>
+                                    <i class="fa fa-star" id="select-ratings-3" onmouseover="overSelectRatings(3)"
+                                        onmouseleave="leaveSelectRatings(3)" onclick="clickSelectRatings(3)"></i>
+                                    <i class="fa fa-star" id="select-ratings-4" onmouseover="overSelectRatings(4)"
+                                        onmouseleave="leaveSelectRatings(4)" onclick="clickSelectRatings(4)"></i>
+                                    <i class="fa fa-star" id="select-ratings-5" onmouseover="overSelectRatings(5)"
+                                        onmouseleave="leaveSelectRatings(5)" onclick="clickSelectRatings(5)"></i>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-4 col-md-4">
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-4">
                                     <div class="cpb change-photo-btn clearfix">
                                         <div class="photoUpload">
                                             <span><i class="fa fa-upload"></i></span>อัพโหลดรูปภาพ
@@ -291,72 +310,72 @@
                                         </div>
                                     </div>
                                 </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group name col-md-12">
+                            <input id="name-send-review" type="text" name="name" class="form-control"
+                                placeholder="ชื่อ">
                         </div>
-                        <div class="row">
-                            <div class="form-group name col-md-12">
-                                <input id="name-send-review" type="text" name="name" class="form-control"
-                                    placeholder="ชื่อ">
-                            </div>
 
-                            <div class="form-group number col-md-12">
-                                <input id="subject-send-review" type="text" name="subject" class="form-control"
-                                    placeholder="ชื่อเรื่อง">
-                            </div>
-                            <div class="form-group message col-md-12">
-                                <textarea id="comments-send-review" class="form-control" name="message"
-                                    placeholder="ข้อความ"></textarea>
-                            </div>
-                            <div class="form-group message col-md-12">
-                                <input name="file-image-upload-review" type="file" class="upload"
-                                    id="file-image-upload-review" data-fileuploader-limit="2"
-                                    data-fileuploader-extensions="jpg, png, gif"></div>
-                            <div class="send-btn col-md-12">
-                                <button type="button" class="btn btn-md button-theme"
-                                    id="btn-submit-send-review">ส่ง</button>
-                            </div>
+                        <div class="form-group number col-md-12">
+                            <input id="subject-send-review" type="text" name="subject" class="form-control"
+                                placeholder="ชื่อเรื่อง">
+                        </div>
+                        <div class="form-group message col-md-12">
+                            <textarea id="comments-send-review" class="form-control" name="message"
+                                placeholder="ข้อความ"></textarea>
+                        </div>
+                        <div class="form-group message col-md-12">
+                            <input name="file-image-upload-review" type="file" class="upload"
+                                id="file-image-upload-review" data-fileuploader-limit="2"
+                                data-fileuploader-extensions="jpg, png, gif"></div>
+                        <div class="send-btn col-md-12">
+                            <button type="button" class="btn btn-md button-theme"
+                                id="btn-submit-send-review">ส่ง</button>
                         </div>
                     </div>
-                    <!-- </form> -->
-
-
                 </div>
-                <div class="col-lg-4 col-md-12">
+                <!-- </form> -->
 
 
-                    <div class="sidebar-right">
-                        <!-- Booking now start -->
+            </div>
+            <div class="col-lg-4 col-md-12">
 
-                        <div class="sidebar-box-shadow">
-                            <!-- Opening hours start -->
-                            <div class="widget opening-hours" id="main-map-detail-content">
-                                <h3 class="sidebar-title">แผนที่</h3>
-                                <div class="s-border"></div>
-                                <div class="iframe-map-detail" id="map-detail-content">
-                                    <!-- <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe> -->
-                                    <img onclick="linkToGoogleMap('{{location_latitude}}','{{location_longitude}}')"
-                                        src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=400x300&maptype=roadmap&markers=color:red%7C{{location_latitude}},{{location_longitude}}&key={{API_KEY}}"
-                                        class="image-google-map" />
-                                </div>
+
+                <div class="sidebar-right">
+                    <!-- Booking now start -->
+
+                    <div class="sidebar-box-shadow">
+                        <!-- Opening hours start -->
+                        <div class="widget opening-hours" id="main-map-detail-content">
+                            <h3 class="sidebar-title">แผนที่</h3>
+                            <div class="s-border"></div>
+                            <div class="iframe-map-detail" id="map-detail-content">
+                                <!-- <iframe src="{{location_url}}" frameborder="0" allowfullscreen=""></iframe> -->
+                                <img onclick="linkToGoogleMap('{{location_latitude}}','{{location_longitude}}')"
+                                    src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=400x300&maptype=roadmap&markers=color:red%7C{{location_latitude}},{{location_longitude}}&key={{API_KEY}}"
+                                    class="image-google-map" />
                             </div>
                         </div>
                     </div>
-
-                    <div class="sidebar-right">
-                        <div class="sidebar-box-shadow">
-                            <div class="widget opening-hours">
-                                <h3 class="sidebar-title">รีวิว</h3>
-                                <div class="s-border"></div>
-                                <div id="content-detail-comments">
-                                </div>
-                                <div id="blank-content-detail-comments">
-                                    <p>ยังไม่มีการรีวิว</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <!-- <div class="col-lg-4 col-md-12">
+
+                <div class="sidebar-right">
+                    <div class="sidebar-box-shadow">
+                        <div class="widget opening-hours">
+                            <h3 class="sidebar-title">รีวิว</h3>
+                            <div class="s-border"></div>
+                            <div id="content-detail-comments">
+                            </div>
+                            <div id="blank-content-detail-comments">
+                                <p>ยังไม่มีการรีวิว</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div class="col-lg-4 col-md-12">
                     <div class="sidebar-right">
                         <div class="sidebar-box-shadow">
                             <div class="widget opening-hours">
@@ -413,9 +432,9 @@
                 </div> -->
 
 
-            </div>
-
         </div>
+
+    </div>
     </div>
     <!-- Listing details page end -->
 
