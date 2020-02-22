@@ -97,14 +97,14 @@ $(function () {
             var templateCategoryMenu = $("#index-category-menu").html();
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+            if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+                $('#label-page-categories').css("font-weight", "bold");
+                $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+            }
 
 
             loadMainModalFavorite();
@@ -147,6 +147,8 @@ function requestServiceReviewDetail() {
 
     var dooSuccess = function (res) {
 
+        res.data.urls = res.data.urls ? res.data.urls : [];
+
         var resulrList = {
 
             company_name: res.data.company_name[PAGE_LANGUAGE],
@@ -156,8 +158,12 @@ function requestServiceReviewDetail() {
             // description: res.data.description,
             description: res.data.description,
             facebook: res.data.facebook,
-            // images: res.data.images,
             images: res.data.images,
+            // images: ["https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg"],
+
+            // images: ["https://as1.ftcdn.net/jpg/02/27/28/12/500_F_227281209_uAgEbgnOGMxvXbu1CQEmQ031pys5XJSH.jpg", "https://as2.ftcdn.net/jpg/02/04/16/13/500_F_204161393_NowmdGgDGNa1oWroLZ1kQ6UhYgZlCETQ.jpg", "https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg"],
+
+
             image_main: res.data.thumbnail,
             line: res.data.line,
             // location: res.data.location,
@@ -173,12 +179,21 @@ function requestServiceReviewDetail() {
             // video: res.data.video,
             video: res.data.video,
             website: res.data.website,
+            urls: res.data.urls,
 
             location_url: res.data.location_url ? res.data.location_url : "",
             location_latitude: res.data.location_latitude ? res.data.location_latitude : "13.736717",
             location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
             map_exsist: res.data.map_exsist,
             API_KEY: GOOGLE_API_KEY,
+
+            urls: res.data.urls.map((item, index) => {
+                return {
+                    number: index + 1,
+                    company_name: res.data.company_name[PAGE_LANGUAGE],
+                    url: item
+                }
+            })
         };
 
         if (!resulrList.map_exsist) {
@@ -212,7 +227,7 @@ function requestServiceReviewDetail() {
         templateScore.prepend('<span class="ratings-box">' + res.data.ratings + '/' + res.data.max_rating + '</span>');
 
 
-        if (res.data.images.length === 0) {
+        if (resulrList.images.length === 0) {
             // $("#galleryImage")[0].setAttribute('style', '"diaplay: none"');
             document.getElementById("galleryImage").setAttribute('style', 'display: none');
         } else {
@@ -244,6 +259,11 @@ function requestServiceReviewDetail() {
         var templateOpendDetailContent = $("#opend-detail-content").html();
         $("#opend-detail-content").html(bindDataListToTemplate(templateOpendDetailContent, resulrList.opend));
 
+        var templateLinkDetailContent = $("#link-detail-content").html();
+        $("#link-detail-content").html(bindDataListToTemplate(templateLinkDetailContent, resulrList.urls));
+
+        var templateLinkDetailContentMobile = $("#link-detail-content-mobile").html();
+        $("#link-detail-content-mobile").html(bindDataListToTemplate(templateLinkDetailContentMobile, resulrList.urls));
 
         $('.portfolio-item').magnificPopup({
             delegate: 'a',
@@ -845,4 +865,14 @@ function leaveSelectRatings(score) {
 
 function clickSelectRatings(score) {
     requestServiceVoteCompany(score)
+}
+
+function clickLinkDetail(url) {
+
+    if ($(window).width() > 992) {
+        // window.open(url, '_blank');
+        this.href = url;
+    } else {
+        window.open(url);
+    }
 }

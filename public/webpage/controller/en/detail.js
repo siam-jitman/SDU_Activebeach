@@ -95,14 +95,14 @@ $(function () {
             var templateCategoryMenu = $("#index-category-menu").html();
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+            if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+                $('#label-page-categories').css("font-weight", "bold");
+                $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+            }
 
 
             loadMainModalFavorite();
@@ -145,6 +145,8 @@ function requestServiceReviewDetail() {
 
     var dooSuccess = function (res) {
 
+        res.data.urls = res.data.urls ? res.data.urls : [];
+
         var resulrList = {
 
             company_name: res.data.company_name[PAGE_LANGUAGE],
@@ -166,13 +168,22 @@ function requestServiceReviewDetail() {
             service_id: res.data.service_id,
             service_name: res.data.service_name[PAGE_LANGUAGE],
             video: res.data.video,
-            // video: res.data.video,
             website: res.data.website,
+            // video: res.data.video,
+            urls: res.data.urls,
             location_url: res.data.location_url ? res.data.location_url : "",
             location_latitude: res.data.location_latitude ? res.data.location_latitude : "13.736717",
             location_longitude: res.data.location_longitude ? res.data.location_longitude : "100.523186",
             map_exsist: res.data.map_exsist,
             API_KEY: GOOGLE_API_KEY,
+
+            urls: res.data.urls.map((item, index) => {
+                return {
+                    number: index + 1,
+                    company_name: res.data.company_name[PAGE_LANGUAGE],
+                    url: item
+                }
+            })
         };
 
         if (!resulrList.map_exsist) {
@@ -206,7 +217,7 @@ function requestServiceReviewDetail() {
         templateScore.prepend('<span class="ratings-box">' + res.data.ratings + '/' + res.data.max_rating + '</span>');
 
 
-        if (res.data.images.length === 0) {
+        if (resulrList.images.length === 0) {
 
             document.getElementById("galleryImage").setAttribute('style', 'display: none');
         } else {
@@ -238,6 +249,11 @@ function requestServiceReviewDetail() {
         var templateOpendDetailContent = $("#opend-detail-content").html();
         $("#opend-detail-content").html(bindDataListToTemplate(templateOpendDetailContent, resulrList.opend));
 
+        var templateLinkDetailContent = $("#link-detail-content").html();
+        $("#link-detail-content").html(bindDataListToTemplate(templateLinkDetailContent, resulrList.urls));
+
+        var templateLinkDetailContentMobile = $("#link-detail-content-mobile").html();
+        $("#link-detail-content-mobile").html(bindDataListToTemplate(templateLinkDetailContentMobile, resulrList.urls));
 
         $('.portfolio-item').magnificPopup({
             delegate: 'a',
@@ -835,4 +851,13 @@ function leaveSelectRatings(score) {
 
 function clickSelectRatings(score) {
     requestServiceVoteCompany(score)
+}
+
+function clickLinkDetail(url) {
+
+    if ($(window).width() > 992) {
+        window.open(url, '_blank');
+    } else {
+        window.open(url);
+    }
 }

@@ -6521,6 +6521,15 @@ footer {
     cursor: pointer;
 }
 
+#link-detail-content {
+    display: block;
+}
+
+#link-detail-content-mobile {
+
+    display: none;
+}
+
 @media all and (min-width: 1200px) {}
 
 @media all and (min-width: 992px) {
@@ -7215,6 +7224,15 @@ footer {
 
 @media (max-width: 768px) {
 
+
+    #link-detail-content {
+        display: none;
+    }
+
+    #link-detail-content-mobile {
+
+        display: block;
+    }
 
     .listing-item-box-2 .listing-img img {
         max-height: 200px;
