@@ -102,6 +102,15 @@ $(function () {
                 var templateCategoryMenu = $("#index-category-menu").html();
                 $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
+                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+                    $('#label-page-categories').css("font-weight", "bold");
+                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+        
+        
+                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+                }
+
                 loadMainModalFavorite();
 
                 requestServiceBlogDetail();

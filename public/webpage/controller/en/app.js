@@ -218,18 +218,21 @@ $(function () {
             $('#three-label-page-tourism').css("color", "rgb(240, 24, 34)");
 
         } else if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-            $('#label-page-tourism').css("font-weight", "bold");
-            $('#label-page-tourism').css("color", "rgb(240, 24, 34)");
+            $('#label-page-categories').css("font-weight", "bold");
+            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
 
 
-            $('#one-label-page-tourism').css("font-weight", "bold");
-            $('#one-label-page-tourism').css("color", "rgb(240, 24, 34)");
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
         } else if ((window.location.href.indexOf("search-article.html") >= 0) || ((window.location.href.indexOf("/blog/")) >= 0)) {
             $('#label-page-article').css("font-weight", "bold");
             $('#label-page-article').css("color", "rgb(240, 24, 34)");
         } else if ((window.location.href.indexOf("issue.html")) >= 0) {
             $('#label-page-qa').css("font-weight", "bold");
             $('#label-page-qa').css("color", "rgb(240, 24, 34)");
+        } else if ((window.location.href.indexOf("more-type")) >= 0) {
+            $('#label-page-categories').css("font-weight", "bold");
+            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
         }
     }
 
