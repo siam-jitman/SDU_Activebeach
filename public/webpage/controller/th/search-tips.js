@@ -38,10 +38,10 @@ $(function () {
         });
 
         //$("#loadContentSearchMore").on('click', function () {
-//            scroll = window.scrollY;
-//            console.log("loadContentSearchMore => ",scroll)
-//            requestServiceSearchEventResult(true);
-//        });
+        //            scroll = window.scrollY;
+        //            console.log("loadContentSearchMore => ",scroll)
+        //            requestServiceSearchEventResult(true);
+        //        });
 
         $("#select-sort-bar").change(function () {
             console.log($("#select-sort-bar").val())
@@ -154,6 +154,7 @@ function genContentSearchDetail(dataList) {
         rawResult.description = dataList[i].content;
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
         rawResult.ratings = dataList[i].ratings;
+        rawResult.show_content = dataList[i].show_content ? "block" : "none";
 
         rawResultArray.push(JSON.parse(JSON.stringify(rawResult)));
     }
@@ -189,14 +190,14 @@ function genContentSearchDetail(dataList) {
     if (rawResultArray.length === 0) {
         $("#result-search-listing").append("<center><h2>ไม่พบข้อมูล</h2></center>");
     }
-    
+
     closeLoading();
-//if (scroll != 0) {
-//        console.log("window.scrollTo(0, scroll)")
-//        setTimeout(function () {
-//            window.scrollTo(0, scroll);
-//        }, 1000)
-//    }
+    //if (scroll != 0) {
+    //        console.log("window.scrollTo(0, scroll)")
+    //        setTimeout(function () {
+    //            window.scrollTo(0, scroll);
+    //        }, 1000)
+    //    }
 }
 
 function requestServiceInterestingCategorys() {
@@ -219,14 +220,14 @@ function requestServiceInterestingCategorys() {
         var templateCategorySearchBar = $("#select-search-bar").html();
         $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+        if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+            $('#label-page-categories').css("font-weight", "bold");
+            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+        }
         $("#select-search-bar").html(bindDataListToTemplate(templateCategorySearchBar, [{
             categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
             categoryNameValue: ""
@@ -298,7 +299,8 @@ function requestSearchResult(nextMore) {
                     meta_id: eventResultList[i].meta_id,
                     company_id: eventResultList[i].company_id[PAGE_LANGUAGE],
                     category_id: eventResultList[i].service_id,
-                    lang: PAGE_LANGUAGE
+                    lang: PAGE_LANGUAGE,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;
@@ -405,8 +407,8 @@ function requestServiceSearchEventResult(nextMore) {
         }
 
         //$('html, body').animate({
-//            scrollTop: 0
-//        }, 500);
+        //            scrollTop: 0
+        //        }, 500);
     }
 
     requestService(URL_SEARCH_TIPS_RESULT, "GET", param, dooSuccess);
@@ -445,6 +447,7 @@ function requestServiceSearchTipsResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;

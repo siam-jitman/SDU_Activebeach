@@ -311,7 +311,7 @@
                                 <h3 class="title">
                                     <a>{{title}}</a>
                                 </h3>
-                                <p>{{content}}</p>
+                                <p style="display: {{show_content}};">{{content}}</p>
                             </div>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                                 <h3 class="title">
                                     <a>{{title}}</a>
                                 </h3>
-                                <p>{{content}}</p>
+                                <p style="display: {{show_content}};">{{content}}</p>
                             </div>
                         </div>
                     </div>
@@ -470,7 +470,8 @@
                                 <h3 class="title">
                                     <a onclick="clickToDetailEvent('{{company_id}}','{{title}}')">{{title}}</a>
                                 </h3>
-                                <p onclick="clickToDetailEvent('{{company_id}}','{{title}}')">{{content}}</p>
+                                <p style="display: {{show_content}};"
+                                    onclick="clickToDetailEvent('{{company_id}}','{{title}}')">{{content}}</p>
                             </div>
                         </div>
                     </div>
@@ -551,7 +552,8 @@
                                 <h3 class="title" onclick="clickToDetailTips('{{company_id}}','{{title}}')">
                                     <a onclick="clickToDetailTips('{{company_id}}','{{title}}')">{{title}}</a>
                                 </h3>
-                                <p onclick="clickToDetailTips('{{company_id}}','{{title}}')">{{content}}</p>
+                                <p style="display: {{show_content}};"
+                                    onclick="clickToDetailTips('{{company_id}}','{{title}}')">{{content}}</p>
                             </div>
                         </div>
                     </div>

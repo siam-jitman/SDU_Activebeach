@@ -315,6 +315,7 @@ function requestServiceSearchEventResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;
@@ -382,6 +383,7 @@ function requestServiceSearchTipsResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;

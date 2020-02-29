@@ -32,14 +32,14 @@ $(function () {
 
             $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+            if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+                $('#label-page-categories').css("font-weight", "bold");
+                $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+                $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+            }
             $("#select-search-bar").html(bindDataListToTemplate(templateCategorySelect, [{
                 categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
                 categoryNameValue: ""
@@ -107,7 +107,7 @@ $(function () {
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer,
-
+                    "show_content": dataList[i].show_content ? "block" : "none",
                     "service_id": dataList[i].service_id,
                     "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
@@ -168,7 +168,7 @@ $(function () {
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer,
-
+                    "show_content": dataList[i].show_content ? "block" : "none",
                     "service_id": dataList[i].service_id,
                     "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
@@ -228,7 +228,7 @@ $(function () {
                     "comments": dataList[i].comments,
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer,
-
+                    "show_content": dataList[i].show_content ? "block" : "none",
                     "service_id": dataList[i].service_id,
                     "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });
@@ -292,6 +292,7 @@ $(function () {
                     "reviews": dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     "viewer": dataList[i].viewer,
 
+                    "show_content": dataList[i].show_content ? "block" : "none",
                     "service_id": dataList[i].service_id,
                     "service_name": dataList[i].service_name[PAGE_LANGUAGE],
                 });

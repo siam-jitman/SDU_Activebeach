@@ -163,6 +163,7 @@ function genContentSearchDetail(dataList) {
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
         rawResult.ratings = dataList[i].ratings;
         rawResult.icon = dataList[i].icon;
+        rawResult.show_content = dataList[i].show_content ? "block" : "none";
 
 
         if (typeof dataList[i].service_name === "object") {
@@ -325,14 +326,14 @@ function requestServiceInterestingCategorys() {
         var templateCategorySearchBar = $("#select-search-bar").html();
         $("#index-category-menu").html(bindDataListToTemplate(templateCategoryMenu, JSON.parse(JSON.stringify(DATA_CATEGORYS))));
 
-                if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
-                    $('#label-page-categories').css("font-weight", "bold");
-                    $('#label-page-categories').css("color", "rgb(240, 24, 34)");
-        
-        
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
-                    $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
-                }
+        if ((window.location.href.indexOf("search.html?category_id")) >= 0) {
+            $('#label-page-categories').css("font-weight", "bold");
+            $('#label-page-categories').css("color", "rgb(240, 24, 34)");
+
+
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("font-weight", "bold");
+            $('#' + window.location.href.split("search.html?category_id=")[1].split("&")[0] + '-label-page-categories').css("color", "rgb(240, 24, 34)");
+        }
         $("#select-search-bar").html(bindDataListToTemplate(templateCategorySearchBar, [{
             categoryNameDisplay: "เลือกหมวดหมู่ที่ต้องการ",
             categoryNameValue: ""
@@ -389,6 +390,7 @@ function requestServiceSearchEventResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;
@@ -456,6 +458,7 @@ function requestServiceSearchTipsResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;

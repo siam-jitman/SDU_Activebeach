@@ -163,6 +163,7 @@ function genContentSearchDetail(dataList) {
         rawResult.reviews = dataList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews");
         rawResult.ratings = dataList[i].ratings;
         rawResult.icon = dataList[i].icon;
+        rawResult.show_content = dataList[i].show_content ? "block" : "none";
 
         if (typeof dataList[i].service_name === "object") {
             rawResult.categoryName = dataList[i].service_name[PAGE_LANGUAGE];
@@ -382,6 +383,7 @@ function requestServiceSearchEventResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;
@@ -449,6 +451,7 @@ function requestServiceSearchTipsResult(nextMore) {
                     reviews: eventResultList[i].reviews + (PAGE_LANGUAGE == "th" ? " รีวิว" : " Reviews"),
                     thumbnail: eventResultList[i].thumbnail,
                     icon: eventResultList[i].icon,
+                    show_content: eventResultList[i].show_content ? "block" : "none",
                 });
             } else {
                 break;

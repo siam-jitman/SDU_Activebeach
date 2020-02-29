@@ -254,7 +254,8 @@
                                                                 </div>
                                                             </a>
                                                         </h3>
-                                                        <p class="text-recommend">{{description}}</p>
+                                                        <p style="display: {{show_content}};" class="text-recommend">
+                                                            {{description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -330,7 +331,8 @@
                                                                 </div>
                                                             </a>
                                                         </h3>
-                                                        <p class="text-recommend">{{description}}</p>
+                                                        <p style="display: {{show_content}};" class="text-recommend">
+                                                            {{description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -401,7 +403,8 @@
                                                                 </div>
                                                             </a>
                                                         </h3>
-                                                        <p class="text-recommend">{{description}}</p>
+                                                        <p style="display: {{show_content}};" class="text-recommend">
+                                                            {{description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -600,7 +603,8 @@
                                 <i class="flaticon-pin"></i>{{location}}
                             </a>
                         </h5>
-                        <p onclick="clickBtnToDetail('{{meta_id}}')">{{description}}</p>
+                        <p style="display: {{show_content}};" onclick="clickBtnToDetail('{{meta_id}}')">{{description}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -631,7 +635,7 @@
                     <h3 class="title">
                         <a onclick="clickBtnToDetail('{{meta_id}}')">{{companyName}}</a>
                     </h3>
-                    <p onclick="clickBtnToDetail('{{meta_id}}')">{{description}}
+                    <p style="display: {{show_content}};" onclick="clickBtnToDetail('{{meta_id}}')">{{description}}
                     </p>
                 </div>
             </div>

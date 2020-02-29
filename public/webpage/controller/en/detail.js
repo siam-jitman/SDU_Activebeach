@@ -312,6 +312,7 @@ function requestServiceReviewNearbyAttactions() {
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
                 resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
                 resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
+                resultList[i].show_content = resultList[i].show_content ? "block" : "none";
                 datalist.push(resultList[i])
             }
 
@@ -558,6 +559,7 @@ function requestServiceReviewSimilarLocation() {
                 resultList[i].company_id = resultList[i].company_id[PAGE_LANGUAGE];
                 resultList[i].title = resultList[i].title[PAGE_LANGUAGE] != undefined ? resultList[i].title[PAGE_LANGUAGE] : resultList[i].title;
                 resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE] != undefined ? resultList[i].service_name[PAGE_LANGUAGE] : resultList[i].service_name;
+                resultList[i].show_content = resultList[i].show_content ? "block" : "none";
                 datalist.push(resultList[i])
             }
 
@@ -627,6 +629,7 @@ function requestServiceReviewArticles() {
                 resultList[i].title = resultList[i].subject[PAGE_LANGUAGE] != undefined ? resultList[i].subject[PAGE_LANGUAGE] : resultList[i].subject;
                 resultList[i].service_name = resultList[i].service_name[PAGE_LANGUAGE];
                 resultList[i].slug = resultList[i].slug[PAGE_LANGUAGE];
+                resultList[i].show_content = resultList[i].show_content ? "block" : "none";
                 datalist.push(resultList[i])
             }
 
